@@ -34,5 +34,6 @@ model User {
     password             String?
     pexelsIDVisited      String[]  
     unsplashIDVisited    String[]
-    isOuthAuth           Boolean
+    isOAuth              Boolean
+    isEmailVerified      Boolean             @default(false)
 }

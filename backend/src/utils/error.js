@@ -19,11 +19,11 @@ export const ExceptionCodes = {
 };
 
 class Exception extends Error {
-  statusCode: number;
-  _name: string;
-  _epoch: number;
-  _data: object;
-  constructor(message: string, statusCode: number, data: object) {
+  statusCode;
+  _name;
+  _epoch;
+  _data;
+  constructor(message, statusCode, data) {
     super(message);
 
     if (Error.captureStackTrace) {

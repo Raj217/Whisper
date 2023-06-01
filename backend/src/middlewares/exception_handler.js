@@ -1,13 +1,6 @@
-import { NextFunction } from "express";
 import Exception, { ExceptionCodes } from "../utils/error.js";
-import { Request, Response } from "express";
 
-export const defaultExceptionHandler = (
-  err: Exception,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const defaultExceptionHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
