@@ -41,11 +41,11 @@ unsplashIDVisited?: string[];
 isOAuth?: boolean;
 isEmailVerified?: boolean;
 <br>
-**firstName**     required                  | String  <br>
-**lastName**      optional                  | String  <br>
-**email**         required                  | String  <br>
-**password**      required if not isOAuth   | String  <br>
-**isOAuth**       deafults to false         | Boolean <br>
+**firstName** required | String <br>
+**lastName** optional | String <br>
+**email** required | String <br>
+**password** required if not isOAuth | String <br>
+**isOAuth** deafults to false | Boolean <br>
 
 <h2>Logic:</h2>
 
@@ -53,5 +53,7 @@ isEmailVerified?: boolean;
 - Creates a new user
 - If it is not OAuth prompts the user to verify email [NOTE: Does not send OTP on it's own]
 - If OAuth returns a token
+<br>
+_NOTE_: Currently we only support OAuth from google
 <br>
 </details>

@@ -15,6 +15,6 @@ app.use("/api/v0", devRoute);
 
 app.use(defaultExceptionHandler);
 
-app.listen(3000, () => {
+app.listen(process.env.API_PORT, () => {
   console.log("Listening on port 3000");
 });

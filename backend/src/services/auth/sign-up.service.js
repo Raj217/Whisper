@@ -3,31 +3,30 @@ import Validator from "../../utils/validator.js";
 import prisma from "../../prisma/index.js";
 import bcrypt from "bcrypt";
 import { generateToken, removeSecrets } from "./utils/index.js";
+import { OAuth2Client } from "google-auth-library";
 
 export const signUp = async (user) => {
-  const { firstName, lastName, email, password, isOAuth } = user;
+  const { firstName, lastName, email, password, isOAuth, authId } = user;
   var userData = {};
 
   // Validate if all the required fields are present
-  if (!firstName) {
-    throw new Exception("First name is required", ExceptionCodes.BAD_INPUT);
-  } else {
-    userData = { ...userData, firstName: firstName };
-  }
-  if (lastName) {
-    userData = { ...userData, lastName: lastName };
-  }
-
-  if (!email) {
-    throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
-  }
-  if (!Validator.isValidEmail(email)) {
-    throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
-  } else {
-    userData = { ...userData, email: email };
-  }
-
   if (isOAuth === false) {
+    if (!firstName) {
+      throw new Exception("First name is required", ExceptionCodes.BAD_INPUT);
+    } else {
+      userData = { ...userData, firstName: firstName };
+    }
+    if (lastName) {
+      userData = { ...userData, lastName: lastName };
+    }
+    if (!email) {
+      throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
+    }
+    if (!Validator.isValidEmail(email)) {
+      throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
+    } else {
+      userData = { ...userData, email: email };
+    }
     if (!password) {
       throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
     }
@@ -39,10 +38,23 @@ export const signUp = async (user) => {
     } else {
       userData = { ...userData, password: password };
     }
+  } else {
+    const client = OAuth2Client(process.env.CLIENT_ID);
+    const ticket = await client.verifyIdToken({
+      idToken: authId,
+      audience: process.env.CLIENT_ID,
+    });
+
+    const { name, email, profileImageUrl } = ticket.getPayload();
+    userData = {
+      firstName: name,
+      email,
+      profileImageUrl,
+    };
   }
 
   const existingUser = await prisma.user.findFirst({
-    where: { email: email },
+    where: { email: userData.email },
   });
 
   /// Already someone exists with the same email
