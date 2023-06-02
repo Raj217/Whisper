@@ -13,5 +13,8 @@ export const defaultExceptionHandler = (err, req, res, next) => {
     statusCode = err.statusCode;
     message = err.message;
   }
-  res.status(statusCode).send({ statusCode: statusCode, message: message });
+  if (typeof message != "object") {
+    message = { message: message };
+  }
+  res.status(statusCode).send(message);
 };
