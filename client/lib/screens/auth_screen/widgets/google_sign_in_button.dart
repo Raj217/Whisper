@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/providers/auth/auth.dart';
+import 'package:whisper/widgets/overlays/toast/toast.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   const GoogleSignInButton({Key? key}) : super(key: key);
@@ -11,7 +11,9 @@ class GoogleSignInButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () async {
         AuthResult res = await Authenticator.logInWithGoogle();
-        res.log();
+        if (context.mounted) {
+          showToast(context: context, text: res.getMessage());
+        }
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whisper/providers/auth/auth.dart';
 import 'package:whisper/widgets/app_decorations/app_decoration.dart';
 import 'widgets/google_sign_in_button.dart';
 
@@ -8,7 +9,7 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -22,6 +23,11 @@ class AuthScreen extends StatelessWidget {
               ],
             ),
             Center(child: GoogleSignInButton()),
+            ElevatedButton(
+                onPressed: () async {
+                  await Authenticator.logOut();
+                },
+                child: Text('Log out')),
           ],
         ),
       ),
