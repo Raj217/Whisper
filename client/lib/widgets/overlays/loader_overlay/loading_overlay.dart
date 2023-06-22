@@ -1,6 +1,8 @@
+import 'package:whisper/configs/theme/pallet.dart';
 import 'package:whisper/widgets/custom_overlay/custom_overlay.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:whisper/configs/config.dart';
 
 class LoadingOverlay extends CustomOverlay {
   LoadingOverlay._sharedInstance();
@@ -12,6 +14,18 @@ class LoadingOverlay extends CustomOverlay {
     BuildContext context,
     StreamController<String?> textStream,
   ) {
-    throw UnimplementedError();
+    return Material(
+      color: Colors.black.withOpacity(0.1),
+      child: const Center(
+        child: SizedBox(
+          height: 30,
+          width: 30,
+          child: CircularProgressIndicator(
+            strokeWidth: 5,
+            strokeCap: StrokeCap.round,
+          ),
+        ),
+      ),
+    );
   }
 }

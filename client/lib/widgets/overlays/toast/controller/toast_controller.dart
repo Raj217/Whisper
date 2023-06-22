@@ -21,6 +21,7 @@ void showToast({
   if (width >= MediaQuery.of(context).size.width) {
     width = MediaQuery.of(context).size.width - margin.left - margin.right;
   }
+
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: ToastWidget(text: text, style: style),

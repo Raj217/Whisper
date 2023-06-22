@@ -5,7 +5,10 @@ ThemeData lightTheme(BuildContext context) {
   return ThemeData(
     brightness: Brightness.light,
     fontFamily: 'Comfortaa',
-    colorScheme: const ColorScheme.light(primary: primarySwatch),
+    colorScheme: const ColorScheme.light(
+      primary: primarySwatch,
+      secondary: accentSwatch,
+    ),
     useMaterial3: true,
     iconTheme: const IconThemeData(color: accentSwatch),
   );

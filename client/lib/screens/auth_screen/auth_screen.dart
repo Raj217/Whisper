@@ -9,7 +9,7 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -23,11 +23,6 @@ class AuthScreen extends StatelessWidget {
               ],
             ),
             Center(child: GoogleSignInButton()),
-            ElevatedButton(
-                onPressed: () async {
-                  await Authenticator.logOut();
-                },
-                child: Text('Log out')),
           ],
         ),
       ),
