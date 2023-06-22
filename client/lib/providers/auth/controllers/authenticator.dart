@@ -14,7 +14,7 @@ class Authenticator {
 
     // Initiate Google Sign In
     GoogleSignInAccount? account;
-    AuthResult response = await operate(
+    AuthResult response = await AuthResult.operate(
       () async => account = await googleSignIn.signIn(),
     );
     if (response.code != AuthCode.success) return response;
@@ -32,7 +32,7 @@ class Authenticator {
     );
 
     // Authenticate with firebase
-    return await operate(
+    return await AuthResult.operate(
       () async => await FirebaseAuth.instance.signInWithCredential(credentials),
       successDebugMessage: "Signed in with firebase",
       successReleaseMessage: "Welcome to Whisper",

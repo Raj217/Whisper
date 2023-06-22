@@ -28,10 +28,8 @@ class Exception extends Error {
 
   @override
   String toString() {
-    return '''
-  default message: $_defaultMessage,
-      debug message: $_debugMessage,
-      release message: $_releaseMessage
-    ''';
+    return 'default message: $_defaultMessage,'
+        '\ndebug message: $_debugMessage,'
+        '\nrelease message: $_releaseMessage';
   }
 }
