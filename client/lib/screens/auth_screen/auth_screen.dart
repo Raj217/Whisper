@@ -9,7 +9,7 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -17,12 +17,15 @@ class AuthScreen extends StatelessWidget {
           children: [
             Column(
               children: [
-                WhisperIcon(),
-                SizedBox(height: 60),
-                WhisperText(),
+                const WhisperIcon(size: 100),
+                const SizedBox(height: 60),
+                WhisperText(
+                  mainTextStyle: Theme.of(context).textTheme.headlineLarge,
+                  showMessage: true,
+                ),
               ],
             ),
-            Center(child: GoogleSignInButton()),
+            const Center(child: GoogleSignInButton()),
           ],
         ),
       ),

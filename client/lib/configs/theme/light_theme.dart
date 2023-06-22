@@ -11,5 +11,8 @@ ThemeData lightTheme(BuildContext context) {
     ),
     useMaterial3: true,
     iconTheme: const IconThemeData(color: accentSwatch),
+    appBarTheme: const AppBarTheme(
+      iconTheme: IconThemeData(color: accentSwatch),
+    ),
   );
 }

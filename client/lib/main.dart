@@ -25,6 +25,7 @@ class Whisper extends StatelessWidget {
       initialRoute: SplashScreen.routeName,
       routes: {
         SplashScreen.routeName: (BuildContext context) => const SplashScreen(),
+        HomeScreen.routeName: (BuildContext context) => const HomeScreen(),
         AuthScreen.routeName: (BuildContext context) => const AuthScreen(),
       },
     );

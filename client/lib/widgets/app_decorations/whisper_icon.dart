@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
 class WhisperIcon extends StatelessWidget {
-  const WhisperIcon({Key? key}) : super(key: key);
+  final double size;
+  const WhisperIcon({Key? key, this.size = 20}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Hero(
+    return Hero(
       tag: "Whisper Icon",
       child: Icon(
         CupertinoIcons.moon_fill,
-        size: 100,
+        size: size,
       ),
     );
   }

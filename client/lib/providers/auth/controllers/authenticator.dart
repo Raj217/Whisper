@@ -9,6 +9,10 @@ class Authenticator {
     await GoogleSignIn().signOut();
   }
 
+  static bool isLoggedIn() {
+    return FirebaseAuth.instance.currentUser?.uid != null;
+  }
+
   static Future<AuthResult> logInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
