@@ -3,7 +3,7 @@ part of rive_widgets;
 class RiveHamburgerMenu extends RiveTrigger {
   RiveHamburgerMenu()
       : super(
-          src: "assets/rive/hamburger_menu_light.riv",
+          src: RivePath().hamburgerMenu,
           artBoard: "HAMBURGER",
           stateMachineName: "HAMBURGER_Interactivity",
           inputName: "Trigger",
@@ -43,7 +43,7 @@ class _HamburgerMenuState extends State<HamburgerMenu> {
         height: widget.height,
         width: widget.width,
         child: RiveAnimation.asset(
-          hamburgerMenu.src,
+          hamburgerMenu.src(context),
           artboard: hamburgerMenu.artBoard,
           onInit: (Artboard artBoard) {
             hamburgerMenu.getRiveInputBool(artBoard);

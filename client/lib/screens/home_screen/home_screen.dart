@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/widgets/app_decorations/app_decoration.dart';
+import 'package:whisper/widgets/rive/rive.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/homeScreen";
@@ -18,7 +19,9 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: ListView(),
+        child: ListView(
+          children: [],
+        ),
       ),
     );
   }

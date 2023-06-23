@@ -23,7 +23,7 @@ class Whisper extends StatelessWidget {
       title: "Whisper",
       darkTheme: darkTheme(context),
       theme: lightTheme(context),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       initialRoute: SplashScreen.routeName,
       routes: {
         SplashScreen.routeName: (BuildContext context) => const SplashScreen(),

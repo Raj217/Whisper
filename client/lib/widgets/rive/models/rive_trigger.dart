@@ -1,7 +1,7 @@
 part of rive_widgets;
 
 abstract class RiveTrigger {
-  final String src;
+  final String _src;
   final String artBoard;
   late final SMITrigger _input;
   final String stateMachineName;
@@ -10,16 +10,20 @@ abstract class RiveTrigger {
   late final StateMachineController? controller;
   DateTime? _lastTrigger;
   RiveTrigger({
-    required this.src,
+    required String src,
     required this.artBoard,
     required this.stateMachineName,
     required this.inputName,
     required this.duration,
-  });
+  }) : _src = src;
 
   bool get isActive =>
       _lastTrigger != null &&
       DateTime.now().difference(_lastTrigger!) <= duration;
+
+  String src(BuildContext context) {
+    return "${_src}_${Theme.of(context).brightness == Brightness.light ? "light" : "dark"}.riv";
+  }
 
   bool changeSMIBoolState() {
     if (!isActive) {
