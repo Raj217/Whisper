@@ -1,8 +1,6 @@
-import 'package:whisper/configs/theme/pallet.dart';
 import 'package:whisper/widgets/custom_overlay/custom_overlay.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:whisper/configs/config.dart';
 
 class LoadingOverlay extends CustomOverlay {
   LoadingOverlay._sharedInstance();

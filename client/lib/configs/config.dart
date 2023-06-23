@@ -1,5 +1,5 @@
 // ========================== Theme ==========================
-export 'theme/light_theme.dart';
+export 'theme/theme.dart';
 
 // ========================== File =================================
 export 'files/path.dart';

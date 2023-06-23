@@ -21,7 +21,9 @@ class Whisper extends StatelessWidget {
     return MaterialApp(
       restorationScopeId: "Whisper",
       title: "Whisper",
+      darkTheme: darkTheme(context),
       theme: lightTheme(context),
+      themeMode: ThemeMode.light,
       initialRoute: SplashScreen.routeName,
       routes: {
         SplashScreen.routeName: (BuildContext context) => const SplashScreen(),
