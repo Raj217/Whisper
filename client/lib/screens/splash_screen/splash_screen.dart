@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whisper/providers/auth/auth.dart';
 import 'package:whisper/screens/auth_screen/auth_screen.dart';
