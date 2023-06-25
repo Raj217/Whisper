@@ -1,16 +1,5 @@
 part of rive_widgets;
 
-class RiveHamburgerMenu extends RiveTrigger {
-  RiveHamburgerMenu()
-      : super(
-          src: RivePath().hamburgerMenu,
-          artBoard: "HAMBURGER",
-          stateMachineName: "HAMBURGER_Interactivity",
-          inputName: "Trigger",
-          duration: const Duration(seconds: 1),
-        );
-}
-
 class HamburgerMenu extends StatefulWidget {
   final double height;
   final double width;
@@ -31,25 +20,23 @@ class _HamburgerMenuState extends State<HamburgerMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        bool currentState = hamburgerMenu.isActive;
-        bool nextState = hamburgerMenu.changeSMIBoolState();
-        if (currentState != nextState) {
-          widget.onStateChange(nextState);
-        }
-      },
-      icon: SizedBox(
-        height: widget.height,
-        width: widget.width,
-        child: RiveAnimation.asset(
-          hamburgerMenu.src(context),
-          artboard: hamburgerMenu.artBoard,
-          onInit: (Artboard artBoard) {
-            hamburgerMenu.getRiveInputBool(artBoard);
-          },
-        ),
-      ),
+    return RiveWidgetBase(
+      height: widget.height,
+      width: widget.width,
+      onStateChange: widget.onStateChange,
+      controller: hamburgerMenu,
     );
   }
+}
+
+class RiveHamburgerMenu extends RiveTrigger {
+  RiveHamburgerMenu()
+      : super(
+          src: RivePath().hamburgerMenu,
+          artBoard: "HAMBURGER",
+          stateMachineName: "HAMBURGER_Interactivity",
+          inputName: "Trigger",
+          duration: const Duration(seconds: 1),
+          isThemeIndependent: false,
+        );
 }

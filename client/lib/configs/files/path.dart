@@ -12,6 +12,8 @@ class RivePath {
 
   final String _basePath = "assets/rive/";
   final String _hamburgerMenu = "hamburger_menu";
+  final String _themeToggle = "theme_toggle";
 
   String get hamburgerMenu => _basePath + _hamburgerMenu;
+  String get themeToggle => _basePath + _themeToggle;
 }

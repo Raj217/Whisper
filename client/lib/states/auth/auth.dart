@@ -3,7 +3,6 @@ library auth;
 // =================== Necessary Imports =================
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:whisper/configs/config.dart';

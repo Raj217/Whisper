@@ -13,9 +13,18 @@ ThemeData darkTheme(BuildContext context) {
     iconTheme: const IconThemeData(
       color: accentSwatch,
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        elevation: 4,
+        shadowColor: whiteSwatch,
+      ),
+    ),
     iconButtonTheme: IconButtonThemeData(
       style: ElevatedButton.styleFrom(
+        elevation: 4,
+        shadowColor: whiteSwatch,
         backgroundColor: whiteSwatch,
+        foregroundColor: blueSwatch,
       ),
     ),
     appBarTheme: AppBarTheme(

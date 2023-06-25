@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
-import 'package:whisper/providers/auth/auth.dart';
+import 'package:whisper/states/auth/auth.dart';
 import 'package:whisper/screens/home_screen/home_screen.dart';
 import 'package:whisper/widgets/overlays/loader_overlay/loading_overlay.dart';
 import 'package:whisper/widgets/overlays/toast/toast.dart';

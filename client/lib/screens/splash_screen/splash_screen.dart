@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:whisper/configs/config.dart';
-import 'package:whisper/providers/auth/auth.dart';
+import 'package:whisper/states/auth/auth.dart';
 import 'package:whisper/screens/auth_screen/auth_screen.dart';
 import 'package:whisper/screens/home_screen/home_screen.dart';
 import 'package:whisper/widgets/app_decorations/whisper_icon.dart';
-import 'package:whisper/widgets/rive/rive.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = "/splashScreen";

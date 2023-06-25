@@ -13,7 +13,7 @@ void showToast({
       "widthFactor must be between 0 and 1");
 
   style ??= Theme.of(context).textTheme.labelMedium?.copyWith(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: whiteSwatch,
       );
 
   double width =
