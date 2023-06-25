@@ -13,9 +13,12 @@ ThemeData lightTheme(BuildContext context) {
     iconTheme: const IconThemeData(
       color: accentSwatch,
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        elevation: 4,
+        elevation: 2,
       ),
     ),
     iconButtonTheme: IconButtonThemeData(

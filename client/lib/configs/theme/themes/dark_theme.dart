@@ -13,6 +13,9 @@ ThemeData darkTheme(BuildContext context) {
     iconTheme: const IconThemeData(
       color: accentSwatch,
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 4,
