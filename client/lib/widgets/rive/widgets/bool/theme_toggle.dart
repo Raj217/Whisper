@@ -4,10 +4,12 @@ class ThemeToggle extends StatefulWidget {
   final double height;
   final double width;
   final void Function(bool) onStateChange;
+  final bool? isDarkTheme;
   const ThemeToggle({
     Key? key,
     this.height = 60,
     this.width = 60,
+    this.isDarkTheme,
     required this.onStateChange,
   }) : super(key: key);
 
@@ -16,7 +18,13 @@ class ThemeToggle extends StatefulWidget {
 }
 
 class _ThemeToggleState extends State<ThemeToggle> {
-  final RiveThemeToggle themeToggle = RiveThemeToggle();
+  late final RiveThemeToggle themeToggle;
+  @override
+  void initState() {
+    super.initState();
+    themeToggle = RiveThemeToggle(isLightMode: widget.isDarkTheme);
+  }
+
   @override
   Widget build(BuildContext context) {
     return RiveWidgetBase(
@@ -24,13 +32,16 @@ class _ThemeToggleState extends State<ThemeToggle> {
       width: widget.width,
       addBG: false,
       onStateChange: widget.onStateChange,
+      onInit: () {
+        if (widget.isDarkTheme == true) themeToggle.changeState();
+      },
       controller: themeToggle,
     );
   }
 }
 
 class RiveThemeToggle extends RiveBool {
-  RiveThemeToggle()
+  RiveThemeToggle({bool? isLightMode})
       : super(
           src: RivePath().themeToggle,
           artBoard: "THEME",

@@ -1,6 +1,6 @@
 part of rive_widgets;
 
-abstract class RiveBase<T extends SMIInput> {
+abstract class RiveBase<T extends SMIInput<U>, U> {
   final String _src;
   final String artBoard;
   late T input;
@@ -30,7 +30,7 @@ abstract class RiveBase<T extends SMIInput> {
       _lastTrigger != null &&
       DateTime.now().difference(_lastTrigger!) <= duration;
 
-  T get state => input;
+  U get state => input.value;
 
   bool changeState() {
     return true;
@@ -42,6 +42,6 @@ abstract class RiveBase<T extends SMIInput> {
       stateMachineName,
     );
     artBoard.addController(controller!);
-    input = controller.findInput<bool>(inputName) as T;
+    input = controller.findInput<U>(inputName) as T;
   }
 }

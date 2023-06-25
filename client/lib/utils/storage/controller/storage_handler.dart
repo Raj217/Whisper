@@ -1,9 +1,13 @@
-import 'package:shared_preferences/shared_preferences.dart';
+part of storage;
 
 class StorageHandler {
-  static SharedPreferences _instance;
+  static late SharedPreferences _instance;
 
   static Future<void> init() async {
     _instance = await SharedPreferences.getInstance();
+  }
+
+  static SharedPreferences get instance {
+    return _instance;
   }
 }

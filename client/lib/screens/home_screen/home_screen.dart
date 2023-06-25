@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whisper/utils/storage/storage.dart';
 import 'package:whisper/widgets/app_decorations/app_decoration.dart';
 import 'package:whisper/widgets/rive/rive.dart';
 import 'package:whisper/states/theme/theme.dart';
@@ -31,9 +32,13 @@ class HomeScreen extends ConsumerWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            ThemeToggle(onStateChange: (bool isLightTheme) {
-              ref.read(themeProvider.notifier).changeTheme(isLightTheme);
-            }),
+            ThemeToggle(
+              onStateChange: (bool isDarkTheme) {
+                ref.read(themeProvider.notifier).changeTheme(isDarkTheme);
+              },
+              isDarkTheme:
+                  ref.read(themeProvider.notifier).isDarkTheme(context),
+            ),
           ],
         ),
       ),

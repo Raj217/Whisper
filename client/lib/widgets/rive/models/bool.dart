@@ -1,6 +1,6 @@
 part of rive_widgets;
 
-abstract class RiveBool extends RiveBase<SMIBool> {
+abstract class RiveBool extends RiveBase<SMIBool, bool> {
   final bool reverseBackAfterTransition;
   RiveBool({
     required super.src,

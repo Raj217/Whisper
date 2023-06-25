@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:whisper/states/auth/auth.dart';
 import 'package:whisper/screens/auth_screen/auth_screen.dart';
 import 'package:whisper/screens/home_screen/home_screen.dart';
 import 'package:whisper/widgets/app_decorations/whisper_icon.dart';
+import 'package:whisper/utils/storage/storage.dart';
+import 'package:whisper/firebase_options.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = "/splashScreen";
@@ -24,12 +27,15 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
+  Future<void> init() async {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  }
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      moveToNextPage();
-    });
+    init().then((value) => moveToNextPage());
   }
 
   @override

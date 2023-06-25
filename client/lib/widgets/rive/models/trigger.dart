@@ -1,6 +1,6 @@
 part of rive_widgets;
 
-abstract class RiveTrigger extends RiveBase<SMITrigger> {
+abstract class RiveTrigger extends RiveBase<SMITrigger, bool> {
   RiveTrigger({
     required super.src,
     required super.artBoard,
