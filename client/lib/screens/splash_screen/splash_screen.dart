@@ -3,10 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:whisper/states/auth/auth.dart';
 import 'package:whisper/screens/auth_screen/auth_screen.dart';
-import 'package:whisper/screens/home_screen/home_screen.dart';
 import 'package:whisper/widgets/app_decorations/whisper_icon.dart';
-import 'package:whisper/utils/storage/storage.dart';
 import 'package:whisper/firebase_options.dart';
+import 'package:whisper/screens/screen_base/screen_base.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = "/splashScreen";
@@ -19,7 +18,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   void moveToNextPage() {
     if (Authenticator.isLoggedIn()) {
-      Navigator.pushNamed(context, HomeScreen.routeName)
+      Navigator.pushNamed(context, ScreenBase.routeName)
           .then((value) => exit(0));
     } else {
       Navigator.pushNamed(context, AuthScreen.routeName)

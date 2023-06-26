@@ -31,6 +31,7 @@ abstract class RiveBase<T extends SMIInput<U>, U> {
       DateTime.now().difference(_lastTrigger!) <= duration;
 
   U get state => input.value;
+  set state(U val) => input.value = val;
 
   bool changeState() {
     return true;

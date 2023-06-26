@@ -21,11 +21,6 @@ class HomeScreen extends ConsumerWidget {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: HamburgerMenu(onStateChange: (b) {}),
-      ),
       body: SafeArea(
         child: ListView(
           children: [],

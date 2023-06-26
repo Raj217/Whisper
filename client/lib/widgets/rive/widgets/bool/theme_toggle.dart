@@ -43,7 +43,7 @@ class _ThemeToggleState extends ConsumerState<ThemeToggle> {
 class RiveThemeToggle extends RiveBool {
   RiveThemeToggle()
       : super(
-          src: RivePath().themeToggle,
+          src: RivePath.themeToggle,
           artBoard: "THEME",
           duration: const Duration(seconds: 1),
           inputName: "isDark",

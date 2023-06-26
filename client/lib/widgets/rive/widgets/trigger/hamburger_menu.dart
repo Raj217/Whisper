@@ -32,7 +32,7 @@ class _HamburgerMenuState extends State<HamburgerMenu> {
 class RiveHamburgerMenu extends RiveTrigger {
   RiveHamburgerMenu()
       : super(
-          src: RivePath().hamburgerMenu,
+          src: RivePath.hamburgerMenu,
           artBoard: "HAMBURGER",
           stateMachineName: "HAMBURGER_Interactivity",
           inputName: "Trigger",

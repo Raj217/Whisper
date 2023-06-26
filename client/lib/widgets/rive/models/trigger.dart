@@ -16,6 +16,6 @@ abstract class RiveTrigger extends RiveBase<SMITrigger, bool> {
       input.fire();
       _lastTrigger = DateTime.now();
     }
-    return true;
+    return input.value;
   }
 }
