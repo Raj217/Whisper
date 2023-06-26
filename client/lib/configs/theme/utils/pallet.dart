@@ -15,6 +15,21 @@ const MaterialColor accentSwatch = MaterialColor(
   },
 );
 
+const MaterialColor lightBlueSwatch = MaterialColor(
+  0xFF1884F0,
+  {
+    100: Color(0xFF489df3),
+    200: Color(0xFF3895F2),
+    300: Color(0xFF288CF1),
+    400: Color(0xFF1884F0),
+    500: Color(0xFF0f7be8),
+    600: Color(0xFF0e73d8),
+    700: Color(0xFF0d6ac8),
+    800: Color(0xFF0c62b8),
+    900: Color(0xFF0b5aa8),
+  },
+);
+
 const MaterialColor blueSwatch = MaterialColor(
   0xFF020a43,
   {
