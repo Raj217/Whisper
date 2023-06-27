@@ -3,12 +3,14 @@ part of rive_widgets;
 class HamburgerMenu extends StatefulWidget {
   final double height;
   final double width;
-  final void Function(bool) onStateChange;
+  final void Function(bool)? onStateChange;
+  final void Function(RiveBase)? onInit;
   const HamburgerMenu({
     Key? key,
     this.height = 30,
     this.width = 30,
-    required this.onStateChange,
+    this.onStateChange,
+    this.onInit,
   }) : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class _HamburgerMenuState extends State<HamburgerMenu> {
       width: widget.width,
       onStateChange: widget.onStateChange,
       controller: hamburgerMenu,
+      onInit: widget.onInit,
     );
   }
 }

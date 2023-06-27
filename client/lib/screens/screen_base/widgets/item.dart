@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
-import 'package:whisper/widgets/rive/rive.dart';
+import 'dart:math';
+import 'package:whisper/widgets/buttons/buttons.dart';
 
 class Item extends StatelessWidget {
   final Widget? riveWidget;
@@ -17,7 +18,7 @@ class Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return HoveredGestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.translucent,
       child: Stack(
@@ -28,7 +29,9 @@ class Item extends StatelessWidget {
             curve: Curves.fastOutSlowIn,
             duration: kThemeAnimationDuration,
             alignment: Alignment.centerLeft,
-            width: isSelected ? MediaQuery.of(context).size.width * 0.43 : 0,
+            width: isSelected
+                ? min(MediaQuery.of(context).size.width * 0.4, 200)
+                : 0,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(

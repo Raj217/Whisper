@@ -17,7 +17,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   void moveToNextPage() {
-    if (Authenticator.isLoggedIn()) {
+    if (true || Authenticator.isLoggedIn()) {
       Navigator.pushNamed(context, ScreenBase.routeName)
           .then((value) => exit(0));
     } else {
@@ -27,8 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> init() async {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+    // await Firebase.initializeApp(
+    //     options: DefaultFirebaseOptions.currentPlatform);
   }
 
   @override

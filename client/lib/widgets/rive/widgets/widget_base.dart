@@ -3,17 +3,17 @@ part of rive_widgets;
 class RiveWidgetBase extends StatelessWidget {
   final double height;
   final double width;
-  final void Function(bool) onStateChange;
+  final void Function(bool)? onStateChange;
   final RiveBase controller;
   final bool addBG;
-  final void Function()? onInit;
+  final void Function(RiveBase)? onInit;
   const RiveWidgetBase({
     Key? key,
     this.height = 30,
     this.width = 30,
     this.addBG = true,
     this.onInit,
-    required this.onStateChange,
+    this.onStateChange,
     required this.controller,
   }) : super(key: key);
 
@@ -27,26 +27,28 @@ class RiveWidgetBase extends StatelessWidget {
         artboard: controller.artBoard,
         onInit: (Artboard artBoard) {
           controller.getRiveInputBool(artBoard);
-          if (onInit != null) onInit!();
+          if (onInit != null) onInit!(controller);
         },
       ),
     );
     void onPressed() {
-      bool currentState = controller.state;
-      bool nextState = controller.changeState();
-      if (currentState != nextState) {
-        onStateChange(nextState);
+      if (onStateChange != null) {
+        if (controller.changeState()) {
+          onStateChange!(controller.state);
+        }
       }
     }
 
-    return addBG
-        ? IconButton(
-            onPressed: onPressed,
-            icon: child,
-          )
-        : GestureDetector(
-            onTap: onPressed,
-            child: child,
-          );
+    return onStateChange == null
+        ? child
+        : addBG
+            ? IconButton(
+                onPressed: onPressed,
+                icon: child,
+              )
+            : GestureDetector(
+                onTap: onPressed,
+                child: child,
+              );
   }
 }

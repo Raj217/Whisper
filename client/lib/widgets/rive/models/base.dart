@@ -34,7 +34,7 @@ abstract class RiveBase<T extends SMIInput<U>, U> {
   set state(U val) => input.value = val;
 
   bool changeState() {
-    return true;
+    return false;
   }
 
   void getRiveInputBool(Artboard artBoard) {

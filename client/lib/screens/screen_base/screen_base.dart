@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whisper/configs/config.dart';
 import 'package:whisper/screens/screens.dart';
 import 'package:whisper/widgets/rive/rive.dart';
 import 'widgets/side_menu.dart';
@@ -17,9 +18,9 @@ class _ScreenBaseState extends ConsumerState<ScreenBase>
   List<Widget> screens = [
     const HomeScreen(),
   ];
-  bool _isMenuOpen = false;
   late final AnimationController _animationController;
   late final Animation<double> _rotationController, _scaleController;
+  late RiveBase hamburgerController;
 
   @override
   void initState() {
@@ -60,15 +61,21 @@ class _ScreenBaseState extends ConsumerState<ScreenBase>
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: HamburgerMenu(
-          onStateChange: (bool isMenuOpen) {
+        onPressed: () {
+          if (hamburgerController.changeState()) {
             if (_animationController.value == 0) {
               _animationController.forward();
             } else {
               _animationController.reverse();
             }
-          },
+          }
+        },
+        child: IgnorePointer(
+          child: HamburgerMenu(
+            onInit: (RiveBase controller) {
+              hamburgerController = controller;
+            },
+          ),
         ),
       ),
       body: Stack(

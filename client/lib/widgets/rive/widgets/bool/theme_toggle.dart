@@ -3,10 +3,13 @@ part of rive_widgets;
 class ThemeToggle extends ConsumerStatefulWidget {
   final double height;
   final double width;
+  final void Function(RiveBase)? onInit;
+
   const ThemeToggle({
     Key? key,
     this.height = 60,
     this.width = 60,
+    this.onInit,
   }) : super(key: key);
 
   @override
@@ -30,10 +33,11 @@ class _ThemeToggleState extends ConsumerState<ThemeToggle> {
       onStateChange: (bool isDarkTheme) {
         ref.read(themeProvider.notifier).changeTheme(isDarkTheme);
       },
-      onInit: () {
+      onInit: (RiveBase controller) {
         bool isDarkTheme =
             ref.read(themeProvider.notifier).isDarkTheme(context);
         if (isDarkTheme == true) themeToggle.changeState();
+        if (widget.onInit != null) widget.onInit!(controller);
       },
       controller: themeToggle,
     );

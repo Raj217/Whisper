@@ -20,7 +20,8 @@ abstract class RiveBool extends RiveBase<SMIBool, bool> {
         Future.delayed(duration, () => input.change(!input.value));
       }
       _lastTrigger = DateTime.now();
+      return true;
     }
-    return input.value;
+    return false;
   }
 }

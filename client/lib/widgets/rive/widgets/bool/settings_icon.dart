@@ -3,10 +3,13 @@ part of rive_widgets;
 class SettingsIcon extends ConsumerStatefulWidget {
   final double height;
   final double width;
+  final void Function(RiveBase)? onInit;
+
   const SettingsIcon({
     Key? key,
     this.height = 60,
     this.width = 60,
+    this.onInit,
   }) : super(key: key);
 
   @override
@@ -27,9 +30,8 @@ class _SettingsState extends ConsumerState<SettingsIcon> {
       height: widget.height,
       width: widget.width,
       addBG: false,
-      onStateChange: (_) {},
-      onInit: () {},
       controller: settings,
+      onInit: widget.onInit,
     );
   }
 }

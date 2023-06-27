@@ -3,10 +3,12 @@ part of rive_widgets;
 class HomeIcon extends ConsumerStatefulWidget {
   final double height;
   final double width;
+  final void Function(RiveBase)? onInit;
   const HomeIcon({
     Key? key,
     this.height = 60,
     this.width = 60,
+    this.onInit,
   }) : super(key: key);
 
   @override
@@ -27,9 +29,8 @@ class _HomeIconState extends ConsumerState<HomeIcon> {
       height: widget.height,
       width: widget.width,
       addBG: false,
-      onStateChange: (_) {},
-      onInit: () {},
       controller: homeIcon,
+      onInit: widget.onInit,
     );
   }
 }
