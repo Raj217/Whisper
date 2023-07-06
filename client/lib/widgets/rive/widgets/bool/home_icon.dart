@@ -1,42 +1,36 @@
 part of rive_widgets;
 
-class HomeIcon extends ConsumerStatefulWidget {
-  final double height;
-  final double width;
-  final void Function(RiveBase)? onInit;
-  const HomeIcon({
+class HomeIcon extends RiveWidgetBase {
+  const HomeIcon._({
+    super.key,
+    super.addBG,
+    super.onInit,
+    super.width = 60,
+    super.height = 60,
+    required super.controller,
+  });
+
+  factory HomeIcon({
     Key? key,
-    this.height = 60,
-    this.width = 60,
-    this.onInit,
-  }) : super(key: key);
-
-  @override
-  ConsumerState createState() => _HomeIconState();
-}
-
-class _HomeIconState extends ConsumerState<HomeIcon> {
-  late final RiveHomeIcon homeIcon;
-  @override
-  void initState() {
-    super.initState();
-    homeIcon = RiveHomeIcon();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return RiveWidgetBase(
-      height: widget.height,
-      width: widget.width,
+    double height = 60,
+    double width = 60,
+    void Function()? onInit,
+    RiveController? controller,
+  }) {
+    controller ??= RiveHomeIconController();
+    return HomeIcon._(
+      key: key,
+      height: height,
+      width: width,
+      onInit: onInit,
+      controller: controller,
       addBG: false,
-      controller: homeIcon,
-      onInit: widget.onInit,
     );
   }
 }
 
-class RiveHomeIcon extends RiveBool {
-  RiveHomeIcon()
+class RiveHomeIconController extends RiveBoolController {
+  RiveHomeIconController()
       : super(
           src: RivePath.settings,
           artBoard: "HOME",

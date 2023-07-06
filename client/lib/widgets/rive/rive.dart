@@ -8,9 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whisper/states/theme/theme.dart';
 
 // ============================ Models ============================
-part 'models/trigger.dart';
-part 'models/base.dart';
-part 'models/bool.dart';
+part 'models/trigger_controller.dart';
+part 'models/controller.dart';
+part 'models/bool_controller.dart';
 
 // ============================ Widgets ============================
 part 'widgets/bool/theme_toggle.dart';

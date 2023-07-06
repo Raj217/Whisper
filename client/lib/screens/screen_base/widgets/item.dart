@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
+import 'package:whisper/screens/screen_base/widgets/item_animated_bg.dart';
 import 'dart:math';
 import 'package:whisper/widgets/buttons/buttons.dart';
+import 'package:whisper/widgets/rive/rive.dart';
 
 class Item extends StatelessWidget {
-  final Widget? riveWidget;
   final String text;
-  final void Function() onTap;
+  final double height;
   final bool isSelected;
+  final void Function() onTap;
+  final RiveWidgetBase? riveWidget;
   const Item({
     super.key,
     this.riveWidget,
-    required this.onTap,
+    this.height = 30,
     required this.text,
+    required this.onTap,
     this.isSelected = false,
   });
 
@@ -24,25 +28,7 @@ class Item extends StatelessWidget {
       child: Stack(
         alignment: Alignment.centerLeft,
         children: [
-          AnimatedContainer(
-            height: 50,
-            curve: Curves.fastOutSlowIn,
-            duration: kThemeAnimationDuration,
-            alignment: Alignment.centerLeft,
-            width: isSelected
-                ? min(MediaQuery.of(context).size.width * 0.4, 200)
-                : 0,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
-              gradient: LinearGradient(
-                colors: [lightBlueSwatch.shade100, lightBlueSwatch.shade900],
-              ),
-            ),
-          ),
+          ItemAnimatedBG(isSelected: isSelected),
           Row(
             children: [
               const SizedBox(width: 10),

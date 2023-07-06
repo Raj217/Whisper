@@ -1,6 +1,6 @@
 part of rive_widgets;
 
-abstract class RiveBase<T extends SMIInput<U>, U> {
+abstract class RiveController<T extends SMIInput<U>, U> {
   final String _src;
   final String artBoard;
   late T input;
@@ -9,16 +9,14 @@ abstract class RiveBase<T extends SMIInput<U>, U> {
   final bool isThemeIndependent;
   DateTime? _lastTrigger;
   final Duration duration;
-  RiveBase({
+  RiveController({
     required String src,
     required this.artBoard,
     required this.stateMachineName,
     required this.inputName,
     required this.isThemeIndependent,
-    DateTime? lastTrigger,
     required this.duration,
-  })  : _src = src,
-        _lastTrigger = lastTrigger;
+  }) : _src = src;
 
   String src(BuildContext context) {
     return "$_src"

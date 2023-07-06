@@ -1,7 +1,7 @@
 part of rive_widgets;
 
-abstract class RiveTrigger extends RiveBase<SMITrigger, bool> {
-  RiveTrigger({
+abstract class RiveTriggerController extends RiveController<SMITrigger, bool> {
+  RiveTriggerController({
     required super.src,
     required super.artBoard,
     required super.stateMachineName,

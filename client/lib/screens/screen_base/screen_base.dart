@@ -16,11 +16,11 @@ class ScreenBase extends ConsumerStatefulWidget {
 class _ScreenBaseState extends ConsumerState<ScreenBase>
     with SingleTickerProviderStateMixin {
   List<Widget> screens = [
-    const HomeScreen(),
+    HomeScreen(),
   ];
   late final AnimationController _animationController;
   late final Animation<double> _rotationController, _scaleController;
-  late RiveBase hamburgerController;
+  final RiveController hamburgerController = RiveHamburgerMenuController();
 
   @override
   void initState() {
@@ -71,11 +71,7 @@ class _ScreenBaseState extends ConsumerState<ScreenBase>
           }
         },
         child: IgnorePointer(
-          child: HamburgerMenu(
-            onInit: (RiveBase controller) {
-              hamburgerController = controller;
-            },
-          ),
+          child: HamburgerMenu(controller: hamburgerController),
         ),
       ),
       body: Stack(

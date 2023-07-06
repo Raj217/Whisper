@@ -1,51 +1,47 @@
 part of rive_widgets;
 
-class ThemeToggle extends ConsumerStatefulWidget {
-  final double height;
-  final double width;
-  final void Function(RiveBase)? onInit;
+class ThemeToggle extends RiveWidgetBase {
+  const ThemeToggle._({
+    super.key,
+    super.height,
+    super.width,
+    super.addBG,
+    super.onInit,
+    super.onStateChange,
+    required super.controller,
+  });
 
-  const ThemeToggle({
+  factory ThemeToggle({
     Key? key,
-    this.height = 60,
-    this.width = 60,
-    this.onInit,
-  }) : super(key: key);
-
-  @override
-  ConsumerState createState() => _ThemeToggleState();
-}
-
-class _ThemeToggleState extends ConsumerState<ThemeToggle> {
-  late final RiveThemeToggle themeToggle;
-  @override
-  void initState() {
-    super.initState();
-    themeToggle = RiveThemeToggle();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return RiveWidgetBase(
-      height: widget.height,
-      width: widget.width,
+    double width = 60,
+    double height = 60,
+    required WidgetRef ref,
+    RiveController? controller,
+    required BuildContext context,
+    void Function()? onInit,
+  }) {
+    controller ??= RiveThemeToggleController();
+    return ThemeToggle._(
+      key: key,
+      height: height,
+      width: width,
       addBG: false,
       onStateChange: (bool isDarkTheme) {
         ref.read(themeProvider.notifier).changeTheme(isDarkTheme);
       },
-      onInit: (RiveBase controller) {
+      onInit: () {
         bool isDarkTheme =
             ref.read(themeProvider.notifier).isDarkTheme(context);
-        if (isDarkTheme == true) themeToggle.changeState();
-        if (widget.onInit != null) widget.onInit!(controller);
+        if (isDarkTheme == true) controller!.changeState();
+        if (onInit != null) onInit();
       },
-      controller: themeToggle,
+      controller: controller,
     );
   }
 }
 
-class RiveThemeToggle extends RiveBool {
-  RiveThemeToggle()
+class RiveThemeToggleController extends RiveBoolController {
+  RiveThemeToggleController()
       : super(
           src: RivePath.themeToggle,
           artBoard: "THEME",

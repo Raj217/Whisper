@@ -1,12 +1,12 @@
 part of rive_widgets;
 
-class RiveWidgetBase extends StatelessWidget {
-  final double height;
-  final double width;
-  final void Function(bool)? onStateChange;
-  final RiveBase controller;
+class RiveWidgetBase extends StatefulWidget {
   final bool addBG;
-  final void Function(RiveBase)? onInit;
+  final double width;
+  final double height;
+  final void Function()? onInit;
+  final RiveController controller;
+  final void Function(bool)? onStateChange;
   const RiveWidgetBase({
     Key? key,
     this.height = 30,
@@ -16,32 +16,61 @@ class RiveWidgetBase extends StatelessWidget {
     this.onStateChange,
     required this.controller,
   }) : super(key: key);
+  @override
+  State createState() => _RiveWidgetBaseState();
+
+  RiveWidgetBase copyWith({
+    bool? addBG,
+    double? width,
+    double? height,
+    void Function()? onInit,
+    RiveController? controller,
+    void Function(bool)? onStateChange,
+  }) {
+    return RiveWidgetBase(
+      addBG: addBG ?? this.addBG,
+      width: width ?? this.width,
+      height: height ?? this.height,
+      onInit: onInit ?? this.onInit,
+      controller: controller ?? this.controller,
+      onStateChange: onStateChange ?? this.onStateChange,
+    );
+  }
+}
+
+class _RiveWidgetBaseState extends State<RiveWidgetBase> {
+  late RiveController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = widget.controller;
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget child = SizedBox(
-      height: height,
-      width: width,
+      height: widget.height,
+      width: widget.width,
       child: RiveAnimation.asset(
-        controller.src(context),
-        artboard: controller.artBoard,
+        widget.controller.src(context),
+        artboard: widget.controller.artBoard,
         onInit: (Artboard artBoard) {
           controller.getRiveInputBool(artBoard);
-          if (onInit != null) onInit!(controller);
+          if (widget.onInit != null) widget.onInit!();
         },
       ),
     );
     void onPressed() {
-      if (onStateChange != null) {
+      if (widget.onStateChange != null) {
         if (controller.changeState()) {
-          onStateChange!(controller.state);
+          widget.onStateChange!(controller.state);
         }
       }
     }
 
-    return onStateChange == null
+    return widget.onStateChange == null
         ? child
-        : addBG
+        : widget.addBG
             ? IconButton(
                 onPressed: onPressed,
                 icon: child,

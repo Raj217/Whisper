@@ -1,39 +1,37 @@
 part of rive_widgets;
 
-class HamburgerMenu extends StatefulWidget {
-  final double height;
-  final double width;
-  final void Function(bool)? onStateChange;
-  final void Function(RiveBase)? onInit;
-  const HamburgerMenu({
+class HamburgerMenu extends RiveWidgetBase {
+  const HamburgerMenu._({
+    super.key,
+    super.height = 30,
+    super.width = 30,
+    super.onStateChange,
+    super.onInit,
+    required super.controller,
+  });
+
+  factory HamburgerMenu({
     Key? key,
-    this.height = 30,
-    this.width = 30,
-    this.onStateChange,
-    this.onInit,
-  }) : super(key: key);
-
-  @override
-  State<HamburgerMenu> createState() => _HamburgerMenuState();
-}
-
-class _HamburgerMenuState extends State<HamburgerMenu> {
-  final RiveHamburgerMenu hamburgerMenu = RiveHamburgerMenu();
-
-  @override
-  Widget build(BuildContext context) {
-    return RiveWidgetBase(
-      height: widget.height,
-      width: widget.width,
-      onStateChange: widget.onStateChange,
-      controller: hamburgerMenu,
-      onInit: widget.onInit,
+    double width = 30,
+    double height = 30,
+    void Function(bool)? onStateChange,
+    void Function()? onInit,
+    RiveController? controller,
+  }) {
+    controller ??= RiveHamburgerMenuController();
+    return HamburgerMenu._(
+      key: key,
+      width: width,
+      height: height,
+      onStateChange: onStateChange,
+      onInit: onInit,
+      controller: controller,
     );
   }
 }
 
-class RiveHamburgerMenu extends RiveTrigger {
-  RiveHamburgerMenu()
+class RiveHamburgerMenuController extends RiveTriggerController {
+  RiveHamburgerMenuController()
       : super(
           src: RivePath.hamburgerMenu,
           artBoard: "HAMBURGER",

@@ -1,43 +1,36 @@
 part of rive_widgets;
 
-class SettingsIcon extends ConsumerStatefulWidget {
-  final double height;
-  final double width;
-  final void Function(RiveBase)? onInit;
+class SettingsIcon extends RiveWidgetBase {
+  const SettingsIcon._({
+    super.key,
+    super.height,
+    super.width,
+    super.onInit,
+    required super.controller,
+    super.addBG,
+  });
 
-  const SettingsIcon({
+  factory SettingsIcon({
     Key? key,
-    this.height = 60,
-    this.width = 60,
-    this.onInit,
-  }) : super(key: key);
-
-  @override
-  ConsumerState createState() => _SettingsState();
-}
-
-class _SettingsState extends ConsumerState<SettingsIcon> {
-  late final RiveSettingsIcon settings;
-  @override
-  void initState() {
-    super.initState();
-    settings = RiveSettingsIcon();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return RiveWidgetBase(
-      height: widget.height,
-      width: widget.width,
+    double height = 60,
+    double width = 60,
+    void Function()? onInit,
+    RiveController? controller,
+  }) {
+    controller ??= RiveSettingsIconController();
+    return SettingsIcon._(
+      key: key,
+      height: height,
+      width: width,
+      onInit: onInit,
+      controller: controller,
       addBG: false,
-      controller: settings,
-      onInit: widget.onInit,
     );
   }
 }
 
-class RiveSettingsIcon extends RiveBool {
-  RiveSettingsIcon()
+class RiveSettingsIconController extends RiveBoolController {
+  RiveSettingsIconController()
       : super(
           src: RivePath.settings,
           artBoard: "SETTINGS",

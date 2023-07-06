@@ -1,8 +1,8 @@
 part of rive_widgets;
 
-abstract class RiveBool extends RiveBase<SMIBool, bool> {
+abstract class RiveBoolController extends RiveController<SMIBool, bool> {
   final bool reverseBackAfterTransition;
-  RiveBool({
+  RiveBoolController({
     required super.src,
     required super.artBoard,
     required super.stateMachineName,
