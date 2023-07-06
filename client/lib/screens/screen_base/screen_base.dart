@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/screens/screens.dart';
+import 'package:whisper/widgets/overlays/toast/toast.dart';
 import 'package:whisper/widgets/rive/rive.dart';
 import 'widgets/side_menu.dart';
 
@@ -48,6 +49,13 @@ class _ScreenBaseState extends ConsumerState<ScreenBase>
         curve: Curves.fastOutSlowIn,
       ),
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      dynamic arguments = ModalRoute.of(context)?.settings.arguments;
+      if (arguments is String?) {
+        if (arguments != null) showToast(context: context, text: arguments);
+      }
+    });
   }
 
   @override
@@ -59,37 +67,39 @@ class _ScreenBaseState extends ConsumerState<ScreenBase>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (hamburgerController.changeState()) {
-            if (_animationController.value == 0) {
-              _animationController.forward();
-            } else {
-              _animationController.reverse();
+      body: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            if (hamburgerController.changeState()) {
+              if (_animationController.value == 0) {
+                _animationController.forward();
+              } else {
+                _animationController.reverse();
+              }
             }
-          }
-        },
-        child: IgnorePointer(
-          child: HamburgerMenu(controller: hamburgerController),
+          },
+          child: IgnorePointer(
+            child: HamburgerMenu(controller: hamburgerController),
+          ),
         ),
-      ),
-      body: Stack(
-        children: [
-          SideMenu(),
-          Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.identity()
-              ..setEntry(3, 2, 0.001)
-              ..rotateY(_rotationController.value)
-              ..scale(_scaleController.value)
-              ..translate(_rotationController.value * 180),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: HomeScreen(),
-            ),
-          )
-        ],
+        body: Stack(
+          children: [
+            const SideMenu(),
+            Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001)
+                ..rotateY(_rotationController.value)
+                ..scale(_scaleController.value)
+                ..translate(_rotationController.value * 180),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: HomeScreen(),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -22,17 +22,19 @@ void showToast({
     width = MediaQuery.of(context).size.width - margin.left - margin.right;
   }
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: ToastWidget(text: text, style: style),
-      duration: duration,
-      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
-      width: width,
-      padding: padding,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: ToastWidget(text: text, style: style!),
+        duration: duration,
+        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
+        width: width,
+        padding: padding,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
       ),
-    ),
-  );
+    );
+  });
 }

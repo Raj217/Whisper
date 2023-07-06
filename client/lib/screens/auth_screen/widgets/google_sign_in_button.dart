@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/states/auth/auth.dart';
-import 'package:whisper/screens/home_screen/home_screen.dart';
+import 'package:whisper/screens/screen_base/screen_base.dart';
 import 'package:whisper/widgets/overlays/loader_overlay/loading_overlay.dart';
 import 'package:whisper/widgets/overlays/toast/toast.dart';
 
@@ -16,10 +16,15 @@ class GoogleSignInButton extends StatelessWidget {
         AuthResult res = await Authenticator.logInWithGoogle();
         if (context.mounted) {
           LoadingOverlay.instance().hide();
-          showToast(context: context, text: res.getMessage());
 
           if (res.code == AuthCode.success) {
-            Navigator.pushNamed(context, HomeScreen.routeName);
+            Navigator.pushNamed(
+              context,
+              ScreenBase.routeName,
+              arguments: res.getMessage(),
+            );
+          } else {
+            showToast(context: context, text: res.getMessage());
           }
         }
       },
