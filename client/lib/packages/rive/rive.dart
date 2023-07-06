@@ -5,6 +5,7 @@ import 'package:rive/rive.dart';
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whisper/states/screen/screen.dart';
 import 'package:whisper/states/theme/theme.dart';
 
 // ============================ Models ============================

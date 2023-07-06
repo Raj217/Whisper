@@ -30,7 +30,7 @@ ThemeData lightTheme(BuildContext context) {
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: whiteSwatch,
-      iconTheme: IconThemeData(color: accentSwatch),
+      iconTheme: IconThemeData(color: whiteSwatch),
     ),
   );
 }

@@ -30,7 +30,8 @@ class Whisper extends ConsumerWidget {
         HomeScreen.routeName: (BuildContext context) => const HomeScreen(),
         SettingsScreen.routeName: (BuildContext context) =>
             const SettingsScreen(),
-        ScreenBase.routeName: (BuildContext context) => const ScreenBase(),
+        AboutScreen.routeName: (BuildContext context) => const AboutScreen(),
+        BaseScreen.routeName: (BuildContext context) => const BaseScreen(),
         AuthScreen.routeName: (BuildContext context) => const AuthScreen(),
       },
     );

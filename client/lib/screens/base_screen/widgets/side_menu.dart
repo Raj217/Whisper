@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whisper/configs/config.dart';
-import 'package:whisper/screens/screen_base/data/screens_data.dart';
+import '../data/screens_data.dart';
 import 'package:whisper/states/screen/screen.dart';
 import 'item/item.dart';
 

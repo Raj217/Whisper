@@ -6,15 +6,15 @@ import 'package:whisper/states/screen/screen.dart';
 import 'widgets/side_menu.dart';
 import 'widgets/main_page.dart';
 
-class ScreenBase extends ConsumerStatefulWidget {
+class BaseScreen extends ConsumerStatefulWidget {
   static const String routeName = "/screenBase";
-  const ScreenBase({super.key});
+  const BaseScreen({super.key});
 
   @override
   ConsumerState createState() => _ScreenBaseState();
 }
 
-class _ScreenBaseState extends ConsumerState<ScreenBase>
+class _ScreenBaseState extends ConsumerState<BaseScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final Animation<double> _rotationController, _scaleController;

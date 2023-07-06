@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:whisper/screens/screen_base/widgets/item/widgets/item_animated_bg.dart';
-import 'package:whisper/screens/screen_base/widgets/item/widgets/item_content.dart';
+import 'widgets/item_animated_bg.dart';
+import 'widgets/item_content.dart';
 import 'package:whisper/widgets/buttons/buttons.dart';
 import 'package:whisper/packages/rive/rive.dart';
 

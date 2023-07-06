@@ -32,7 +32,7 @@ ThemeData darkTheme(BuildContext context) {
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: blueSwatch.shade800,
-      iconTheme: const IconThemeData(color: accentSwatch),
+      iconTheme: const IconThemeData(color: blueSwatch),
     ),
   );
 }

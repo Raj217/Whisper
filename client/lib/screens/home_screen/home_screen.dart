@@ -11,6 +11,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: CustomAppBar.appBar(
+        context: context,
         children: const [
           WhisperIcon(),
           SizedBox(width: 10),

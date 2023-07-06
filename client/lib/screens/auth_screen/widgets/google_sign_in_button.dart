@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/states/auth/auth.dart';
-import 'package:whisper/screens/screen_base/screen_base.dart';
+import 'package:whisper/screens/base_screen/base_screen.dart';
 import 'package:whisper/packages/custom_overlays/custom_overlay.dart';
 import 'package:whisper/packages/toast/toast.dart';
 
@@ -20,7 +20,7 @@ class GoogleSignInButton extends StatelessWidget {
           if (res.code == AuthCode.success) {
             Navigator.pushNamed(
               context,
-              ScreenBase.routeName,
+              BaseScreen.routeName,
               arguments: res.getMessage(),
             );
           } else {
