@@ -7,3 +7,6 @@ import 'package:flutter/material.dart';
 // ============================== Models =============================
 part 'models/custom_overlay_base.dart';
 part 'models/overlay_controller.dart';
+
+// ============================== Overlays =============================
+part 'overlays/loader_overlay/loading_overlay.dart';

@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/screens/screen_base/data/screens_data.dart';
 import 'package:whisper/states/screen/screen.dart';
-import 'item.dart';
-import 'package:whisper/widgets/rive/rive.dart';
+import 'item/item.dart';
 
 class SideMenu extends ConsumerStatefulWidget {
   const SideMenu({super.key});
@@ -14,7 +13,7 @@ class SideMenu extends ConsumerStatefulWidget {
 }
 
 class _SideMenuState extends ConsumerState<SideMenu> {
-  int selectedScreen = 0;
+  late ScreenModel selectedScreen;
   double iconHeight = 30;
 
   @override
@@ -32,13 +31,13 @@ class _SideMenuState extends ConsumerState<SideMenu> {
                 height: iconHeight,
                 controller: controllers[ind],
                 onInit: () {
-                  if (selectedScreen == ind) {
+                  if (selectedScreen.screen == ind) {
                     controllers[ind]?.changeState();
                   }
                 },
               ),
               text: menuTitle[ind],
-              isSelected: selectedScreen == ind,
+              isSelected: selectedScreen.screen == ind,
               onTap: () {
                 setState(() {
                   controllers[ind]?.changeState();

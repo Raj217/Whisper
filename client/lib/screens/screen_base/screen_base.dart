@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whisper/configs/config.dart';
-import 'package:whisper/screens/screens.dart';
-import 'package:whisper/widgets/overlays/toast/toast.dart';
-import 'package:whisper/widgets/rive/rive.dart';
+import 'package:whisper/packages/toast/toast.dart';
+import 'package:whisper/packages/rive/rive.dart';
+import 'package:whisper/states/screen/screen.dart';
 import 'widgets/side_menu.dart';
+import 'widgets/main_page.dart';
 
 class ScreenBase extends ConsumerStatefulWidget {
   static const String routeName = "/screenBase";
@@ -16,9 +16,6 @@ class ScreenBase extends ConsumerStatefulWidget {
 
 class _ScreenBaseState extends ConsumerState<ScreenBase>
     with SingleTickerProviderStateMixin {
-  List<Widget> screens = [
-    HomeScreen(),
-  ];
   late final AnimationController _animationController;
   late final Animation<double> _rotationController, _scaleController;
   final RiveController hamburgerController = RiveHamburgerMenuController();
@@ -73,8 +70,10 @@ class _ScreenBaseState extends ConsumerState<ScreenBase>
           onPressed: () {
             if (hamburgerController.changeState()) {
               if (_animationController.value == 0) {
+                ref.read(screenProvider.notifier).isMenuOpen = true;
                 _animationController.forward();
               } else {
+                ref.read(screenProvider.notifier).isMenuOpen = false;
                 _animationController.reverse();
               }
             }
@@ -95,7 +94,7 @@ class _ScreenBaseState extends ConsumerState<ScreenBase>
                 ..translate(_rotationController.value * 180),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: HomeScreen(),
+                child: const MainPage(),
               ),
             )
           ],

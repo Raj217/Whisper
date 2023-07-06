@@ -18,7 +18,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   void moveToNextPage() {
     if (Authenticator.isLoggedIn()) {
-      Navigator.pushNamed(context, ScreenBase.routeName, arguments: "Test")
+      Navigator.pushNamed(context, ScreenBase.routeName)
           .then((value) => exit(0));
     } else {
       Navigator.pushNamed(context, AuthScreen.routeName)

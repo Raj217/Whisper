@@ -33,10 +33,11 @@ abstract class CustomOverlay {
     final OverlayState state = Overlay.of(context);
 
     final overlay = OverlayEntry(
-        builder: (BuildContext ctx) => overlayWidget(
-              context,
-              textController,
-            ));
+      builder: (BuildContext ctx) => overlayWidget(
+        context,
+        textController,
+      ),
+    );
 
     state.insert(overlay);
 

@@ -1,12 +1,20 @@
 part of screen_provider;
 
-final screenProvider = StateNotifierProvider<ScreenNotifier, int>((ref) {
+final screenProvider =
+    StateNotifierProvider<ScreenNotifier, ScreenModel>((ref) {
   return ScreenNotifier();
 });
 
-class ScreenNotifier extends StateNotifier<int> {
-  ScreenNotifier() : super(0);
+class ScreenNotifier extends StateNotifier<ScreenModel> {
+  ScreenNotifier() : super(ScreenModel());
 
-  int get screen => state;
-  set screen(int newScreen) => state = newScreen;
+  set controller(TabController controller) => state._controller = controller;
+
+  bool get isMenuOpen => state.isMenuOpen;
+  set isMenuOpen(bool val) => state = state.copyWith(isMenuOpen: val);
+
+  int get screen => state._controller.index;
+  set screen(int newScreen) {
+    state._controller.index = newScreen;
+  }
 }

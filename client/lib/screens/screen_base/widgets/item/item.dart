@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:whisper/configs/config.dart';
-import 'package:whisper/screens/screen_base/widgets/item_animated_bg.dart';
-import 'dart:math';
+import 'package:whisper/screens/screen_base/widgets/item/widgets/item_animated_bg.dart';
+import 'package:whisper/screens/screen_base/widgets/item/widgets/item_content.dart';
 import 'package:whisper/widgets/buttons/buttons.dart';
-import 'package:whisper/widgets/rive/rive.dart';
+import 'package:whisper/packages/rive/rive.dart';
 
 class Item extends StatelessWidget {
   final String text;
@@ -29,20 +28,7 @@ class Item extends StatelessWidget {
         alignment: Alignment.centerLeft,
         children: [
           ItemAnimatedBG(isSelected: isSelected),
-          Row(
-            children: [
-              const SizedBox(width: 10),
-              SizedBox(width: 30, child: riveWidget),
-              const SizedBox(width: 10),
-              Text(
-                text,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium
-                    ?.copyWith(color: whiteSwatch),
-              ),
-            ],
-          ),
+          ItemContent(riveWidget: riveWidget, text: text)
         ],
       ),
     );

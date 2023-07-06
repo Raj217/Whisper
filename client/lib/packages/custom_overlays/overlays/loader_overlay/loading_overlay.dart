@@ -1,6 +1,4 @@
-import 'package:whisper/widgets/custom_overlay/custom_overlay.dart';
-import 'package:flutter/material.dart';
-import 'dart:async';
+part of custom_overlay;
 
 class LoadingOverlay extends CustomOverlay {
   LoadingOverlay._sharedInstance();

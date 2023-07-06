@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/states/auth/auth.dart';
 import 'package:whisper/screens/screen_base/screen_base.dart';
-import 'package:whisper/widgets/overlays/loader_overlay/loading_overlay.dart';
-import 'package:whisper/widgets/overlays/toast/toast.dart';
+import 'package:whisper/packages/custom_overlays/custom_overlay.dart';
+import 'package:whisper/packages/toast/toast.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   const GoogleSignInButton({Key? key}) : super(key: key);

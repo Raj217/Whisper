@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:whisper/states/auth/auth.dart';
-import 'package:whisper/widgets/rive/rive.dart';
+import 'package:whisper/packages/rive/rive.dart';
 import 'package:whisper/screens/screens.dart';
 
 List<String> menuTitle = [
