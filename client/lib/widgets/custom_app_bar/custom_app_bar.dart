@@ -6,8 +6,15 @@ class CustomAppBar {
   CustomAppBar._();
 
   static const double _leftPad = 65;
+  static const double _rightActionPad = 10;
 
-  static AppBar appBar({required List<Widget> children}) {
+  static AppBar appBar({
+    required List<Widget> children,
+    List<Widget> actions = const [],
+  }) {
+    if (actions.isNotEmpty) {
+      actions.add(const SizedBox(width: _rightActionPad));
+    }
     return AppBar(
       automaticallyImplyLeading: false,
       title: StatefulBuilder(
@@ -28,6 +35,7 @@ class CustomAppBar {
           );
         },
       ),
+      actions: actions,
     );
   }
 }
