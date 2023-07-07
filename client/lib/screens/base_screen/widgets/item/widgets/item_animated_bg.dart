@@ -24,7 +24,7 @@ class ItemAnimatedBG extends StatelessWidget {
           bottomRight: Radius.circular(10),
         ),
         gradient: LinearGradient(
-          colors: [lightBlueSwatch.shade100, lightBlueSwatch.shade900],
+          colors: [accentSwatch.shade100, accentSwatch.shade900],
         ),
       ),
     );

@@ -1,7 +1,39 @@
 part of version_control;
 
 class VersionUtils {
+  static const String _collectionPath = "app";
+  static const String _docPath = "version";
   VersionUtils._();
+
+  static Future<String> getTempDownloadFileName() async {
+    return '${await VersionUtils.getAppUpdateLocalStoragePath()}.download';
+  }
+
+  static Future<String> getAppUpdateLocalStoragePath() async {
+    Directory? tempDir = await getTemporaryDirectory();
+    return '${tempDir.path}/${await getAppName()}';
+  }
+
+  static Future<String> getAppName() async {
+    return '${platformName()}_v${await getLatestVersion()}.${fileExtension()}';
+  }
+
+  static Future<String?> getLatestVersion() async {
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection(_collectionPath);
+    DocumentSnapshot versionRef = await collectionRef.doc(_docPath).get();
+    if (!versionRef.exists) return "";
+
+    return versionRef.get(platformName());
+  }
+
+  static String fileExtension() {
+    if (Platform.isAndroid) {
+      return "apk";
+    } else {
+      throw UnimplementedError("Sorry current platform is not planned yet");
+    }
+  }
 
   static String platformName() {
     // to avoid future possible bug of different name

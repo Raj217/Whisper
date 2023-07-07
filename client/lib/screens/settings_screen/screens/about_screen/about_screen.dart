@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whisper/packages/version_control/version_control.dart';
 import 'widgets/app_Info_item.dart';
 import 'package:whisper/widgets/custom_app_bar/custom_app_bar.dart';
 import 'package:whisper/widgets/widgets_organiser/section.dart';
@@ -45,9 +46,11 @@ class _AboutScreenState extends State<AboutScreen> {
                     title: "Build Number", data: packageInfo?.buildNumber),
               ],
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text("Update"),
+            const SizedBox(height: 10),
+            const Row(
+              children: [
+                UpdateButton(),
+              ],
             ),
           ],
         ),

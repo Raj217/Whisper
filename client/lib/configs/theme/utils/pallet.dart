@@ -1,21 +1,6 @@
 part of theme;
 
 const MaterialColor accentSwatch = MaterialColor(
-  0xFF0DE3CA,
-  {
-    100: Color(0xFF30F3DC),
-    200: Color(0xFF20F2DA),
-    300: Color(0xFF10F1D7),
-    400: Color(0xFF0DE3CA),
-    500: Color(0xFF0CD3BC),
-    600: Color(0xFF0BC3AD),
-    700: Color(0xFF0AB39F),
-    800: Color(0xFF09A391),
-    900: Color(0xFF089382),
-  },
-);
-
-const MaterialColor lightBlueSwatch = MaterialColor(
   0xFF1884F0,
   {
     100: Color(0xFF489df3),

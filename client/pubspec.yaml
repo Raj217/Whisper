@@ -16,17 +16,21 @@ dependencies:
   google_sign_in: ^6.1.3
   firebase_messaging: ^14.6.4
   cloud_firestore: ^4.8.2
+  firebase_storage: ^11.2.4
   
   # ======================== Management ====================
   flutter_riverpod: ^2.3.6
 
-  # ======================== Assets Manager ===================
+  # ======================== Decoration ===================
   cupertino_icons: ^1.0.2
   rive: ^0.11.3
 
-  # ======================== Local ========================
+  # ======================== Utils ========================
   shared_preferences: ^2.1.2
   package_info_plus: ^4.0.2
+  path_provider: ^2.0.15
+  open_file: ^3.3.2
+  permission_handler: ^10.4.1
 
 dev_dependencies:
   flutter_test:
