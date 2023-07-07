@@ -31,6 +31,7 @@ class _MainPageState extends State<MainPage>
         ref.read(screenProvider.notifier).controller = tabController;
         return TabBarView(
           controller: tabController,
+          physics: const NeverScrollableScrollPhysics(),
           children: screens,
         );
       },

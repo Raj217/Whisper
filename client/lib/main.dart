@@ -9,6 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await StorageHandler.init();
+
   runApp(const ProviderScope(child: Whisper()));
 }
 

@@ -58,7 +58,10 @@ class VersionController {
         File file = File(await VersionUtils.getTempDownloadFileName());
         String fileName = await VersionUtils.getAppUpdateLocalStoragePath();
         await file.rename(fileName);
-        await OpenFile.open(fileName);
+        OpenResult res = await OpenFile.open(fileName);
+        if (res.type == ResultType.done) {
+          await file.delete();
+        }
       }
     });
     return _downloadTask;
