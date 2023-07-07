@@ -18,7 +18,7 @@ class GoogleSignInButton extends StatelessWidget {
           LoadingOverlay.instance().hide();
 
           if (res.code == AuthCode.success) {
-            Navigator.pushNamed(
+            Navigator.pushReplacementNamed(
               context,
               BaseScreen.routeName,
               arguments: res.getMessage(),
@@ -28,6 +28,10 @@ class GoogleSignInButton extends StatelessWidget {
           }
         }
       },
+      style: ElevatedButton.styleFrom(
+        elevation: 4,
+        backgroundColor: whiteSwatch,
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -37,8 +41,14 @@ class GoogleSignInButton extends StatelessWidget {
               ImagePath().googleLogo,
             ),
           ),
-          const SizedBox(width: 40),
-          const Text('Sign in with Google'),
+          const SizedBox(width: 20),
+          Text(
+            'Sign in with Google',
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(fontWeight: FontWeight.w700, color: blueSwatch),
+          ),
         ],
       ),
     );

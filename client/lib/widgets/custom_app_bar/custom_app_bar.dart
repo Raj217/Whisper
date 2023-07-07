@@ -13,7 +13,8 @@ class CustomAppBar {
 
   static AppBar appBar({
     required BuildContext context,
-    required List<Widget> children,
+    String? pageName,
+    List<Widget> children = const [],
     List<Widget> actions = const [],
     bool automaticallyImplyLeading = false,
   }) {
@@ -31,8 +32,9 @@ class CustomAppBar {
                   Navigator.pop(context);
                 },
                 padding: const EdgeInsets.all(15),
-                icon: const Icon(
+                icon: Icon(
                   CupertinoIcons.arrow_left,
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   size: _automaticallyImplyLeadingSize,
                 ),
               ),
@@ -45,10 +47,19 @@ class CustomAppBar {
               ScreenModel screenModel = ref.watch(screenProvider);
               return Row(
                 children: [
-                  AnimatedContainer(
-                    duration: kThemeAnimationDuration,
-                    width: screenModel.isMenuOpen ? 0 : _leftPad,
-                  ),
+                  if (automaticallyImplyLeading == false)
+                    AnimatedContainer(
+                      duration: kThemeAnimationDuration,
+                      width: screenModel.isMenuOpen ? 0 : _leftPad,
+                    ),
+                  if (pageName != null)
+                    Text(
+                      pageName,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge
+                          ?.copyWith(fontWeight: FontWeight.w800),
+                    ),
                   ...children,
                 ],
               );

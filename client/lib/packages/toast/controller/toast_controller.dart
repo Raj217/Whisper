@@ -12,9 +12,10 @@ void showToast({
   assert(0 < widthFactor && widthFactor < 1,
       "widthFactor must be between 0 and 1");
 
-  style ??= Theme.of(context).textTheme.labelMedium?.copyWith(
-        color: whiteSwatch,
-      );
+  style ??= Theme.of(context)
+      .textTheme
+      .labelMedium
+      ?.copyWith(color: Theme.of(context).scaffoldBackgroundColor);
 
   double width =
       WidgetUtils.textSize(text, style!).width + padding.left + padding.right;
@@ -27,7 +28,7 @@ void showToast({
       SnackBar(
         content: ToastWidget(text: text, style: style!),
         duration: duration,
-        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
+        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
         width: width,
         padding: padding,
         behavior: SnackBarBehavior.floating,

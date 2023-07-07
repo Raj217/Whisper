@@ -19,6 +19,8 @@ ThemeData lightTheme(BuildContext context) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 2,
+        backgroundColor: blueSwatch,
+        foregroundColor: whiteSwatch,
       ),
     ),
     iconButtonTheme: IconButtonThemeData(
@@ -30,7 +32,7 @@ ThemeData lightTheme(BuildContext context) {
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: whiteSwatch,
-      iconTheme: IconThemeData(color: whiteSwatch),
+      iconTheme: IconThemeData(color: accentSwatch),
     ),
   );
 }

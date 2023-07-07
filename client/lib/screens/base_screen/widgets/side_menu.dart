@@ -41,9 +41,10 @@ class _SideMenuState extends ConsumerState<SideMenu> {
               onTap: () {
                 setState(() {
                   controllers[ind]?.changeState();
-                  ref.read(screenProvider.notifier).screen = ind;
                   if (onTapped[ind] != null) {
-                    onTapped[ind]!(context);
+                    onTapped[ind]!(context, ref);
+                  } else {
+                    ref.read(screenProvider.notifier).screen = ind;
                   }
                 });
               },

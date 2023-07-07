@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:whisper/states/auth/auth.dart';
 import 'package:whisper/packages/rive/rive.dart';
 import 'package:whisper/screens/screens.dart';
+import 'package:whisper/states/screen/screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 List<String> menuTitle = [
   "Home",
@@ -21,13 +23,13 @@ List<RiveWidgetBase?> icons = [
   null,
 ];
 
-List<void Function(BuildContext)?> onTapped = [
+List<void Function(BuildContext, WidgetRef)?> onTapped = [
   null,
   null,
-  (context) async {
-    await Future.delayed(const Duration(milliseconds: 300));
+  (context, ref) async {
     await Authenticator.logOut();
     if (context.mounted) {
+      ref.read(screenProvider).isMenuOpen = false;
       Navigator.pushNamed(context, AuthScreen.routeName);
     }
   },

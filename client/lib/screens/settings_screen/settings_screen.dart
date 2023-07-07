@@ -14,15 +14,7 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: CustomAppBar.appBar(
-        children: [
-          Text(
-            "Settings",
-            style: Theme.of(context)
-                .textTheme
-                .labelLarge
-                ?.copyWith(fontWeight: FontWeight.w800),
-          ),
-        ],
+        pageName: "Settings",
         actions: [
           ThemeToggle(ref: ref, context: context),
         ],
