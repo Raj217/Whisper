@@ -1,3 +1,3 @@
-import firebase from "./connection.js";
+import './utils.js';
 
-export { firebase };
+export * from './utils.js';
