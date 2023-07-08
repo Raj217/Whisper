@@ -1,5 +1,7 @@
 import { getUserDetails } from "../../firebase/utils.js";
 import Exception, { ExceptionCodes } from "../../utils/error.js";
+import User from "../../models/user_model.js";
+import generateToken from "./utils/generate_token.js";
 
 export const googleSignIn = async (idToken) => {
   if (!idToken) {
@@ -7,5 +9,18 @@ export const googleSignIn = async (idToken) => {
   }
 
   const userData = await getUserDetails(idToken);
-  return userData;
+
+  const email = userData.email;
+  var existingUser = await User.findOne({ email });
+
+  if (!existingUser) {
+    await User.create({
+      email,
+      emailVerified: userData.email_verified,
+      firstName: userData.given_name,
+      lastName: userData.family_name,
+    });
+  }
+
+  return { token: generateToken(email) };
 };
