@@ -20,7 +20,7 @@ export const verifyToken = (
   try {
     const decoded = verify(token, process.env.JWT_SECRET) ;
     req.body.loggedInUser = decoded;
-    if (!decoded.isEmailVerified)
+    if (!decoded.emailVerified)
       return res.status(ExceptionCodes.UNAUTHORIZED).send("Email not verified");
   } catch (err) {
     return res.status(ExceptionCodes.UNAUTHORIZED).send("Invalid Token");

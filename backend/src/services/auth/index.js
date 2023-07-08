@@ -1,3 +1,1 @@
-import { googleSignIn } from "./google-sign-in.service.js";
-
-export { googleSignIn };
+export { googleSignIn } from "./google-sign-in.service.js";

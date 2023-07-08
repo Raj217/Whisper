@@ -1,13 +1,12 @@
 import { ExceptionCodes } from "../utils/error.js";
+import * as WelcomeService from "../services/welcome/index.js";
 
 export const welcome = async (req, res, next) => {
-  const { VERSION } = process.env;
-  
-  const welcomeMessage = {
-    messgae: `
-    Welcome to whisper API v-${VERSION}
-    Current date - ${new Date()}
-    `,
-  };
-  return res.status(ExceptionCodes.REQUEST_FULFILLED).json(welcomeMessage);
+  WelcomeService.welcome()
+    .then((body) => {
+      res.status(ExceptionCodes.REQUEST_FULFILLED).json(body);
+    })
+    .catch((err) => {
+      next(err);
+    });
 };

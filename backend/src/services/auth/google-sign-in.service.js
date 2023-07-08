@@ -12,15 +12,17 @@ export const googleSignIn = async (idToken) => {
 
   const email = userData.email;
   var existingUser = await User.findOne({ email });
+  var emailVerified = true;
 
   if (!existingUser) {
+    emailVerified = userData.email_verified;
     await User.create({
       email,
-      emailVerified: userData.email_verified,
+      emailVerified,
       firstName: userData.given_name,
       lastName: userData.family_name,
     });
   }
 
-  return { token: generateToken(email) };
+  return { token: generateToken(email, emailVerified) };
 };
