@@ -27,6 +27,8 @@
 
 **Payload:**
 
+```json
 {
   "idToken": "<>"
 }
+```
