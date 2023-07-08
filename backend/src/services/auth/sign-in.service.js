@@ -1,26 +1,21 @@
-import prisma from "../../prisma";
-import Exception, { ExceptionCodes } from "../../utils/error";
-import Validator from "../../utils/validator";
+import Exception, { ExceptionCodes } from "../../utils/error.js";
+import { generateToken } from "./utils/index.js";
+import { firebase } from "../../firebase/index.js";
 
 export const signIn = async (data) => {
   const { email, password } = data;
-
-  userData = {};
-  if (!email) {
-    throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
-  }
-  if (!Validator.isValidEmail(email)) {
-    throw new Exception("Email is not valid", ExceptionCodes.UNAUTHORIZED);
-  } else {
-    userData = { email };
-  }
-
-  const existingUser = await prisma.user.findFirst({ where: { email } });
-
-  if (!existingUser) {
-    throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
-  }
-  if (!existingUser.isOAuth && !password) {
-    throw new Exception("")
+  try {
+    var user = await firebase
+      .auth().generateToken;
+    if (user.emailVerified) {
+      return generateToken(user);
+    } else {
+      throw new Exception(
+        "Please verify your email",
+        ExceptionCodes.UNAUTHORIZED
+      );
+    }
+  } catch (err) {
+    throw new Exception(err, ExceptionCodes.UNAUTHORIZED);
   }
 };

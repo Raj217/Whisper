@@ -3,7 +3,6 @@ import json from "jsonwebtoken";
 export const generateToken = (user) => {
   const payload = {
     email: user.email,
-    isEmailVerified: user.isEmailVerified,
   };
   const secret = process.env.JWT_SECRET;
   const props = {

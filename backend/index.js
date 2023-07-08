@@ -1,10 +1,12 @@
 import firebase from "./src/firebase/connection.js";
+import dotenv from "dotenv";
 import express from "express";
 import devRoute from "./src/routes/index.js";
 import { logger } from "./src/middlewares/logger.js";
 import { defaultExceptionHandler } from "./src/middlewares/exception_handler.js";
 import cors from "cors";
 
+await dotenv.config();
 const app = express();
 
 app.use(express.json());

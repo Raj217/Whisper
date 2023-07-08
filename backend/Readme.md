@@ -1,5 +1,5 @@
 # Setup
-
+# _OUTDATED_
 ## .env
 
 _Create a .env(root level) file with the following params:_

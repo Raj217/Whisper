@@ -10,3 +10,13 @@ export const signUp = async (req, res, next) => {
       next(err);
     });
 };
+
+export const signIn = async (req, res, next) => {
+  AuthService.signIn(req.body)
+    .then((body) => {
+      res.status(ExceptionCodes.CREATED).json(body);
+    })
+    .catch((err) => {
+      next(err);
+    });
+};

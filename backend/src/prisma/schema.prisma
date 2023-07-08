@@ -27,13 +27,8 @@ model Pexels {
 
 model User {
     id                   String              @id @default(auto()) @map("_id") @db.ObjectId
-    firstName            String
-    lastName             String?
-    profileImageUrl      String?
-    email                String              @unique
-    password             String?
+    uid                  String              
+    email                String
     pexelsIDVisited      String[]  
     unsplashIDVisited    String[]
-    isOAuth              Boolean
-    isEmailVerified      Boolean             @default(false)
 }
