@@ -1,1 +1,1 @@
-export { search } from "./search.service.js";
+export { search } from "./image/search.service.js";

@@ -1,8 +1,8 @@
 import express from "express";
-import devRoute from "./src/routes/index.js";
 import { logger } from "./src/middlewares/logger.js";
 import { defaultExceptionHandler } from "./src/middlewares/exception_handler.js";
 import * as db from './src/db/database.js';
+import devRoute from "./src/routes/index.js";
 
 db.connect();
 const app = express();
