@@ -22,17 +22,19 @@ class UnsplashParser {
         const {
           id: contentID,
           urls: { raw: url },
+          color,
           user: {
             name: publisherName,
             links: { portfolio: publisherUrl },
           },
         } = item;
         images.push({
-          id: UnsplashParser._parseImageID(url),
+          imageSourceID: UnsplashParser._parseImageID(url),
           publisherName,
           publisherUrl,
           tags: await this._fetchTags(contentID),
           source: ImageSource.unsplash,
+          color,
           views: 0,
           downloads: 0,
         });

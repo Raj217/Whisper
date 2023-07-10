@@ -21,15 +21,7 @@ export const add = async (_query) => {
   var newEntries = 0;
   for (var img of images) {
     try {
-      await ImageInfo.create({
-        imageSourceID: img.id,
-        publisherName: img.publisherName,
-        publisherUrl: img.publisherUrl,
-        tags: img.tags,
-        source: img.source,
-        views: img.views,
-        downloads: img.downloads,
-      });
+      await ImageInfo.create(img);
       newEntries++;
     } catch (e) {
       // Duplicates error

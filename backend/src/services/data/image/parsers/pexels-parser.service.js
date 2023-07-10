@@ -2,6 +2,16 @@ import axios from "axios";
 import { ImageSource } from "../../../../models/constants.js";
 
 class PexelsParser {
+  static _convertToHex(val) {
+    return parseInt(val).toString(16);
+  }
+  static _rgbToHex(rgb) {
+    var hex = "#";
+    for (var val of rgb) {
+      hex += PexelsParser._convertToHex(val);
+    }
+    return hex;
+  }
   static async parse(data) {
     const { PEXELS_API_BASE_URL } = process.env;
     const images = [];
@@ -14,14 +24,16 @@ class PexelsParser {
             last_name: publisherLastName,
             username: publisherUserName,
           },
+          main_color: mainColor,
           tags,
         },
       } = item;
       images.push({
-        id,
+        imageSourceID: id,
         publisherName: `${publisherFirstName} ${publisherLastName}`,
         publisherUrl: `${PEXELS_API_BASE_URL}/@${publisherUserName}`,
         tags: tags,
+        color: PexelsParser._rgbToHex(mainColor),
         source: ImageSource.pexels,
         views: 0,
         downloads: 0,

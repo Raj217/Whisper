@@ -16,7 +16,7 @@ export const pexelsProvider = async (query, page, per_page) => {
     "secret-key": PEXELS_SECRET_KEY,
   };
 
-  const url = `${PEXELS_API_BASE_URL}/v3/search/photos?query=${query}&per_page=${per_page}&page=${page}`;
+  const url = `${PEXELS_API_BASE_URL}/en-us/api/v3/search/photos?query=${query}&per_page=${per_page}&page=${page}`;
 
   const res = await axios.get(url, { headers });
 

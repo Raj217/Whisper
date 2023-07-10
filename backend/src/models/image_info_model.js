@@ -7,6 +7,7 @@ const imageInfoSchema = new Schema(
     publisherName: { type: String },
     publisherUrl: { type: String },
     tags: [{ type: String }],
+    color: { type: String },
     source: { type: String, enum: ImageSource, required: true },
     views: { type: Number, default: 0 },
     downloads: { type: Number, default: 0 },
