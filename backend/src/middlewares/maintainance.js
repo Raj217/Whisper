@@ -6,13 +6,11 @@ export const maintainance = async (req, res, next) => {
   var isMaintainanceActive = state.isMaintainanceActive;
 
   if (isMaintainanceActive) {
-    return res
-      .status(ExceptionCodes.SERVER_DOWN)
-      .body({
-        message:
-          "We are having a short maintainance break, please try again in a few minutes.",
-      });
+    return res.status(ExceptionCodes.SERVER_DOWN).send({
+      message:
+        "We are having a short maintainance break, please try again in a few minutes.",
+    });
   } else {
-    next();
+    return next();
   }
 };

@@ -25,7 +25,7 @@ class UnsplashParser {
           color,
           user: {
             name: publisherName,
-            links: { portfolio: publisherUrl },
+            links: { html: publisherUrl },
           },
         } = item;
         images.push({
