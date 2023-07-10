@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { ExceptionCodes } from "../utils/error.js";
+import { ExceptionCodes } from "../utils/exception.js";
 
 if (process.env.JWT_SECRET === undefined) {
   console.log("Couldn't find token key");

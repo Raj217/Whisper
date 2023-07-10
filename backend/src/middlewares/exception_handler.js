@@ -1,4 +1,5 @@
-import Exception, { ExceptionCodes } from "../utils/error.js";
+import { AxiosError } from "axios";
+import Exception, { ExceptionCodes } from "../utils/exception.js";
 import OAuthError from "google-auth-library";
 
 export const defaultExceptionHandler = (err, req, res, next) => {
@@ -13,9 +14,11 @@ export const defaultExceptionHandler = (err, req, res, next) => {
     console.error(err);
     statusCode = err.statusCode;
     message = err.message;
-  }
-  if (typeof message != "object") {
+  } else if (typeof message != "object") {
     message = { message: message };
+  }
+  if (err instanceof AxiosError) {
+    console.error(err.response);
   }
   res.status(statusCode).send(message);
 };

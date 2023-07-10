@@ -1,5 +1,5 @@
 import * as AuthService from "../services/auth/index.js";
-import { ExceptionCodes } from "../utils/error.js";
+import { ExceptionCodes } from "../utils/exception.js";
 
 export const googleSignIn = async (req, res, next) => {
   AuthService.googleSignIn(req.body.idToken)

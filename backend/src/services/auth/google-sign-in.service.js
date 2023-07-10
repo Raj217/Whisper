@@ -1,5 +1,5 @@
 import { getUserDetails } from "../../firebase/utils.js";
-import Exception, { ExceptionCodes } from "../../utils/error.js";
+import Exception, { ExceptionCodes } from "../../utils/exception.js";
 import User from "../../models/user_model.js";
 import generateToken from "./utils/generate_token.js";
 

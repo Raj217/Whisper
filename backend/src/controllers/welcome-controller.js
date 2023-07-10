@@ -1,4 +1,4 @@
-import { ExceptionCodes } from "../utils/error.js";
+import { ExceptionCodes } from "../utils/exception.js";
 import * as WelcomeService from "../services/welcome/index.js";
 
 export const welcome = async (req, res, next) => {

@@ -3,15 +3,9 @@ import { ImageSource } from "./constants.js";
 
 const imageInfoSchema = new Schema(
   {
-    imageSourceID: { type: String, required: true },
+    imageSourceID: { type: String, required: true, unique: true },
     publisherName: { type: String },
-    publisherUrl: [
-      {
-        type: String,
-        match:
-          "/(ftp|http|https)://(w+:{0,1}w*@)?(S+)(:[0-9]+)?(/|/([w#!:.?+=&%@!-/]))?/",
-      },
-    ],
+    publisherUrl: { type: String },
     tags: [{ type: String }],
     source: { type: String, enum: ImageSource, required: true },
     views: { type: Number, default: 0 },
