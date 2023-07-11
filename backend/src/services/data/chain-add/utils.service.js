@@ -33,6 +33,7 @@ export const initTagScraping = async (tag) => {
 
 /**
  * It makes the currentlyScraping state ready for the next scrape
+ * @return {Promise<Boolean>} true if there is any tag found for scraping
  */
 export const initScraping = async (query) => {
   var state = await APIState.findOne();
@@ -74,6 +75,27 @@ const scrapeTag = async (tags, query, page, perPage, source, chainTags) => {
   }
   return didReachEnd;
 };
+
+/** 
+ * updates the tags if the scraping is completed
+ * @return {Promise<Boolean>} true if the scraping is completed for the given tag
+*/
+const updateTagsScrapingState = async (page, currentlyScraping) => {
+  var isScrapingCompleted = true;
+
+  for (var source of ImageSource) {
+    if (page[source] === 0) {
+      isScrapingCompleted = false;
+      var tagData = await Tag.findOne({ tag: currentlyScraping });
+      await Tag.findByIdAndUpdate(tagData.id, {
+        didFinishScrapingUnsplash: page[ImageSource.unsplash] === 0,
+        didFinishScrapingPexels: page[ImageSource.pexels] === 0,
+      });
+    }
+  }
+  return isScrapingCompleted;
+}
+
 export const scrape = async (chainTags) => {
   const { PER_PAGE } = process.env;
   var state = await APIState.findOne();
@@ -84,55 +106,37 @@ export const scrape = async (chainTags) => {
   }
 
   var currentlyScraping = state.currentlyScraping;
-  var unsplashPageNo = state.unsplashPageNo;
-  var pexelsPageNo = state.pexelsPageNo;
 
-  if (
-    await scrapeTag(
-      tags,
-      currentlyScraping,
-      unsplashPageNo,
-      PER_PAGE,
-      ImageSource.unsplash,
-      chainTags
-    )
-  ) {
-    unsplashPageNo = 0;
-  } else {
-    unsplashPageNo++;
+  var page = new Map();
+  page.set(ImageSource.unsplash, state.unsplashPage);
+  page.set(ImageSource.pexels, state.pexelsPage);
+
+  for (var source of ImageSource) {
+    if (
+      await scrapeTag(
+        tags,
+        currentlyScraping,
+        page[source],
+        PER_PAGE,
+        source,
+        chainTags
+      )
+    ) {
+      page.set(source, 0);
+    } else {
+      page.set(source, page.get(source) + 1);
+    }
   }
 
-  if (
-    await scrapeTag(
-      tags,
-      currentlyScraping,
-      pexelsPageNo,
-      PER_PAGE,
-      ImageSource.pexels,
-      chainTags
-    )
-  ) {
-    pexelsPageNo = 0;
-  } else {
-    pexelsPageNo++;
-  }
-
-  if (pexelsPageNo === 0 || unsplashPageNo === 0) {
-    var tagData = await Tag.findOne({ tag: currentlyScraping });
-    await Tag.findByIdAndUpdate(tagData.id, {
-      didFinishScrapingPexels: pexelsPageNo === 0,
-      didFinishScrapingUnsplash: unsplashPageNo === 0,
-    });
-  }
-  if (pexelsPageNo === 0 && unsplashPageNo === 0) {
+  if (await updateTagsScrapingState(page, currentlyScraping)) {
     currentlyScraping = null;
   }
 
   const tagsToScrape = Array.from(tags.vals);
   await APIState.findByIdAndUpdate(state.id, {
     currentlyScraping,
-    pexelsPageNo,
-    unsplashPageNo,
+    unsplashPage: page[ImageSource.unsplash],
+    pexelsPage: page[ImageSource.pexels],
     tagsToScrape,
   });
 };

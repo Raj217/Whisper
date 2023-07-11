@@ -7,8 +7,8 @@ const apiStateSchema = new Schema(
     tagsToScrape: { type: [String], unique: true },
     // I know page no won't be good for new but will lead to performance issues
     // The new ones will be added later
-    unsplashPageNo: { type: Number, default: 0 },
-    pexelsPageNo: { type: Number, default: 0 },
+    unsplashPage: { type: Number, default: 0 },
+    pexelsPage: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
