@@ -4,7 +4,7 @@ import * as DataServices from "../services/data/index.js";
 const timer = { val: null, nextScheduled: null };
 
 export const add = (req, res, next) => {
-  DataServices.add(req.query)
+  DataServices.add(req.body)
     .then((body) => res.status(ExceptionCodes.REQUEST_FULFILLED).json(body))
     .catch((err) => {
       next(err);
@@ -19,8 +19,8 @@ export const chainAdd = (req, res, next) => {
     });
 };
 
-export const stop = (req, res, next) => {
-  DataServices.stop(timer)
+export const stopChain = (req, res, next) => {
+  DataServices.stopChain(timer)
     .then((body) => res.status(ExceptionCodes.REQUEST_FULFILLED).json(body))
     .catch((err) => {
       next(err);

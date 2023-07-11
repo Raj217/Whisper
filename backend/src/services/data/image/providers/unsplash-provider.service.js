@@ -8,9 +8,6 @@ export const unsplashProvider = async (query, page, per_page) => {
   }
   const { UNSPLASH_API_BASE_URL, USER_AGENT } = process.env;
 
-  // Setting default values
-  if (!page) page = 1;
-  if (!per_page) per_page = 10;
 
   const headers = {
     "User-Agent": USER_AGENT,

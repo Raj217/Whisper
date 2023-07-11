@@ -1,4 +1,4 @@
-export const stop = async (timer) => {
+export const stopChain = async (timer) => {
   if (timer.val !== null) {
     clearTimeout(timer.val);
     timer.val = null;

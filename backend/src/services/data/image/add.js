@@ -16,6 +16,10 @@ export const add = async (_query) => {
     throw new Exception("source is required", ExceptionCodes.BAD_INPUT);
   }
 
+  // Setting default values
+  if (!page) page = 1;
+  if (!per_page) per_page = 10;
+  
   // The actual need for mainataince is only when storing the values
   // While parsing the apis can work fine
   // But might cause delays. Let's not risk

@@ -10,7 +10,7 @@ import { adminCheck } from "../middlewares/admin-check.js";
 const router = express.Router();
 
 router.use("/auth", AuthRoutes);
-router.use("/welcome", maintainance, WelcomeRoutes);
+router.use("/welcome", WelcomeRoutes);
 router.use("/data", verifyToken, adminCheck, DataRoutes);
 router.use("/search", verifyToken, maintainance, SearchRoutes);
 
