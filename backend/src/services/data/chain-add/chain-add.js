@@ -3,12 +3,19 @@ import { generateRandomTime } from "../../../utils/app-utils.service.js";
 import APIState from "../../../models/api-state.js";
 
 export const chainAdd = async (_query, timer) => {
-  // If chainTags is true, the tags which will be found during parsing the current
+  // If chain_new_tags is true, the tags which will be found during parsing the current
   // will be chained and images realted to that topic will also be scraped
   // i.e. didFinishScrapingUnsplash and didFinishScrapingPexels of the chained tag along with the query tag will be set to false
-  var { query, chainTags } = _query;
+  // 
+  // In partial_scrape if no new entries then the scraping is halted
+  var { query, chain_new_tags, partial_scrape } = _query;
 
-  chainTags = chainTags.toLowerCase() === "true";
+  var partialScrape, chainNewTags;
+
+  if (chain_new_tags) chainNewTags = chainNewTags.toLowerCase() === "true";
+  else chainNewTags = false;
+  if (partial_scrape) partialScrape = partial_scrape.toLowerCase() === "true";
+  else partialScrape = true;
 
   if (timer.val !== null) {
     clearTimeout(timer.val);
@@ -16,15 +23,15 @@ export const chainAdd = async (_query, timer) => {
   }
   await APIState.findOneAndUpdate({ isMaintainanceActive: true });
   try {
-    if (!query) await initTagScraping(query);
+    if (query) await initTagScraping(query);
     const doesContainAnyTagToScrape = await initScraping(query);
 
     if (doesContainAnyTagToScrape) {
-      await scrape(chainTags);
+      await scrape(chainNewTags, partialScrape);
 
       const interval = generateRandomTime(30, 45);
       timer.val = setTimeout(() => {
-        chainAdd({ chainTags }, timer);
+        chainAdd({ chainTags: chainNewTags }, timer);
       }, interval);
 
       const now = Date.now();

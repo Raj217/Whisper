@@ -1,18 +1,18 @@
 import Tag from "../../../models/tag.js";
 import APIState from "../../../models/api-state.js";
-import { ImageSource } from "../../../models/constants.js";
+import { ImageSource, ImageSourceArr } from "../../../models/constants.js";
 import { add } from "../image/add.js";
 
 export const didFinishScrapingTag = async (tag) => {
   const tagData = await Tag.findOne({ tag });
   if (
-    !tagData ||
-    tagData.didFinishScrapingUnsplash === false ||
-    tagData.didFinishScrapingPexels === false
+    tagData &&
+    tagData.didFinishScrapingUnsplash === true &&
+    tagData.didFinishScrapingPexels === true
   ) {
-    return false;
+    return true;
   }
-  return true;
+  return false;
 };
 
 /**
@@ -45,8 +45,8 @@ export const initScraping = async (query) => {
     for (const tag of tags) {
       if (!(await didFinishScrapingTag(tag))) {
         state.currentlyScraping = tag;
-        state.unsplashPageNo = 1;
-        state.pexelsPageNo = 1;
+        state.unsplashPage = 1;
+        state.pexelsPage = 1;
         break;
       } else {
         tags.delete(tag);
@@ -54,13 +54,27 @@ export const initScraping = async (query) => {
     }
   }
 
+  state.tagsToScrape = Array.from(tags);
   await APIState.findByIdAndUpdate(state.id, state);
-  if (state.currentlyScraping) return true;
+
+  if (state.currentlyScraping && state.currentlyScraping != null) return true;
   return false;
 };
 
-const scrapeTag = async (tags, query, page, perPage, source, chainTags) => {
-  var { newTags, didReachEnd } = await add({
+/**
+ * Scrape and update new tags
+ * @returns {Promise<Boolean>} true if scraping for the tag is completed
+ */
+const scrapeTag = async (
+  tags,
+  query,
+  page,
+  perPage,
+  source,
+  chainTags,
+  partialScrape
+) => {
+  var { newEntries, newTags, didReachEnd } = await add({
     query: query,
     page: page,
     per_page: perPage,
@@ -73,45 +87,46 @@ const scrapeTag = async (tags, query, page, perPage, source, chainTags) => {
       tags.vals.add(tag);
     }
   }
-  return didReachEnd;
+
+  if (didReachEnd) return true;
+  else if (partialScrape === true) return newEntries === 0;
+
+  return false;
 };
 
-/** 
+/**
  * updates the tags if the scraping is completed
  * @return {Promise<Boolean>} true if the scraping is completed for the given tag
-*/
+ */
 const updateTagsScrapingState = async (page, currentlyScraping) => {
   var isScrapingCompleted = true;
 
-  for (var source of ImageSource) {
+  for (var source of ImageSourceArr) {
     if (page[source] === 0) {
-      isScrapingCompleted = false;
       var tagData = await Tag.findOne({ tag: currentlyScraping });
       await Tag.findByIdAndUpdate(tagData.id, {
         didFinishScrapingUnsplash: page[ImageSource.unsplash] === 0,
         didFinishScrapingPexels: page[ImageSource.pexels] === 0,
       });
+    } else {
+      isScrapingCompleted = false;
     }
   }
   return isScrapingCompleted;
-}
+};
 
-export const scrape = async (chainTags) => {
+export const scrape = async (chainTags, partialScrape) => {
   const { PER_PAGE } = process.env;
   var state = await APIState.findOne();
 
-  var tags = { vals: new Set() };
-  for (var tag in state.tagsToScrape) {
-    tags.vals.add(tag);
-  }
-
+  var tags = { vals: new Set(state.tagsToScrape) };
   var currentlyScraping = state.currentlyScraping;
 
   var page = new Map();
   page.set(ImageSource.unsplash, state.unsplashPage);
   page.set(ImageSource.pexels, state.pexelsPage);
 
-  for (var source of ImageSource) {
+  for (const source of ImageSourceArr) {
     if (
       await scrapeTag(
         tags,
@@ -119,7 +134,8 @@ export const scrape = async (chainTags) => {
         page[source],
         PER_PAGE,
         source,
-        chainTags
+        chainTags,
+        partialScrape
       )
     ) {
       page.set(source, 0);
