@@ -4,7 +4,7 @@
 
 ### Welcome Route
 
-**\* GET:** &emsp; /api/v0/welcome
+**1. GET:** &emsp; /api/v0/welcome
 
 &nbsp;\
 **Description:**
@@ -16,7 +16,7 @@
 
 ### Auth Route
 
-**\* POST:** &emsp; /api/v0/auth/google-sign-in
+**1. POST:** &emsp; /api/v0/auth/google-sign-in
 
 &nbsp;\
 **Description:**
@@ -27,7 +27,7 @@
 
 **Parameters:**
 
-- idToken: Google Authentical idToken [__required__]
+- idToken: Google Authentical idToken [**required**]
 
 **Payload:**
 
@@ -47,7 +47,7 @@
 
 - Authorization: token
 
-**\* POST:** &emsp; /api/v0/data/add
+**1. POST:** &emsp; /api/v0/data/add
 
 &nbsp;\
 **Description:**
@@ -61,9 +61,9 @@
 **Parameters:**
 
 - query: the tag for the image
-- source: unsplash | pexels [__required__]
-- perPage: for perPage request while scraping [__Default: 10__]
-- page: current page number while requesting for scraping [__Default: 1__]
+- source: unsplash | pexels [**required**]
+- perPage: for perPage request while scraping [**Default: 10**]
+- page: current page number while requesting for scraping [**Default: 1**]
 - returns: newEntries, newTags, didReachEnd
   - newEntries: How many new entries were made
   - newTags: How many new tags were encountered
@@ -80,7 +80,7 @@
 }
 ```
 
-**\* POST:** &emsp; /api/v0/data/chain-add
+**2. POST:** &emsp; /api/v0/data/chain-add
 
 &nbsp;\
 **Description:**
@@ -95,8 +95,8 @@
 **Parameters:**
 
 - query: the tag for the image
-- chainNewTags: If true, the tags found during parsing of the current query will be added to queue and if they were already parsed their state is reset so that they can be parsed again [__Default: false__]
-- partialScrape: It is meant for the subsequent requests once when the base data is ready. If set to true, it will scrape as usual but in a scrape (for a given page) if there are no new images added to the database it assumes that the data has synced with the backend thus it stops there. [__Default: true**]
+- chainNewTags: If true, the tags found during parsing of the current query will be added to queue and if they were already parsed their state is reset so that they can be parsed again [**Default: false**]
+- partialScrape: It is meant for the subsequent requests once when the base data is ready. If set to true, it will scrape as usual but in a scrape (for a given page) if there are no new images added to the database it assumes that the data has synced with the backend thus it stops there. [**Default: true**]
 
 **Payload:**
 
