@@ -3,19 +3,15 @@ import { generateRandomTime } from "../../../utils/app-utils.service.js";
 import APIState from "../../../models/api-state.js";
 
 export const chainAdd = async (_query, timer) => {
-  // If chain_new_tags is true, the tags which will be found during parsing the current
+  // If chainNewTags is true, the tags which will be found during parsing the current
   // will be chained and images realted to that topic will also be scraped
   // i.e. didFinishScrapingUnsplash and didFinishScrapingPexels of the chained tag along with the query tag will be set to false
-  // 
+  //
   // In partial_scrape if no new entries then the scraping is halted
-  var { query, chain_new_tags, partial_scrape } = _query;
+  var { query, chainNewTags, partialScrape } = _query;
 
-  var partialScrape, chainNewTags;
-
-  if (chain_new_tags) chainNewTags = chainNewTags.toLowerCase() === "true";
-  else chainNewTags = false;
-  if (partial_scrape) partialScrape = partial_scrape.toLowerCase() === "true";
-  else partialScrape = true;
+  partialScrape ??= true;
+  chainNewTags ??= false;
 
   if (timer.val !== null) {
     clearTimeout(timer.val);
@@ -31,7 +27,7 @@ export const chainAdd = async (_query, timer) => {
 
       const interval = generateRandomTime(30, 45);
       timer.val = setTimeout(() => {
-        chainAdd({ chainTags: chainNewTags }, timer);
+        chainAdd({ chainNewTags }, timer);
       }, interval);
 
       const now = Date.now();

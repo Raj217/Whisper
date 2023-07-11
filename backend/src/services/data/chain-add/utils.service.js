@@ -71,7 +71,7 @@ const scrapeTag = async (
   page,
   perPage,
   source,
-  chainTags,
+  chainNewTags,
   partialScrape
 ) => {
   var { newEntries, newTags, didReachEnd } = await add({
@@ -81,7 +81,7 @@ const scrapeTag = async (
     source: source,
   });
 
-  if (chainTags === true) {
+  if (chainNewTags === true) {
     for (const tag of newTags) {
       await initTagScraping(tag);
       tags.vals.add(tag);
@@ -115,7 +115,7 @@ const updateTagsScrapingState = async (page, currentlyScraping) => {
   return isScrapingCompleted;
 };
 
-export const scrape = async (chainTags, partialScrape) => {
+export const scrape = async (chainNewTags, partialScrape) => {
   const { PER_PAGE } = process.env;
   var state = await APIState.findOne();
 
@@ -134,7 +134,7 @@ export const scrape = async (chainTags, partialScrape) => {
         page[source],
         PER_PAGE,
         source,
-        chainTags,
+        chainNewTags,
         partialScrape
       )
     ) {

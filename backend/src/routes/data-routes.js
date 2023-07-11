@@ -4,7 +4,7 @@ import * as DataController from "../controllers/data-controller.js";
 const router = Router();
 
 router.post("/add", DataController.add);
-router.get("/chain-add", DataController.chainAdd);
+router.post("/chain-add", DataController.chainAdd);
 router.get("/stop-chain", DataController.stopChain);
 router.get("/state", DataController.state);
 

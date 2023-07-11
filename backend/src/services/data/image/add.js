@@ -9,7 +9,7 @@ import { insertTags } from "./utils/insert-tags.service.js";
 import PexelsParser from "./parsers/pexels-parser.service.js";
 
 export const add = async (_query) => {
-  var { query, page, per_page, source } = _query;
+  var { query, page, per_page: perPage, source } = _query;
 
   var images;
   if (!source) {
@@ -18,7 +18,7 @@ export const add = async (_query) => {
 
   // Setting default values
   if (!page) page = 1;
-  if (!per_page) per_page = 10;
+  if (!perPage) perPage = 10;
   
   // The actual need for mainataince is only when storing the values
   // While parsing the apis can work fine
@@ -29,7 +29,7 @@ export const add = async (_query) => {
   var didReachEnd = false;
   try {
     if (source === ImageSource.unsplash) {
-      const res = await unsplashProvider(query, page, per_page);
+      const res = await unsplashProvider(query, page, perPage);
       if (res) {
         images = await UnsplashParser.parse(res.data);
         if (res.total_pages <= page) {
@@ -37,7 +37,7 @@ export const add = async (_query) => {
         }
       } else images = [];
     } else if (source === ImageSource.pexels) {
-      const res = await pexelsProvider(query, page, per_page);
+      const res = await pexelsProvider(query, page, perPage);
       if (res) {
         images = await PexelsParser.parse(res.data);
         if (res.data.pagination.total_pages <= page) {
