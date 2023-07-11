@@ -1,4 +1,4 @@
-import UserModel from "../models/user_model.js";
+import UserModel from "../models/user-model.js";
 import { ExceptionCodes } from "../utils/exception.js";
 
 export const adminCheck = async (req, res, next) => {

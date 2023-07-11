@@ -1,4 +1,4 @@
-import ApiState from "../models/api_state.js";
+import ApiState from "../models/api-state.js";
 import { ExceptionCodes } from "../utils/exception.js";
 
 export const maintainance = async (req, res, next) => {

@@ -5,7 +5,7 @@ import DataRoutes from "./data-routes.js";
 import SearchRoutes from "./search-routes.js";
 import { verifyToken } from "../middlewares/auth.js";
 import { maintainance } from "../middlewares/maintainance.js";
-import { adminCheck } from "../middlewares/admin_check.js";
+import { adminCheck } from "../middlewares/admin-check.js";
 
 const router = express.Router();
 

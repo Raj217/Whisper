@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-import APIState from "../models/api_state.js";
+import APIState from "../models/api-state.js";
 dotenv.config();
 
 const { DATABASE_URL } = process.env;

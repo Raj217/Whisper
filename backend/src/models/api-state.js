@@ -4,8 +4,9 @@ const apiStateSchema = new Schema(
   {
     isMaintainanceActive: { type: Boolean, default: false },
     currentlyScraping: { type: String },
-    unsplashPageNo: { type: Number },
-    pexelsPageNo: { type: Number },
+    tagsToScrape: { type: [String], unique: true },
+    unsplashScraped: { type: Number },
+    pexelsScraped: { type: Number },
   },
   { timestamps: true }
 );

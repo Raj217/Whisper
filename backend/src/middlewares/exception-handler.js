@@ -1,6 +1,5 @@
 import { AxiosError } from "axios";
 import Exception, { ExceptionCodes } from "../utils/exception.js";
-import OAuthError from "google-auth-library";
 
 export const defaultExceptionHandler = (err, req, res, next) => {
   if (res.headersSent) {
