@@ -14,8 +14,8 @@ export const state = async (timer) => {
   info.isMaintainanceActive = state.isMaintainanceActive;
   info.currentlyScraping = state.currentlyScraping ?? null;
   info.tagsToScrape = state.tagsToScrape;
-  info.unsplashPageNo = state.unsplashPageNo;
-  info.pexelsPageNo = state.pexelsPageNo;
+  info.unsplashPage = state.unsplashPage;
+  info.pexelsPage = state.pexelsPage;
 
   return { info };
 };

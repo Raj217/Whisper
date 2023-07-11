@@ -46,7 +46,7 @@
 **Headers:**
 
 - Authorization: token
-  
+
 &nbsp;
 
 **1. POST:** &emsp; /api/v0/data/add
@@ -111,3 +111,27 @@
   "partialScrape": "<bool>"
 }
 ```
+
+&nbsp;
+
+**3. POST:** &emsp; /api/v0/data/stop-chain
+
+&nbsp;\
+**Description:**
+
+- If chain-add was active and the timer is scheduled it stops the timer and clears the next planned request for chain-add
+
+&nbsp;
+
+**4. GET:** &emsp; /api/v0/data/state
+
+&nbsp;\
+**Description:**
+
+- Gives the current information about the state of the backend about which data is being scraped
+- isMaintainanceActive, currentlyScraping, tagsToScrape, unsplashPage, pexelsPage
+  - isMaintainanceActive: is currently scrapping data (is the isMaintainanceActive flag set to true).
+  - currentScraping: what tag is currently being scraped.
+  - tagsToScrape: The tags are in queue which will be scraped later.
+  - unsplashPage: page number of unsplash to be scraped next.
+  - pexelsPage: page number of pexels to be scraped next.
