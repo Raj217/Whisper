@@ -18,8 +18,5 @@ export const pexelsProvider = async (query, page, per_page) => {
 
   const url = `${PEXELS_API_BASE_URL}/en-us/api/v3/search/photos?query=${query}&per_page=${per_page}&page=${page}`;
 
-  const res = await axios.get(url, { headers });
-
-  if (res) return await PexelsParser.parse(res.data);
-  return [];
+  return await axios.get(url, { headers });
 };

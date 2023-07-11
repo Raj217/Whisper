@@ -10,12 +10,12 @@ export const state = async (timer) => {
   }
 
   const state = await APIState.findOne();
-  
+
   info.isMaintainanceActive = state.isMaintainanceActive;
   info.currentlyScraping = state.currentlyScraping ?? null;
   info.tagsToScrape = state.tagsToScrape;
-  info.unsplashScraped = info.unsplashScraped ?? 0;
-  info.pexelsScraped = info.pexelsScraped ?? 0;
+  info.unsplashPageNo = state.unsplashPageNo;
+  info.pexelsPageNo = state.pexelsPageNo;
 
   return { info };
 };

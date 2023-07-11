@@ -1,10 +1,12 @@
 import APIState from "../../../models/api-state.js";
 import { unsplashProvider } from "./providers/unsplash-provider.service.js";
+import UnsplashParser from "./parsers/unsplash-parser.service.js";
 import { pexelsProvider } from "./providers/pexels-provider.service.js";
 import { ImageSource } from "../../../models/constants.js";
 import Exception, { ExceptionCodes } from "../../../utils/exception.js";
 import { insertImageInfo } from "./utils/insert-image-info.service.js";
 import { insertTags } from "./utils/insert-tags.service.js";
+import PexelsParser from "./parsers/pexels-parser.service.js";
 
 export const add = async (_query) => {
   var { query, page, per_page, source } = _query;
@@ -20,11 +22,24 @@ export const add = async (_query) => {
   await APIState.findOneAndUpdate({ isMaintainanceActive: true });
   var newEntries = 0;
   var newTags;
+  var didReachEnd = false;
   try {
     if (source === ImageSource.unsplash) {
-      images = await unsplashProvider(query, page, per_page);
+      const res = await unsplashProvider(query, page, per_page);
+      if (res) {
+        images = await UnsplashParser.parse(res.data);
+        if (res.total_pages <= page) {
+          didReachEnd = true;
+        }
+      } else images = [];
     } else if (source === ImageSource.pexels) {
-      images = await pexelsProvider(query, page, per_page);
+      const res = await pexelsProvider(query, page, per_page);
+      if (res) {
+        images = await PexelsParser.parse(res.data);
+        if (res.data.pagination.total_pages <= page) {
+          didReachEnd = true;
+        }
+      } else images = [];
     } else {
       throw new Exception("Unsupported source", ExceptionCodes.BAD_INPUT);
     }
@@ -35,5 +50,5 @@ export const add = async (_query) => {
   } finally {
     await APIState.findOneAndUpdate({ isMaintainanceActive: false });
   }
-  return { newEntries, newTags };
+  return { newEntries, newTags, didReachEnd };
 };

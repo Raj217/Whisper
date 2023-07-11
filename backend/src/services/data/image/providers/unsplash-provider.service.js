@@ -16,7 +16,6 @@ export const unsplashProvider = async (query, page, per_page) => {
     "User-Agent": USER_AGENT,
   };
 
-  const url = `${UNSPLASH_API_BASE_URL}/search/photos?query=${query}&per_page=${per_page}&page=${page}`;
-  const res = await axios.get(url, headers);
-  return await UnsplashParser.parse(res.data);
+  const url = `${UNSPLASH_API_BASE_URL}/search/photos?query=${query}&per_page=${per_page}&page=${page}&order_by=latest`;
+  return await axios.get(url, headers);
 };
