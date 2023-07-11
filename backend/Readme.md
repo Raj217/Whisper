@@ -46,7 +46,8 @@
 **Headers:**
 
 - Authorization: token
-&nbsp;\ &nbsp;\
+  
+&nbsp;\
 
 **1. POST:** &emsp; /api/v0/data/add
 
@@ -80,7 +81,8 @@
   "page": "<int>"
 }
 ```
-&nbsp;\ &nbsp;\
+
+&nbsp;\
 
 **2. POST:** &emsp; /api/v0/data/chain-add
 
