@@ -41,7 +41,7 @@
 
 ### Data Route
 
-- Accessible only to ADMIN
+- Accessible only to **Admin**
 
 **Headers:**
 
@@ -56,7 +56,7 @@
 
 - Not supposed to be called externally though not enforced.
 - Suggested so, since it needs precise values
-- When triggered makes the flag isMaintainanceActive to true lettings the users know that maintainance is active if they access _Search Route_
+- When triggered makes the flag isMaintainanceActive to true lettings the users know that maintainance is active if they access **Search Route**
 - Scrape data and add to database
 - The tags which were also there in the newly added images, their data will also be updated
 
