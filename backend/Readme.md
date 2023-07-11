@@ -47,7 +47,7 @@
 
 - Authorization: token
   
-&nbsp;\
+&nbsp;
 
 **1. POST:** &emsp; /api/v0/data/add
 
@@ -82,7 +82,7 @@
 }
 ```
 
-&nbsp;\
+&nbsp;
 
 **2. POST:** &emsp; /api/v0/data/chain-add
 
