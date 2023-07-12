@@ -4,7 +4,7 @@ const apiStateSchema = new Schema(
   {
     isMaintainanceActive: { type: Boolean, default: false },
     currentlyScraping: { type: String },
-    tagsToScrape: { type: [String], unique: true },
+    tagsToScrape: [{ type: String }],
     // I know page no won't be good for new but will lead to performance issues
     // The new ones will be added later
     unsplashPage: { type: Number, default: 0 },

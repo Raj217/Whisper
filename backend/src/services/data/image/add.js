@@ -19,7 +19,7 @@ export const add = async (_query) => {
   // Setting default values
   if (!page) page = 1;
   if (!perPage) perPage = 10;
-  
+
   // The actual need for mainataince is only when storing the values
   // While parsing the apis can work fine
   // But might cause delays. Let's not risk
