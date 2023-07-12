@@ -11,6 +11,12 @@ class PexelsParser {
     }
     return hex;
   }
+
+  static _parseFileFormat(url) {
+    const pathName = new URL(url).pathname;
+    const ind = pathName.indexOf(".");
+    return pathName.substring(ind + 1);
+  }
   static async parse(data) {
     const { PEXELS_API_BASE_URL } = process.env;
     const images = [];
@@ -23,6 +29,7 @@ class PexelsParser {
             last_name: publisherLastName,
             username: publisherUserName,
           },
+          image: { download_link: url },
           main_color: mainColor,
           tags,
         },
@@ -35,8 +42,9 @@ class PexelsParser {
         tags: tags,
         color: PexelsParser._rgbToHex(mainColor),
         source: ImageSource.pexels,
-        views: 0,
-        downloads: 0,
+        extra: {
+          defaultFileFormat: PexelsParser._parseFileFormat(url),
+        },
       });
     }
     return images;

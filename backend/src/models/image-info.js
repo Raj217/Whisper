@@ -9,8 +9,9 @@ const imageInfoSchema = new Schema(
     tags: [{ type: String }],
     color: { type: String },
     source: { type: String, enum: ImageSource, required: true },
-    views: { type: Number, default: 0 },
-    downloads: { type: Number, default: 0 },
+    extra: {
+      defaultFileFormat: { type: String },
+    },
   },
   { timestamps: true }
 );

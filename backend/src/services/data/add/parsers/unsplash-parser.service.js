@@ -40,8 +40,6 @@ class UnsplashParser {
           tags: await this._fetchTags(contentID),
           source: ImageSource.unsplash,
           color,
-          views: 0,
-          downloads: 0,
         });
       }
     }

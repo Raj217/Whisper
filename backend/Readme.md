@@ -67,8 +67,8 @@
 - perPage: for perPage request while scraping [**Default: 10**]
 - page: current page number while requesting for scraping [**Default: 1**]
 - returns: newEntries, newTags, didReachEnd
-  - newEntries: How many new entries were made
-  - newTags: How many new tags were encountered
+  - newEntriesCount: How many new entries were made
+  - newTags: What are the other tags that were encountered
   - didReachEnd: Was the request page the last page
 
 **Payload:**
