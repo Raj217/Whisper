@@ -65,7 +65,7 @@ export const initScraping = async (query) => {
  * Scrape and update new tags
  * @returns {Promise<Boolean>} true if scraping for the tag is completed
  */
-const scrapeTag = async (
+const scrapeAndUpdateTags = async (
   tags,
   query,
   page,
@@ -128,10 +128,10 @@ export const scrape = async (chainNewTags, partialScrape) => {
 
   for (const source of ImageSourceArr) {
     if (
-      await scrapeTag(
+      await scrapeAndUpdateTags(
         tags,
         currentlyScraping,
-        page[source],
+        page.get(source),
         PER_PAGE,
         source,
         chainNewTags,
@@ -151,8 +151,8 @@ export const scrape = async (chainNewTags, partialScrape) => {
   const tagsToScrape = Array.from(tags.vals);
   await APIState.findByIdAndUpdate(state.id, {
     currentlyScraping,
-    unsplashPage: page[ImageSource.unsplash],
-    pexelsPage: page[ImageSource.pexels],
+    unsplashPage: page.get(ImageSource.unsplash),
+    pexelsPage: page.get(ImageSource.pexels),
     tagsToScrape,
   });
 };
