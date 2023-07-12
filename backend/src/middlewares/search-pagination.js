@@ -15,14 +15,18 @@ export const searchPagination = async (req, res, next) => {
   const startIndex = (page - 1) * per_page;
 
   var searchQuery;
+  // NOTE: I am aware of the fact that currently it is checking the substring like
+  // if outdoor is there and it also returns if door is passed, keeping it like this
+  // instead of space check due to plural forms and if i enforce the before the number
+  // of results might decrease thus less options to the people. Might change in future
   if (query) {
     searchQuery = {
       tags: { $regex: query, $options: "i" },
     };
   }
   const results = await ImageInfo.find(searchQuery)
-    .limit(per_page)
-    .skip(startIndex);
+    .skip(startIndex * per_page)
+    .limit(per_page);
 
   const totalResults = results.length;
 

@@ -1,7 +1,7 @@
 import Tag from "../../../models/tag.js";
 import APIState from "../../../models/api-state.js";
 import { ImageSource, ImageSourceArr } from "../../../models/constants.js";
-import { add } from "../image/add.js";
+import { add } from "../add/add.js";
 
 export const didFinishScrapingTag = async (tag) => {
   const tagData = await Tag.findOne({ tag });
@@ -74,7 +74,7 @@ const scrapeAndUpdateTags = async (
   chainNewTags,
   partialScrape
 ) => {
-  var { newEntries, newTags, didReachEnd } = await add({
+  var { newEntriesCount, newTags, didReachEnd } = await add({
     query: query,
     page: page,
     per_page: perPage,
@@ -89,7 +89,7 @@ const scrapeAndUpdateTags = async (
   }
 
   if (didReachEnd) return true;
-  else if (partialScrape === true) return newEntries === 0;
+  else if (partialScrape === true) return newEntriesCount === 0;
 
   return false;
 };

@@ -5,8 +5,7 @@ const tagSchema = new Schema(
     tag: { type: String, required: true, unique: true },
     didFinishScrapingUnsplash: { type: Boolean, default: false },
     didFinishScrapingPexels: { type: Boolean, default: false },
-    unsplashScraped: { type: Number, default: 0 },
-    pexelsScraped: { type: Number, default: 0 },
+    ids: [{ type: Schema.ObjectId }],
   },
   { timestamps: true }
 );

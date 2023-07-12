@@ -9,7 +9,7 @@ import { insertTags } from "./utils/insert-tags.service.js";
 import PexelsParser from "./parsers/pexels-parser.service.js";
 
 export const add = async (_query) => {
-  var { query, page, per_page: perPage, source } = _query;
+  var { query, page, per_page, source } = _query;
 
   var images;
   if (!source) {
@@ -18,18 +18,18 @@ export const add = async (_query) => {
 
   // Setting default values
   if (!page) page = 1;
-  if (!perPage) perPage = 10;
+  if (!per_page) per_page = 10;
 
   // The actual need for mainataince is only when storing the values
   // While parsing the apis can work fine
   // But might cause delays. Let's not risk
   await APIState.findOneAndUpdate({ isMaintainanceActive: true });
-  var newEntries = 0;
+  var newEntriesCount = 0;
   var newTags;
   var didReachEnd = false;
   try {
     if (source === ImageSource.unsplash) {
-      const res = await unsplashProvider(query, page, perPage);
+      const res = await unsplashProvider(query, page, per_page);
       if (res) {
         images = await UnsplashParser.parse(res.data);
         if (res.total_pages <= page) {
@@ -37,7 +37,7 @@ export const add = async (_query) => {
         }
       } else images = [];
     } else if (source === ImageSource.pexels) {
-      const res = await pexelsProvider(query, page, perPage);
+      const res = await pexelsProvider(query, page, per_page);
       if (res) {
         images = await PexelsParser.parse(res.data);
         if (res.data.pagination.total_pages <= page) {
@@ -48,11 +48,12 @@ export const add = async (_query) => {
       throw new Exception("Unsupported source", ExceptionCodes.BAD_INPUT);
     }
 
-    var { newEntries, newTagEntries } = await insertImageInfo(images);
+    var { newEntriesCount, newTagEntries } = await insertImageInfo(images);
 
-    newTags = await insertTags(newTagEntries, source);
+    newTags = await insertTags(newTagEntries);
   } finally {
     await APIState.findOneAndUpdate({ isMaintainanceActive: false });
   }
-  return { newEntries, newTags, didReachEnd };
+  return { newEntriesCount, newTags, didReachEnd };
+
 };

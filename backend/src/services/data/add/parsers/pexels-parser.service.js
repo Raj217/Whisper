@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ImageSource } from "../../../../models/constants.js";
 
 class PexelsParser {
@@ -16,7 +15,7 @@ class PexelsParser {
     const { PEXELS_API_BASE_URL } = process.env;
     const images = [];
     for (var item of data.data) {
-      const {
+      var {
         attributes: {
           id,
           user: {
@@ -28,6 +27,7 @@ class PexelsParser {
           tags,
         },
       } = item;
+      tags = Array.from(new Set(tags));
       images.push({
         imageSourceID: id,
         publisherName: `${publisherFirstName} ${publisherLastName}`,

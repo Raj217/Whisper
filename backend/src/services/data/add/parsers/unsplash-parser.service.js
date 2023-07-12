@@ -6,7 +6,12 @@ class UnsplashParser {
     const { UNSPLASH_API_BASE_URL } = process.env;
     const res = await axios.get(`${UNSPLASH_API_BASE_URL}/photos/${contentID}`);
 
-    return res.data.tags.map(({ title }) => title);
+    const tags = new Set();
+    for (const tag of res.data.tags) {
+      var {title} = tag;
+      tags.add(title);
+    }
+    return Array.from(tags);
   }
 
   static _parseImageID(url) {
