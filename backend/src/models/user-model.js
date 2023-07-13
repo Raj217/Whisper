@@ -1,15 +1,24 @@
-import { Schema, model } from "mongoose";
+import { firebase } from "../firebase/utils.js";
 
-const userSchema = new Schema(
-  {
-    firstName: { type: String, required: true },
-    lastName: { type: String },
-    email: { type: String, required: true },
-    password: { type: String, select: false },
-    emailVerified: { type: Boolean, required: true, default: false },
-    admin: { type: Boolean, default: false },
-  },
-  { timestamps: true }
-);
+class User {
+  static userCollectionName = "users";
+  static async create(data) {
+    const { firstName, lastName, email, emailVerified, uuid } = data;
+    const db = firebase.firestore();
 
-export default model("User", userSchema);
+    const userData = {
+      firstName,
+      lastName,
+      email,
+      emailVerified,
+    };
+
+    await db.collection(User.userCollectionName).doc(uuid).set(userData);
+  }
+  static async find(uid) {
+    const db = firebase.firestore();
+    return await db.collection(User.userCollectionName).doc(uid).get();
+  }
+}
+
+export default User;
