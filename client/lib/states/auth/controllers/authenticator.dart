@@ -29,17 +29,20 @@ class Authenticator {
 
     final GoogleSignInAuthentication authentication =
         await account!.authentication;
-
     final OAuthCredential credentials = GoogleAuthProvider.credential(
       idToken: authentication.idToken,
       accessToken: authentication.accessToken,
     );
 
     // Authenticate with firebase
-    return await AuthResult.operate(
+    AuthResult res = await AuthResult.operate(
       () async => await FirebaseAuth.instance.signInWithCredential(credentials),
       successDebugMessage: "Signed in with firebase",
       successReleaseMessage: "Welcome to Whisper",
     );
+
+    print(authentication.idToken);
+    print(FirebaseAuth.instance.currentUser?.uid);
+    return res;
   }
 }

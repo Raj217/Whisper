@@ -28,6 +28,7 @@ export const getContent = async (res, query) => {
       response.data.on("end", async () => {
         // Download completed
         await updateImageInfo(purpose, imageData);
+        await addTransaction(purpose, uid, imageData);
       });
     })
     .catch((error) => {
