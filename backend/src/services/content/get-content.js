@@ -2,12 +2,13 @@ import ImageInfo from "../../models/image-info.js";
 import URLGenerator from "../../utils/url-generator.service.js";
 import Cipher from "../../utils/cipher-utils.service.js";
 import { updateImageInfo } from "./utils/update-image-info.service.js";
+import { addTransaction } from "./utils/add-transaction.service.js";
 import axios from "axios";
 
 export const getContent = async (res, query) => {
   var { id, w, h, q, auto, crop, fit, cs } = query;
 
-  const [imageID, purpose, src] = Cipher.decrypt(id);
+  const [uid, imageID, purpose, src] = Cipher.decrypt(id);
 
   const urlGenerator = new URLGenerator(src, w, h, fit);
   const imageData = await ImageInfo.findById(imageID);
@@ -28,7 +29,7 @@ export const getContent = async (res, query) => {
       response.data.on("end", async () => {
         // Download completed
         await updateImageInfo(purpose, imageData);
-        await addTransaction(purpose, uid, imageData);
+        await addTransaction(purpose, uid, imageData.id);
       });
     })
     .catch((error) => {

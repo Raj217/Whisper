@@ -1,4 +1,4 @@
-import { firebase } from "../../firebase/utils";
+import { firebase } from "../../firebase/utils.js";
 import Exception, { ExceptionCodes } from "../../utils/exception.js";
 
 class Transaction {

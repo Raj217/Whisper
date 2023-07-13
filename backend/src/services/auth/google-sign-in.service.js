@@ -15,7 +15,7 @@ export const googleSignIn = async (body) => {
   const userData = await getUserDetails(idToken);
 
   const email = userData.email;
-  var existingUser = await User.find(uid);
+  var existingUser = await User.findByUID(uid);
   var emailVerified = true;
 
   if (!existingUser.exists) {
