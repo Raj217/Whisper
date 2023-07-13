@@ -1,8 +1,8 @@
-import * as SerachServices from "../services/search/index.js";
+import * as ContentController from "../services/content/index.js";
 import { ExceptionCodes } from "../utils/exception.js";
 
-export const search = (req, res, next) => {
-  SerachServices.search(req.query, res.pagination)
+export const getContent = async (req, res, next) => {
+  ContentController.getContent(req.query.id)
     .then((body) => res.status(ExceptionCodes.REQUEST_FULFILLED).json(body))
     .catch((err) => {
       next(err);
