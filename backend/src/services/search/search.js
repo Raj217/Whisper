@@ -1,9 +1,8 @@
 import ModelBuilder from "./utils/model-builder.service.js";
 
-export const search = async (_query,  pagination) => {
+export const search = async (_query, pagination) => {
   var { width, height, fit } = _query;
   width = parseInt(width);
-  height = parseInt(height);
   if (!width && !height) width = 500;
 
   var thumbnailQuality = 25,

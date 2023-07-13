@@ -8,7 +8,7 @@ export const maintainance = async (req, res, next) => {
   if (isMaintainanceActive) {
     return res.status(ExceptionCodes.SERVER_DOWN).send({
       message:
-        "We are having a short maintainance break, please try again in a few minutes.",
+        "We are having a short maintenance break, please try again in a few minutes.",
     });
   } else {
     return next();

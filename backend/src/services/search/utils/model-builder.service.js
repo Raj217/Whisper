@@ -1,13 +1,14 @@
 import Cipher from "../../../utils/cipher-utils.service.js";
 import URLGenerator from "../../../utils/url-generator.service.js";
+import { ImagePurpose } from "../../../models/constants.js";
 
 class ModelBuilder {
-  static wrapData(id, download, src) {
-    return [id, download, src];
+  static wrapData(id, purpose, src) {
+    return [id, purpose, src];
   }
-  static buildURL(id, download, src, quality) {
+  static buildURL(id, purpose, src, quality) {
     const { BACKEND_BASE_URL } = process.env;
-    const data = ModelBuilder.wrapData(id, download, src);
+    const data = ModelBuilder.wrapData(id, purpose, src);
     return `${BACKEND_BASE_URL}/api/v0/content?id=${Cipher.encrypt(
       data
     )}&${this.urlGenerator.generateQueries(quality)}`;
@@ -30,19 +31,19 @@ class ModelBuilder {
       images: {
         thumbnail: ModelBuilder.buildURL(
           imageData.id,
-          false,
+          ImagePurpose.thumbnail,
           imageData.source,
           thumbnailQuality
         ),
         view: ModelBuilder.buildURL(
           imageData.id,
-          false,
+          ImagePurpose.view,
           imageData.source,
           viewQuality
         ),
         download: ModelBuilder.buildURL(
           imageData.id,
-          true,
+          ImagePurpose.download,
           imageData.source,
           downloadQuality
         ),

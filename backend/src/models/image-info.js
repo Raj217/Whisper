@@ -12,6 +12,8 @@ const imageInfoSchema = new Schema(
     extra: {
       defaultFileFormat: { type: String },
     },
+    views: { type: Number, default: 0 },
+    downloads: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
