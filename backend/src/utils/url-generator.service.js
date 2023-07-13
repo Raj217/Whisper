@@ -7,18 +7,18 @@ class URLGenerator {
     this.height = height;
     this.fit = fit;
   }
-  _addQuery(prop, val) {
+  addQuery(prop, val) {
     if (!this.queries || this.queries.length === 0) {
       this.queries = `${prop}=${val}`;
     } else {
       this.queries += `&${prop}=${val}`;
     }
   }
-  _resetQueries() {
+  resetQueries() {
     this.queries = undefined;
   }
 
-  _buildBaseURL(id, defaultFileFormat) {
+  buildBaseURL(id, defaultFileFormat) {
     const { UNSPLASH_IMAGE_API_BASE_URL, PEXELS_IMAGE_API_BASE_URL } =
       process.env;
     this.didAddAnyQuery = false;
@@ -29,23 +29,23 @@ class URLGenerator {
     }
   }
 
-  generateQueries(quality) {
-    if (this.width) this._addQuery("w", this.width);
-    if (this.height) this._addQuery("h", this.height);
+  generateQueries(quality, auto, crop, cs) {
+    if (this.width) this.addQuery("w", this.width);
+    if (this.height) this.addQuery("h", this.height);
 
-    if (quality) this._addQuery("q", quality);
-    this._addQuery("auto", "format");
+    if (quality) this.addQuery("q", quality);
+    this.addQuery("auto", auto ?? "format");
 
     if (this.source === ImageSource.unsplash) {
-      this._addQuery("crop", "entropy");
-      this._addQuery("fit", this.fit ?? "crop");
+      this.addQuery("crop", crop ?? "entropy");
+      this.addQuery("fit", this.fit ?? "crop");
     } else if (this.source === ImageSource.pexels) {
-      this._addQuery("cs", "tinysrgb");
-      this._addQuery("fit", this.fit ?? "scale");
+      this.addQuery("cs", cs ?? "tinysrgb");
+      this.addQuery("fit", this.fit ?? "scale");
     }
 
     const queries = this.queries;
-    this._resetQueries();
+    this.resetQueries();
     return queries;
   }
   /**
@@ -53,12 +53,11 @@ class URLGenerator {
    * @param {*} id : Image source Id
    * @param {*} defaultFileFormat the default file format (required for pexels API)
    */
-  generate(id, quality, defaultFileFormat) {
-    this._buildBaseURL(id, defaultFileFormat);
-    this.generateQueries(quality);
+  generate(id, quality, auto, crop, cs, defaultFileFormat) {
+    this.buildBaseURL(id, defaultFileFormat);
 
-    this.url += this.queries;
-    this._resetQueries();
+    this.url += `?${this.generateQueries(quality, auto, crop, cs)}`;
+    this.resetQueries();
 
     return this.url;
   }

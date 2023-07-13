@@ -1,4 +1,4 @@
-import Cipher from "../../../utils/cipher-utils.js";
+import Cipher from "../../../utils/cipher-utils.service.js";
 import URLGenerator from "../../../utils/url-generator.service.js";
 
 class ModelBuilder {
