@@ -1,6 +1,7 @@
 import { initScraping, initTagScraping, scrape } from "./utils.service.js";
 import { generateRandomTime } from "../../../utils/app-utils.service.js";
 import APIState from "../../../models/api-state.js";
+import { toIST } from "../../../utils/time.service.js";
 
 export const chainAdd = async (_query, timer) => {
   // If chainNewTags is true, the tags which will be found during parsing the current
@@ -27,21 +28,22 @@ export const chainAdd = async (_query, timer) => {
 
       const interval = generateRandomTime(10, 13);
 
+      const now = Date.now();
+      const nextScheduled = new Date(now + interval);
+      console.log(
+        `Now: ${new Date(now)}\nNext Scheduled: ${Date(toIST(nextScheduled))}`
+      );
+
       timer.val = setTimeout(() => {
         chainAdd({ chainNewTags }, timer);
       }, interval);
-
-      const now = Date.now();
-      const nextScheduled = new Date(now + interval);
       timer.nextScheduled = nextScheduled;
 
-      console.log(`Now: ${new Date(now)}\nNext Scheduled: ${toIST(nextScheduled)}`);
       return { message: "Scraping Started" };
     } else {
       return { message: "No Tag to scrape" };
     }
   } finally {
     await APIState.findOneAndUpdate({ isMaintainanceActive: false });
-    return;
   }
 };
