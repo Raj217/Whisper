@@ -42,7 +42,6 @@ class Authenticator {
     );
 
     print(authentication.idToken);
-    print(FirebaseAuth.instance.currentUser?.uid);
     return res;
   }
 }

@@ -22,7 +22,6 @@ export const googleSignIn = async (body) => {
       lastName: userData.family_name,
       email,
       emailVerified,
-      uuid,
     });
   }
 
