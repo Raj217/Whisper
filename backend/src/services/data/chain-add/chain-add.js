@@ -24,7 +24,7 @@ export const chainAdd = async (_query, loggedInUser, timer) => {
   if (doesContainAnyTagToScrape) {
     await scrape(chainNewTags, partialScrape);
 
-    const interval = generateRandomTime(0, 1);
+    const interval = generateRandomTime(10, 13);
 
     const now = Date.now();
     const nextScheduled = new Date(now + interval);
