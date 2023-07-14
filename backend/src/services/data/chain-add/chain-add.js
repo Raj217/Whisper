@@ -13,41 +13,46 @@ export const chainAdd = async (_query, loggedInUser, timer) => {
 
   partialScrape ??= true;
   chainNewTags ??= false;
+  try {
+    if (timer.val !== null) {
+      clearTimeout(timer.val);
+      timer.val = null;
+    }
+    if (query) await initTagScraping(query);
+    const doesContainAnyTagToScrape = await initScraping(query);
 
-  if (timer.val !== null) {
-    clearTimeout(timer.val);
-    timer.val = null;
-  }
-  if (query) await initTagScraping(query);
-  const doesContainAnyTagToScrape = await initScraping(query);
+    if (doesContainAnyTagToScrape) {
+      await scrape(chainNewTags, partialScrape);
 
-  if (doesContainAnyTagToScrape) {
-    await scrape(chainNewTags, partialScrape);
+      const interval = generateRandomTime(10, 13);
 
-    const interval = generateRandomTime(10, 13);
+      const now = Date.now();
+      const nextScheduled = new Date(now + interval);
+      console.log(`Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`);
 
-    const now = Date.now();
-    const nextScheduled = new Date(now + interval);
-    console.log(`Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`);
+      timer.val = setTimeout(() => {
+        axios.post(
+          `http://localhost:${process.env.PORT_NO}/api/v0/data/chain-add?chainNewTags=${chainNewTags}&partialScrape=${partialScrape}`,
+          {},
+          {
+            headers: {
+              Authorization: generateToken(
+                loggedInUser.email,
+                loggedInUser.emailVerified
+              ),
+            },
+          }
+        );
+      }, interval);
+      timer.nextScheduled = nextScheduled;
 
-    timer.val = setTimeout(() => {
-      axios.post(
-        `http://localhost:${process.env.PORT_NO}/api/v0/data/chain-add?chainNewTags=${chainNewTags}&partialScrape=${partialScrape}`,
-        {},
-        {
-          headers: {
-            Authorization: generateToken(
-              loggedInUser.email,
-              loggedInUser.emailVerified
-            ),
-          },
-        }
-      );
-    }, interval);
-    timer.nextScheduled = nextScheduled;
-
-    return { message: "Scraping Started" };
-  } else {
-    return { message: "No Tag to scrape" };
+      return { message: "Scraping Started" };
+    } else {
+      return { message: "No Tag to scrape" };
+    }
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await APIState.findOneAndUpdate({ isMaintainanceActive: false });
   }
 };
