@@ -4,16 +4,17 @@ import axios from "axios";
 import generateToken from "../../auth/utils/generate-token.js";
 import APIState from "../../../models/api-state.js";
 
-export const chainAdd = async (_query, loggedInUser, timer) => {
+export const chainAdd = async (body, loggedInUser, timer) => {
   // If chainNewTags is true, the tags which will be found during parsing the current
   // will be chained and images realted to that topic will also be scraped
   // i.e. didFinishScrapingUnsplash and didFinishScrapingPexels of the chained tag along with the query tag will be set to false
   //
   // In partial_scrape if no new entries then the scraping is halted
-  var { query, chainNewTags, partialScrape } = _query;
+  var { query, chainNewTags, partialScrape } = body;
 
   partialScrape ??= true;
   chainNewTags ??= false;
+  console.log([partialScrape, chainNewTags]);
   try {
     if (timer.val !== null) {
       clearTimeout(timer.val);
@@ -23,7 +24,7 @@ export const chainAdd = async (_query, loggedInUser, timer) => {
     const doesContainAnyTagToScrape = await initScraping(query);
 
     if (doesContainAnyTagToScrape) {
-      await scrape(chainNewTags, partialScrape);
+      // await scrape(chainNewTags, partialScrape);
 
       const interval = generateRandomTime(10, 13);
 
@@ -33,8 +34,11 @@ export const chainAdd = async (_query, loggedInUser, timer) => {
 
       timer.val = setTimeout(() => {
         axios.post(
-          `http://localhost:${process.env.PORT_NO}/api/v0/data/chain-add?chainNewTags=${chainNewTags}&partialScrape=${partialScrape}`,
-          {},
+          `http://localhost:${process.env.PORT_NO}/api/v0/data/chain-add`,
+          {
+            chainNewTags,
+            partialScrape,
+          },
           {
             headers: {
               Authorization: generateToken(
