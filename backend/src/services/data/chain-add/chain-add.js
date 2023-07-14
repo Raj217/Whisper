@@ -2,6 +2,7 @@ import { initScraping, initTagScraping, scrape } from "./utils.service.js";
 import { generateRandomTime } from "../../../utils/app-utils.service.js";
 import axios from "axios";
 import generateToken from "../../auth/utils/generate-token.js";
+import APIState from "../../../models/api-state.js";
 
 export const chainAdd = async (_query, loggedInUser, timer) => {
   // If chainNewTags is true, the tags which will be found during parsing the current
