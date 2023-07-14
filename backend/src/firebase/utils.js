@@ -1,6 +1,6 @@
 import { OAuth2Client } from "google-auth-library";
 import admin from "firebase-admin";
-import credentials from "../../firebase.json" assert { type: "json" };
+import credentials from "../../etc/secrets/firebase.json" assert { type: "json" };
 import Exception, { ExceptionCodes } from "../utils/exception.js";
 
 export const getUserDetails = async (idToken) => {
