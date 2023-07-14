@@ -13,11 +13,9 @@ export const defaultExceptionHandler = (err, req, res, next) => {
     console.error(err);
     statusCode = err.statusCode;
     message = err.message;
-  } else if (typeof message != "object") {
-    message = { message: message };
   }
-  if (err instanceof AxiosError) {
-    console.error(err.response);
+  if (typeof message != "object") {
+    message = { message: message };
   }
   res.status(statusCode).send(message);
 };

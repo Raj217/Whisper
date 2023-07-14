@@ -2,11 +2,11 @@ import { firebase } from "../../firebase/utils.js";
 import Exception, { ExceptionCodes } from "../../utils/exception.js";
 
 class Transaction {
-  async create(uid, imageID) {
+  async create(email, imageID) {
     const db = firebase.firestore();
 
     await db.collection(this.collectionName).add({
-      uid,
+      email,
       imageID,
       createdAt: Date.now(),
     });

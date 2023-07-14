@@ -4,18 +4,15 @@ import User from "../../models/user-model.js";
 import generateToken from "./utils/generate-token.js";
 
 export const googleSignIn = async (body) => {
-  const { idToken, uid } = body;
+  const { idToken } = body;
   if (!idToken) {
     throw new Exception("idToken is required", ExceptionCodes.BAD_INPUT);
-  }
-  if (!uid) {
-    throw new Exception("uuid is required", ExceptionCodes.BAD_INPUT);
   }
 
   const userData = await getUserDetails(idToken);
 
   const email = userData.email;
-  var existingUser = await User.findByUID(uid);
+  var existingUser = await User.find(email);
   var emailVerified = true;
 
   if (!existingUser.exists) {

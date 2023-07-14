@@ -5,10 +5,11 @@ import { updateImageInfo } from "./utils/update-image-info.service.js";
 import { addTransaction } from "./utils/add-transaction.service.js";
 import axios from "axios";
 
-export const getContent = async (res, query) => {
+export const getContent = async (res, loggedInUser, query) => {
   var { id, w, h, q, auto, crop, fit, cs } = query;
 
-  const [uid, imageID, purpose, src] = Cipher.decrypt(id);
+  const [imageID, purpose, src] = Cipher.decrypt(id);
+  const email = loggedInUser.email;
 
   const urlGenerator = new URLGenerator(src, w, h, fit);
   const imageData = await ImageInfo.findById(imageID);
@@ -29,7 +30,7 @@ export const getContent = async (res, query) => {
       response.data.on("end", async () => {
         // Download completed
         await updateImageInfo(purpose, imageData);
-        await addTransaction(purpose, uid, imageData.id);
+        await addTransaction(purpose, email, imageData.id);
       });
     })
     .catch((error) => {

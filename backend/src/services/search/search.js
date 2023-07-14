@@ -8,7 +8,7 @@ export const search = async (_query, loggedInUser, pagination) => {
   if (!width && !height) width = 500;
 
   const email = loggedInUser.email;
-  const user = await User.findByEmail(email);
+  const user = await User.find(email);
   if (!user) {
     throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
   }
@@ -22,7 +22,6 @@ export const search = async (_query, loggedInUser, pagination) => {
   for (const img of pagination.results) {
     results.push(
       ModelBuilder.build(
-        user.id,
         img,
         width,
         height,

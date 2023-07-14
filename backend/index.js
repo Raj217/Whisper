@@ -3,6 +3,7 @@ import { logger } from "./src/middlewares/logger.js";
 import { defaultExceptionHandler } from "./src/middlewares/exception-handler.js";
 import * as db from "./src/db/database.js";
 import devRoute from "./src/routes/index.js";
+import  "./src/extensions/logging.service.js";
 
 db.connect();
 const app = express();
