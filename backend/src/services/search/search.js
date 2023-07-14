@@ -5,7 +5,7 @@ import Exception, { ExceptionCodes } from "../../utils/exception.js";
 export const search = async (_query, loggedInUser, pagination) => {
   var { width, height, fit } = _query;
   width = parseInt(width);
-  if (!width && !height) width = 500;
+  if (!width && !height) width = 300;
 
   const email = loggedInUser.email;
   const user = await User.find(email);
@@ -13,9 +13,9 @@ export const search = async (_query, loggedInUser, pagination) => {
     throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
   }
 
-  var thumbnailQuality = 25,
-    viewQuality = 50,
-    downloadQuality = 75;
+  var thumbnailQuality = 5,
+    viewQuality = 30,
+    downloadQuality = 65;
 
   var results = [];
 
