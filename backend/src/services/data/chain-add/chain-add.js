@@ -1,8 +1,9 @@
 import { initScraping, initTagScraping, scrape } from "./utils.service.js";
 import { generateRandomTime } from "../../../utils/app-utils.service.js";
-import APIState from "../../../models/api-state.js";
+import axios from "axios";
+import generateToken from "../../auth/utils/generate-token.js";
 
-export const chainAdd = async (_query, timer) => {
+export const chainAdd = async (_query, loggedInUser, timer) => {
   // If chainNewTags is true, the tags which will be found during parsing the current
   // will be chained and images realted to that topic will also be scraped
   // i.e. didFinishScrapingUnsplash and didFinishScrapingPexels of the chained tag along with the query tag will be set to false
@@ -17,32 +18,32 @@ export const chainAdd = async (_query, timer) => {
     clearTimeout(timer.val);
     timer.val = null;
   }
-  await APIState.findOneAndUpdate({ isMaintainanceActive: true });
-  try {
-    if (query) await initTagScraping(query);
-    const doesContainAnyTagToScrape = await initScraping(query);
+  if (query) await initTagScraping(query);
+  const doesContainAnyTagToScrape = await initScraping(query);
 
-    if (doesContainAnyTagToScrape) {
-      await scrape(chainNewTags, partialScrape);
+  if (doesContainAnyTagToScrape) {
+    await scrape(chainNewTags, partialScrape);
 
-      const interval = generateRandomTime(10, 13);
+    const interval = generateRandomTime(10, 13);
 
-      const now = Date.now();
-      const nextScheduled = new Date(now + interval);
-      console.log(
-        `Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`
-      );
+    const now = Date.now();
+    const nextScheduled = new Date(now + interval);
+    console.log(`Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`);
 
-      timer.val = setTimeout(() => {
-        chainAdd({ chainNewTags }, timer);
-      }, interval);
-      timer.nextScheduled = nextScheduled;
+    timer.val = setTimeout(() => {
+      axios.get(`${process.env.BACKEND_URL}/api/v0/data/chain-add`, {
+        headers: {
+          Authorization: generateToken(
+            loggedInUser.email,
+            loggedInUser.emailVerified
+          ),
+        },
+      });
+    }, interval);
+    timer.nextScheduled = nextScheduled;
 
-      return { message: "Scraping Started" };
-    } else {
-      return { message: "No Tag to scrape" };
-    }
-  } finally {
-    await APIState.findOneAndUpdate({ isMaintainanceActive: false });
+    return { message: "Scraping Started" };
+  } else {
+    return { message: "No Tag to scrape" };
   }
 };

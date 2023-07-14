@@ -12,7 +12,7 @@ export const add = (req, res, next) => {
 };
 
 export const chainAdd = (req, res, next) => {
-  DataServices.chainAdd(req.body, timer)
+  DataServices.chainAdd(req.body, req.body.loggedInUser, timer)
     .then((body) => res.status(ExceptionCodes.REQUEST_FULFILLED).json(body))
     .catch((err) => {
       next(err);
