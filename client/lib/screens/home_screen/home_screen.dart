@@ -11,11 +11,6 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await NetworkEngine.getDio().get(NetworkEngine.searchRoute);
-        },
-      ),
       appBar: CustomAppBar.appBar(
         context: context,
         children: const [

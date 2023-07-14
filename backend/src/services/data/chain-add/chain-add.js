@@ -2,7 +2,6 @@ import { initScraping, initTagScraping, scrape } from "./utils.service.js";
 import { generateRandomTime } from "../../../utils/app-utils.service.js";
 import APIState from "../../../models/api-state.js";
 
-
 export const chainAdd = async (_query, timer) => {
   // If chainNewTags is true, the tags which will be found during parsing the current
   // will be chained and images realted to that topic will also be scraped
@@ -42,5 +41,6 @@ export const chainAdd = async (_query, timer) => {
     }
   } finally {
     await APIState.findOneAndUpdate({ isMaintainanceActive: false });
+    return;
   }
 };
