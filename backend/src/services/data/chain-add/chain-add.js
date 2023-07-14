@@ -1,6 +1,7 @@
 import { initScraping, initTagScraping, scrape } from "./utils.service.js";
 import { generateRandomTime } from "../../../utils/app-utils.service.js";
 import APIState from "../../../models/api-state.js";
+import { toIST } from "../../../utils/time.service.js";
 
 
 export const chainAdd = async (_query, timer) => {
@@ -35,7 +36,7 @@ export const chainAdd = async (_query, timer) => {
       const nextScheduled = new Date(now + interval);
       timer.nextScheduled = nextScheduled;
 
-      console.log(`Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`);
+      console.log(`Now: ${toIST(now)}\nNext Scheduled: ${toIST(nextScheduled)}`);
       return { message: "Scraping Started" };
     } else {
       return { message: "No Tag to scrape" };
