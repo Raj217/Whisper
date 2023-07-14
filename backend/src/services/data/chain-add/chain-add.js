@@ -25,7 +25,7 @@ export const chainAdd = async (_query, timer) => {
     if (doesContainAnyTagToScrape) {
       await scrape(chainNewTags, partialScrape);
 
-      const interval = generateRandomTime(5, 10);
+      const interval = generateRandomTime(10, 13);
 
       timer.val = setTimeout(() => {
         chainAdd({ chainNewTags }, timer);
