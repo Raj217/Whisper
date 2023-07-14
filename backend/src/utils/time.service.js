@@ -1,9 +1,3 @@
 export const toIST = (date) => {
-  const currTime = new Date();
-  const currentOffset = currTime.getTimezoneOffset();
-  const ISTOffset = 330; // IST offset UTC +5:30
-  const ISTTime = new Date(
-    date + (ISTOffset + currentOffset) * 60000
-  );
-  return ISTTime;
+  return Date(date.toISOString() + " GMT+5:30");
 };
