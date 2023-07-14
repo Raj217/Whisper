@@ -20,8 +20,9 @@ export const getContent = async (res, loggedInUser, query) => {
     auto,
     crop,
     cs,
-    imageData.extra.defaultFileFormat
+    imageData.extra.fileName
   );
+  console.log(url);
   axios
     .get(url, { responseType: "stream" })
     .then((response) => {

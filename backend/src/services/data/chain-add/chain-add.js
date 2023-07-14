@@ -35,7 +35,9 @@ export const chainAdd = async (_query, timer) => {
       const nextScheduled = new Date(now + interval);
       timer.nextScheduled = nextScheduled;
 
-      console.log(`Now: ${now}\nNext Scheduled: ${nextScheduled}`);
+      console.log(
+        `Now: ${new Date(now)}\nNext Scheduled: ${toIST(newScheduled)}`
+      );
       return { message: "Scraping Started" };
     } else {
       return { message: "No Tag to scrape" };

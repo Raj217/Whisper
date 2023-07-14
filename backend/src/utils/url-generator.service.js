@@ -18,14 +18,14 @@ class URLGenerator {
     this.queries = undefined;
   }
 
-  buildBaseURL(id, defaultFileFormat) {
+  buildBaseURL(id, fileName) {
     const { UNSPLASH_IMAGE_API_BASE_URL, PEXELS_IMAGE_API_BASE_URL } =
       process.env;
     this.didAddAnyQuery = false;
     if (this.source === ImageSource.unsplash) {
       this.url = `${UNSPLASH_IMAGE_API_BASE_URL}${id}`;
     } else if (this.source === ImageSource.pexels) {
-      this.url = `${PEXELS_IMAGE_API_BASE_URL}${id}/pexels-photo-${id}.${defaultFileFormat}`;
+      this.url = `${PEXELS_IMAGE_API_BASE_URL}${id}/${fileName}`;
     }
   }
 
@@ -51,10 +51,10 @@ class URLGenerator {
   /**
    * Generates image url
    * @param {*} id : Image source Id
-   * @param {*} defaultFileFormat the default file format (required for pexels API)
+   * @param {*} fileName file name (required for pexels API)
    */
-  generate(id, quality, auto, crop, cs, defaultFileFormat) {
-    this.buildBaseURL(id, defaultFileFormat);
+  generate(id, quality, auto, crop, cs, fileName) {
+    this.buildBaseURL(id, fileName);
 
     this.url += `?${this.generateQueries(quality, auto, crop, cs)}`;
     this.resetQueries();

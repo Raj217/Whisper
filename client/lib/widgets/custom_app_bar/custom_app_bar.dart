@@ -23,7 +23,6 @@ class CustomAppBar {
     }
     return AppBar(
       automaticallyImplyLeading: automaticallyImplyLeading,
-      leadingWidth: 70,
       leading: automaticallyImplyLeading
           ? Align(
               alignment: Alignment.centerRight,

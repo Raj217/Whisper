@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:whisper/configs/extensions/color.dart';
 
-class ImageInfo {
+class CustomImageInfo {
   final String publisherName;
   final String publisherURL;
   final List<String> tags;
@@ -9,7 +9,7 @@ class ImageInfo {
   final String thumbnailURL;
   final String viewURL;
   final String downloadURL;
-  ImageInfo({
+  CustomImageInfo({
     required this.publisherName,
     required this.publisherURL,
     required this.tags,
@@ -19,11 +19,11 @@ class ImageInfo {
     required this.downloadURL,
   });
 
-  ImageInfo fromJSON(data) {
-    return ImageInfo(
+  static CustomImageInfo fromJSON(data) {
+    return CustomImageInfo(
       publisherName: data['publisherName'],
       publisherURL: data['publisherURL'],
-      tags: data['tags'],
+      tags: List<String>.from(data['tags']),
       color: ColorExtension.fromHEX(data['color']),
       thumbnailURL: data['images']['thumbnail'],
       viewURL: data['images']['view'],

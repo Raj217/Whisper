@@ -10,7 +10,7 @@ const imageInfoSchema = new Schema(
     color: { type: String },
     source: { type: String, enum: ImageSource, required: true },
     extra: {
-      defaultFileFormat: { type: String },
+      fileName: { type: String },
     },
     views: { type: Number, default: 0 },
     downloads: { type: Number, default: 0 },

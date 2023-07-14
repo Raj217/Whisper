@@ -12,10 +12,10 @@ class PexelsParser {
     return hex;
   }
 
-  static _parseFileFormat(url) {
+  static _parseFileName(url) {
     const pathName = new URL(url).pathname;
-    const ind = pathName.indexOf(".");
-    return pathName.substring(ind + 1);
+    const fileName = pathName.split("/").at(-1);
+    return fileName;
   }
   static async parse(data) {
     const { PEXELS_API_BASE_URL } = process.env;
@@ -43,7 +43,7 @@ class PexelsParser {
         color: PexelsParser._rgbToHex(mainColor),
         source: ImageSource.pexels,
         extra: {
-          defaultFileFormat: PexelsParser._parseFileFormat(url),
+          fileName: PexelsParser._parseFileName(url),
         },
       });
     }
