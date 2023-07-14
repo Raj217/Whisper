@@ -109,8 +109,8 @@ const updateTagsScrapingState = async (page, currentlyScraping) => {
     if (page[source] === 0) {
       var tagData = await Tag.findOne({ tag: currentlyScraping });
       await Tag.findByIdAndUpdate(tagData.id, {
-        didFinishScrapingUnsplash: page[ImageSource.unsplash] === 0,
-        didFinishScrapingPexels: page[ImageSource.pexels] === 0,
+        didFinishScrapingUnsplash: page.get(ImageSource.unsplash) === 0,
+        didFinishScrapingPexels: page.get(ImageSource.pexels) === 0,
       });
     } else {
       isScrapingCompleted = false;
