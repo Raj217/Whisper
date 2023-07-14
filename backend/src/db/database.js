@@ -24,7 +24,6 @@ export const connect = () => {
         });
         console.log("Created APIState");
       } else {
-        console.log(state);
         console.log("No new instance of APIState created");
       }
     })
