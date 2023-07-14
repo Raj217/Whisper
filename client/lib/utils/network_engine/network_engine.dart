@@ -6,7 +6,10 @@ class NetworkEngine {
   static const String _baseURL = "https://whisper-api-7et7.onrender.com";
 
   // ------------------------- Auth Routes --------------------------------
-  static const String googleSignIn = "/api/v0/auth/google-sign-in";
+  static const String googleSignInRoute = "/api/v0/auth/google-sign-in";
+
+  // ------------------------- Search Routes --------------------------------
+  static const String searchRoute = "/api/v0/search";
 
   static Dio getDio({
     Map<String, dynamic>? headers,
@@ -23,7 +26,8 @@ class NetworkEngine {
       Map<String, dynamic> _headers = {};
       _headers = headers ?? {};
       _headers['Content-Type'] = 'application/json';
-      _headers['Authorization'] = StorageHandler.instance.get('Authorization');
+      _headers['Authorization'] =
+          StorageHandler.instance.get(StoredValues.token.name);
 
       dio = Dio(
         BaseOptions(

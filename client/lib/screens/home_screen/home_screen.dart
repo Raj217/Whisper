@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whisper/utils/network_engine/network_engine.dart';
 import 'package:whisper/widgets/app_decorations/app_decoration.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whisper/widgets/custom_app_bar/custom_app_bar.dart';
@@ -10,6 +11,11 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await NetworkEngine.getDio().get(NetworkEngine.searchRoute);
+        },
+      ),
       appBar: CustomAppBar.appBar(
         context: context,
         children: const [

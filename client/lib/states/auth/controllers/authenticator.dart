@@ -39,7 +39,7 @@ class Authenticator {
       () async {
         await FirebaseAuth.instance.signInWithCredential(credentials);
         await NetworkEngine.getDio(addAuthToken: false).post(
-          NetworkEngine.googleSignIn,
+          NetworkEngine.googleSignInRoute,
           data: json.encode({'idToken': authentication.idToken}),
         );
       },

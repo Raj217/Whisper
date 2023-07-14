@@ -1,4 +1,5 @@
 import APIState from "../../../models/api-state.js";
+import { toIST } from "../../../utils/time.service.js";
 
 export const state = async (timer) => {
   var info = {};
@@ -6,7 +7,7 @@ export const state = async (timer) => {
     info.scraping = false;
   } else {
     info.scraping = true;
-    info.nextScheduled = timer.nextScheduled;
+    info.nextScheduled = toIST(timer.nextScheduled);
   }
 
   const state = await APIState.findOne();
