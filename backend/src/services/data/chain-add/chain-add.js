@@ -14,7 +14,7 @@ export const chainAdd = async (body, loggedInUser, timer) => {
 
   partialScrape ??= true;
   chainNewTags ??= false;
-  console.log([partialScrape, chainNewTags]);
+  
   try {
     if (timer.val !== null) {
       clearTimeout(timer.val);
