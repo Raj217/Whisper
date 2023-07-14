@@ -74,24 +74,28 @@ const scrapeAndUpdateTags = async (
   chainNewTags,
   partialScrape
 ) => {
-  var { newEntriesCount, newTags, didReachEnd } = await add({
-    query: query,
-    page: page,
-    per_page: perPage,
-    source: source,
-  });
+  if (page !== 0) {
+    var { newEntriesCount, newTags, didReachEnd } = await add({
+      query: query,
+      page: page,
+      per_page: perPage,
+      source: source,
+    });
 
-  if (chainNewTags === true) {
-    for (const tag of newTags) {
-      await initTagScraping(tag);
-      tags.vals.add(tag);
+    if (chainNewTags === true) {
+      for (const tag of newTags) {
+        await initTagScraping(tag);
+        tags.vals.add(tag);
+      }
     }
+
+    if (didReachEnd) return true;
+    else if (partialScrape === true) return newEntriesCount === 0;
+
+    return false;
+  } else {
+    return true;
   }
-
-  if (didReachEnd) return true;
-  else if (partialScrape === true) return newEntriesCount === 0;
-
-  return false;
 };
 
 /**

@@ -20,6 +20,8 @@ export const add = async (_query) => {
   if (!page) page = 1;
   if (!per_page) per_page = 10;
 
+  if (page <= 0) throw new Exception("Invalid page number", ExceptionCodes.BAD_INPUT)
+
   // The actual need for mainataince is only when storing the values
   // While parsing the apis can work fine
   // But might cause delays. Let's not risk
