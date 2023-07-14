@@ -23,6 +23,8 @@ export const connect = () => {
           isMaintainanceActive: false,
         });
         console.log("Created APIState");
+      } else {
+        console.log("No new instance of APIState created");
       }
     })
     .catch((err) => {
