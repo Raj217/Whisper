@@ -31,7 +31,7 @@ export const chainAdd = async (_query, loggedInUser, timer) => {
     console.log(`Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`);
 
     timer.val = setTimeout(() => {
-      axios.get(`${process.env.BACKEND_URL}/api/v0/data/chain-add`, {
+      axios.get(`http://localhost:${process.env.PORT_NO}/api/v0/data/chain-add`, {
         headers: {
           Authorization: generateToken(
             loggedInUser.email,
