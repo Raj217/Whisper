@@ -1,4 +1,4 @@
-import { toIST } from "../../utils/time.service";
+import { toIST } from "../../utils/time.service.js";
 
 export const welcome = async () => {
   const { VERSION } = process.env;
