@@ -7,7 +7,7 @@ export const state = async (timer) => {
     info.scraping = false;
   } else {
     info.scraping = true;
-    info.nextScheduled = Date(toIST(timer.nextScheduled));
+    info.nextScheduled = Date(timer.nextScheduled);
   }
 
   const state = await APIState.findOne();

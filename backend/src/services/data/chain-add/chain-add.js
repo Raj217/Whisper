@@ -1,7 +1,6 @@
 import { initScraping, initTagScraping, scrape } from "./utils.service.js";
 import { generateRandomTime } from "../../../utils/app-utils.service.js";
 import APIState from "../../../models/api-state.js";
-import { toIST } from "../../../utils/time.service.js";
 
 export const chainAdd = async (_query, timer) => {
   // If chainNewTags is true, the tags which will be found during parsing the current
@@ -31,7 +30,7 @@ export const chainAdd = async (_query, timer) => {
       const now = Date.now();
       const nextScheduled = new Date(now + interval);
       console.log(
-        `Now: ${new Date(now)}\nNext Scheduled: ${Date(toIST(nextScheduled))}`
+        `Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`
       );
 
       timer.val = setTimeout(() => {
