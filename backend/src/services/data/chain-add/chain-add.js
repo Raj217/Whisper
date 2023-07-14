@@ -24,21 +24,25 @@ export const chainAdd = async (_query, loggedInUser, timer) => {
   if (doesContainAnyTagToScrape) {
     await scrape(chainNewTags, partialScrape);
 
-    const interval = generateRandomTime(10, 13);
+    const interval = generateRandomTime(0, 1);
 
     const now = Date.now();
     const nextScheduled = new Date(now + interval);
     console.log(`Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`);
 
     timer.val = setTimeout(() => {
-      axios.get(`http://localhost:${process.env.PORT_NO}/api/v0/data/chain-add`, {
-        headers: {
-          Authorization: generateToken(
-            loggedInUser.email,
-            loggedInUser.emailVerified
-          ),
-        },
-      });
+      axios.post(
+        `http://localhost:${process.env.PORT_NO}/api/v0/data/chain-add?chainNewTags=${chainNewTags}&partialScrape=${partialScrape}`,
+        {},
+        {
+          headers: {
+            Authorization: generateToken(
+              loggedInUser.email,
+              loggedInUser.emailVerified
+            ),
+          },
+        }
+      );
     }, interval);
     timer.nextScheduled = nextScheduled;
 
