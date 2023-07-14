@@ -1,3 +1,3 @@
 part of storage;
 
-enum StoredValues { isDarkTheme }
+enum StoredValues { isDarkTheme, token }
