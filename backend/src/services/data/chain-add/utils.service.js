@@ -142,6 +142,7 @@ export const scrape = async (chainNewTags, partialScrape) => {
     } else {
       page.set(source, page.get(source) + 1);
     }
+    console.log(`${source} parsed`);
   }
 
   if (await updateTagsScrapingState(page, currentlyScraping)) {
