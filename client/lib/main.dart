@@ -8,10 +8,9 @@ import 'utils/storage/storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  NetworkEngine.getDio(onlyAddInterceptors: true)
-      .get(NetworkEngine.welcomeRoute);
 
   await StorageHandler.init();
+  NetworkEngine.getDio().get(NetworkEngine.welcomeRoute);
 
   runApp(const ProviderScope(child: Whisper()));
 }

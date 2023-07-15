@@ -11,7 +11,6 @@ class _UpdateButtonState extends State<UpdateButton> {
   double loadingIconSize = 15;
   DownloadTask? downloadUpdate;
   String message = "Up to date";
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<bool>>(
@@ -21,12 +20,14 @@ class _UpdateButtonState extends State<UpdateButton> {
       ]),
       builder: (BuildContext context,
           AsyncSnapshot<List<bool>> updateCheckSnapshot) {
+        if (updateCheckSnapshot.connectionState == ConnectionState.waiting) {
+          message = "Checking for update";
+        } else {
+          message = "Up to date";
+        }
         if (updateCheckSnapshot.hasData &&
             updateCheckSnapshot.data?[0] == true) {
           message = "Update";
-        }
-        if (updateCheckSnapshot.connectionState == ConnectionState.waiting) {
-          message = "Checking for update";
         }
 
         return StreamBuilder(
