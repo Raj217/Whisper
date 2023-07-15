@@ -28,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> init() async {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 
   @override

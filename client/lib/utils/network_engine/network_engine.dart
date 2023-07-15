@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:whisper/utils/storage/storage.dart';
 
 class NetworkEngine {
   static const String _baseURL = "https://whisper-api-7et7.onrender.com";
+
+  // ------------------------- Welcome Routes --------------------------------
+  static const String welcomeRoute = "/api/v0/welcome";
 
   // ------------------------- Auth Routes --------------------------------
   static const String googleSignInRoute = "/api/v0/auth/google-sign-in";

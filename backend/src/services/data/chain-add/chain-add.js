@@ -34,7 +34,7 @@ export const chainAdd = async (body, loggedInUser, timer) => {
 
       timer.val = setTimeout(() => {
         axios.post(
-          `http://localhost:${process.env.PORT_NO}/api/v0/data/chain-add`,
+          `${process.env.BACKEND_BASE_URL}/api/v0/data/chain-add`,
           {
             chainNewTags,
             partialScrape,
