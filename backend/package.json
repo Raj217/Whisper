@@ -7,9 +7,6 @@
   "scripts": {
     "start": "nodemon index.js"
   },
-  "engines": {
-    "node": ">=16 <17"
-  },
   "keywords": [],
   "author": "Raj217",
   "license": "ISC",

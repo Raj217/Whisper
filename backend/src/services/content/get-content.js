@@ -22,7 +22,7 @@ export const getContent = async (res, loggedInUser, query) => {
     cs,
     imageData.extra.fileName
   );
-  console.log(url);
+
   axios
     .get(url, { responseType: "stream" })
     .then((response) => {
