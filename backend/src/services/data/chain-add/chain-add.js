@@ -11,10 +11,11 @@ export const chainAdd = async (body, loggedInUser, timer) => {
   //
   // In partial_scrape if no new entries then the scraping is halted
   var { query, chainNewTags, partialScrape } = body;
+  const { CHAIN_ADD_INTERVAL_MIN, CHAIN_ADD_INTERVAL_MAX } = process.env;
 
   partialScrape ??= true;
   chainNewTags ??= false;
-  
+
   try {
     if (timer.val !== null) {
       clearTimeout(timer.val);
@@ -26,7 +27,10 @@ export const chainAdd = async (body, loggedInUser, timer) => {
     if (doesContainAnyTagToScrape) {
       await scrape(chainNewTags, partialScrape);
 
-      const interval = generateRandomTime(3, 6);
+      const interval = generateRandomTime(
+        CHAIN_ADD_INTERVAL_MIN,
+        CHAIN_ADD_INTERVAL_MAX
+      );
 
       const now = Date.now();
       const nextScheduled = new Date(now + interval);
