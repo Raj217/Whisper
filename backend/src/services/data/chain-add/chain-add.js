@@ -10,11 +10,12 @@ export const chainAdd = async (body, loggedInUser, timer) => {
   // i.e. didFinishScrapingUnsplash and didFinishScrapingPexels of the chained tag along with the query tag will be set to false
   //
   // In partial_scrape if no new entries then the scraping is halted
-  var { query, chainNewTags, partialScrape } = body;
-  const { CHAIN_ADD_INTERVAL_MIN, CHAIN_ADD_INTERVAL_MAX } = process.env;
+  var { query, chainNewTags, partialScrape, nextCallMinGap, nextCallMaxGap } = body;
 
   partialScrape ??= true;
   chainNewTags ??= false;
+  nextCallMinGap ??= 10;
+  nextCallMaxGap ??= 14;
 
   try {
     if (timer.val !== null) {
@@ -28,8 +29,8 @@ export const chainAdd = async (body, loggedInUser, timer) => {
       await scrape(chainNewTags, partialScrape);
 
       const interval = generateRandomTime(
-        CHAIN_ADD_INTERVAL_MIN,
-        CHAIN_ADD_INTERVAL_MAX
+        nextCallMinGap,
+        nextCallMaxGap
       );
 
       const now = Date.now();
@@ -42,6 +43,8 @@ export const chainAdd = async (body, loggedInUser, timer) => {
           {
             chainNewTags,
             partialScrape,
+            nextCallMinGap,
+            nextCallMaxGap
           },
           {
             headers: {

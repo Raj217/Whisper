@@ -90,7 +90,7 @@
 **Description:**
 
 - Current heart of the data of the API
-- Starts a timer which automatically triggers itself(this route) i.e. once initated, at random interval(bounded: current between 30 and 45 mins) will call itself and will add data for the next scraping page
+- Starts a timer which automatically triggers itself(this route) i.e. once initated, at random interval(bounded: can be adjusted from the parameters passed) will call itself and will add data for the next scraping page
 - while doing so it lets others know that isMaintainanceActive flag is set to true
 - It automatically gets the tags stored in the state from previous scrape
 - After every call it returns the time when will it be called next
@@ -101,6 +101,8 @@
 - query: the tag for the image
 - chainNewTags: If true, the tags found during parsing of the current query will be added to queue and if they were already parsed their state is reset so that they can be parsed again [**Default: false**]
 - partialScrape: It is meant for the subsequent requests once when the base data is ready. If set to true, it will scrape as usual but in a scrape (for a given page) if there are no new images added to the database it assumes that the data has synced with the backend thus it stops there. [**Default: true**]
+- nextCallMinGap: The next automatic call for the chain add min gap duration. Means after minimum of this time the chain add will be called. [**Default: 10**]
+- nextCallMaxGap: The next automatic call for the chain add max gap duration. Means after maximum of this time the chain add will be called. [**Default: 14**]
 
 **Payload:**
 
@@ -108,7 +110,9 @@
 {
   "query": "<string>",
   "chainNewtags": "<bool>",
-  "partialScrape": "<bool>"
+  "partialScrape": "<bool>",
+  "nextCallMinGap": "<int>",
+  "nextCallMaxGap": "<int>"
 }
 ```
 
