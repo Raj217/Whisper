@@ -41,7 +41,7 @@ export const initScraping = async (query) => {
   const tags = new Set(state.tagsToScrape);
   tags.add(query);
 
-  if (!state.currentlyScraping) {
+  if (state.unsplashPage == 0 && state.pexelsPage == 0) {
     for (const tag of tags) {
       if (!(await didFinishScrapingTag(tag))) {
         state.currentlyScraping = tag;
