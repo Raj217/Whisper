@@ -20,7 +20,8 @@ export const add = async (_query) => {
   if (!page) page = 1;
   if (!per_page) per_page = 10;
 
-  if (page <= 0) throw new Exception("Invalid page number", ExceptionCodes.BAD_INPUT)
+  if (page <= 0)
+    throw new Exception("Invalid page number", ExceptionCodes.BAD_INPUT);
 
   // The actual need for mainataince is only when storing the values
   // While parsing the apis can work fine
@@ -37,6 +38,7 @@ export const add = async (_query) => {
         if (res.total_pages <= page) {
           didReachEnd = true;
         }
+        console.log(`Parsed: ${page}/${res.total_pages}`);
       } else images = [];
     } else if (source === ImageSource.pexels) {
       const res = await pexelsProvider(query, page, per_page);
@@ -45,6 +47,7 @@ export const add = async (_query) => {
         if (res.data.pagination.total_pages <= page) {
           didReachEnd = true;
         }
+        console.log(`Parsed: ${page}/${res.data.pagination.total_pages}`);
       } else images = [];
     } else {
       throw new Exception("Unsupported source", ExceptionCodes.BAD_INPUT);
@@ -57,5 +60,4 @@ export const add = async (_query) => {
     await APIState.findOneAndUpdate({ isMaintainanceActive: false });
   }
   return { newEntriesCount, newTags, didReachEnd };
-
 };
