@@ -35,10 +35,10 @@ export const add = async (_query) => {
       const res = await unsplashProvider(query, page, per_page);
       if (res) {
         images = await UnsplashParser.parse(res.data);
-        if (res.total_pages <= page) {
+        if (res.data.total_pages <= page) {
           didReachEnd = true;
         }
-        console.log(`Parsed: ${page}/${res.total_pages}`);
+        console.log(`Parsed: ${page}/${res.data.total_pages}`);
       } else images = [];
     } else if (source === ImageSource.pexels) {
       const res = await pexelsProvider(query, page, per_page);
