@@ -106,7 +106,7 @@ const updateTagsScrapingState = async (page, currentlyScraping) => {
   var isScrapingCompleted = true;
 
   for (var source of ImageSourceArr) {
-    if (page[source] === 0) {
+    if (page.get(source) === 0) {
       var tagData = await Tag.findOne({ tag: currentlyScraping });
       await Tag.findByIdAndUpdate(tagData.id, {
         didFinishScrapingUnsplash: page.get(ImageSource.unsplash) === 0,
