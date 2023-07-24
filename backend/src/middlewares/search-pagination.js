@@ -26,7 +26,8 @@ export const searchPagination = async (req, res, next) => {
   }
   const results = await ImageInfo.find(searchQuery)
     .skip(startIndex)
-    .limit(per_page);
+    .limit(per_page)
+    .sort("updatedAt");
 
   const totalResults = await ImageInfo.find(searchQuery).countDocuments();
 
