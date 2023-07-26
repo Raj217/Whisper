@@ -10,7 +10,8 @@ export const chainAdd = async (body, loggedInUser, timer) => {
   // i.e. didFinishScrapingUnsplash and didFinishScrapingPexels of the chained tag along with the query tag will be set to false
   //
   // In partial_scrape if no new entries then the scraping is halted
-  var { query, chainNewTags, partialScrape, nextCallMinGap, nextCallMaxGap } = body;
+  var { query, chainNewTags, partialScrape, nextCallMinGap, nextCallMaxGap } =
+    body;
 
   partialScrape ??= true;
   chainNewTags ??= false;
@@ -28,33 +29,40 @@ export const chainAdd = async (body, loggedInUser, timer) => {
     if (doesContainAnyTagToScrape) {
       await scrape(chainNewTags, partialScrape);
 
-      const interval = generateRandomTime(
-        nextCallMinGap,
-        nextCallMaxGap
-      );
+      const interval = generateRandomTime(nextCallMinGap, nextCallMaxGap);
 
       const now = Date.now();
       const nextScheduled = new Date(now + interval);
       console.log(`Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`);
 
-      timer.val = setTimeout(() => {
-        axios.post(
-          `${process.env.BACKEND_BASE_URL}/api/v0/data/chain-add`,
+      timer.val = setTimeout(async () => {
+        await chainAdd(
           {
             chainNewTags,
             partialScrape,
             nextCallMinGap,
-            nextCallMaxGap
+            nextCallMaxGap,
           },
-          {
-            headers: {
-              Authorization: generateToken(
-                loggedInUser.email,
-                loggedInUser.emailVerified
-              ),
-            },
-          }
+          loggedInUser,
+          timer
         );
+        // axios.post(
+        //   `${process.env.BACKEND_BASE_URL}/api/v0/data/chain-add`,
+        //   {
+        //     chainNewTags,
+        //     partialScrape,
+        //     nextCallMinGap,
+        //     nextCallMaxGap
+        //   },
+        //   {
+        //     headers: {
+        //       Authorization: generateToken(
+        //         loggedInUser.email,
+        //         loggedInUser.emailVerified
+        //       ),
+        //     },
+        //   }
+        // );
       }, interval);
       timer.nextScheduled = nextScheduled;
 
