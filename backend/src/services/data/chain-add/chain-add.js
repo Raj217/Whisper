@@ -35,38 +35,38 @@ export const chainAdd = async (body, loggedInUser, timer) => {
       const nextScheduled = new Date(now + interval);
       console.log(`Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`);
 
-      // const { USER_AGENT } = process.env;
+      const { USER_AGENT } = process.env;
 
       timer.val = setTimeout(async () => {
-        chainAdd(
-          {
-            chainNewTags,
-            partialScrape,
-            nextCallMinGap,
-            nextCallMaxGap,
-          },
-          loggedInUser,
-          timer
-        );
-        // axios.post(
-        //   `${process.env.BACKEND_BASE_URL}/api/v0/data/chain-add`,
+        // chainAdd(
         //   {
         //     chainNewTags,
         //     partialScrape,
         //     nextCallMinGap,
         //     nextCallMaxGap,
         //   },
-        //   {
-        //     headers: {
-        //       Authorization: generateToken(
-        //         loggedInUser.email,
-        //         loggedInUser.emailVerified
-        //       ),
-
-        //       "User-Agent": USER_AGENT,
-        //     },
-        //   }
+        //   loggedInUser,
+        //   timer
         // );
+        axios.post(
+          `${process.env.BACKEND_BASE_URL}/api/v0/data/chain-add`,
+          {
+            chainNewTags,
+            partialScrape,
+            nextCallMinGap,
+            nextCallMaxGap,
+          },
+          {
+            headers: {
+              Authorization: generateToken(
+                loggedInUser.email,
+                loggedInUser.emailVerified
+              ),
+
+              "User-Agent": USER_AGENT,
+            },
+          }
+        );
       }, interval);
       timer.nextScheduled = nextScheduled;
 
