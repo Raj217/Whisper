@@ -35,7 +35,7 @@ export const chainAdd = async (body, loggedInUser, timer) => {
       const nextScheduled = new Date(now + interval);
       console.log(`Now: ${new Date(now)}\nNext Scheduled: ${nextScheduled}`);
 
-      const { USER_AGENT } = process.env;
+      // const { USER_AGENT } = process.env;
 
       timer.val = setTimeout(async () => {
         chainAdd(
