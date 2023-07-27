@@ -17,6 +17,6 @@ app.use(logger);
 app.use("/api/v0", devRoute);
 app.use(defaultExceptionHandler);
 
-app.listen(process.env.PORT_NO, () => {
-  console.log(`Listening on port ${process.env.PORT_NO}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port ${process.env.PORT}`);
 });
