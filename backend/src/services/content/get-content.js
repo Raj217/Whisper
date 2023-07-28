@@ -2,7 +2,7 @@ import ImageInfo from "../../models/image-info.js";
 import URLGenerator from "../../utils/url-generator.service.js";
 import Cipher from "../../utils/cipher-utils.service.js";
 import { updateImageInfo } from "./utils/update-image-info.service.js";
-import { addTransaction } from "./utils/add-transaction.service.js";
+import { updateActivity } from "./utils/update-activity.service.js";
 import axios from "axios";
 
 export const getContent = async (res, loggedInUser, query) => {
@@ -31,7 +31,7 @@ export const getContent = async (res, loggedInUser, query) => {
       response.data.on("end", async () => {
         // Download completed
         await updateImageInfo(purpose, imageData);
-        await addTransaction(purpose, email, imageData.id);
+        await updateActivity(purpose, email, imageData.id, imageData.updatedAt);
       });
     })
     .catch((error) => {

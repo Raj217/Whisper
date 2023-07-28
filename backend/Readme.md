@@ -154,7 +154,8 @@
 
 **Parameters:**
 
-- query: the search query, can be empty to search for random images (Random images route is not supported yet, it just gives back the top results)
+- query: _ the search query, can be empty to search for random images
+  _ If no query is passed it returns images which the user has not seen before in random search (not tested) \* When in random view it stores a checkpoint of viewed image when downloaded the **thumbnail** (currently)
 - page: current page number [Default: 1]
 - per_page: image data per page [Default: 10]
 - width: image width [Default: 500 (If both height and width are empty)]

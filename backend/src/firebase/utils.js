@@ -20,6 +20,8 @@ export const getUserDetails = async (idToken) => {
       tokenExpiredErrorMessage
     ) {
       throw new Exception("Token Expired", ExceptionCodes.UNAUTHORIZED);
+    } else {
+      throw new Exception(err.message, ExceptionCodes.INTERNAL_SERVER_ERROR);
     }
   }
 

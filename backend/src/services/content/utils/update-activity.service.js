@@ -1,10 +1,14 @@
 import ViewTransaction from "../../../models/transactions/view-transaction-model.js";
 import DownloadTransaction from "../../../models/transactions/download-transaction-model.js";
 import { ImagePurpose } from "../../../models/constants.js";
+import User from "../../../models/user-model.js";
 
-export const addTransaction = async (purpose, uid, imageID) => {
+export const updateActivity = async (purpose, email, imageID, lastViewed) => {
   var transaction;
   switch (purpose) {
+    case ImagePurpose.thumbnail:
+      User.updateLastViewed(lastViewed, email);
+      break;
     case ImagePurpose.view:
       transaction = new ViewTransaction();
       break;
@@ -13,6 +17,6 @@ export const addTransaction = async (purpose, uid, imageID) => {
       break;
   }
   if (transaction) {
-    await transaction.create(uid, imageID);
+    await transaction.create(email, imageID);
   }
 };

@@ -17,9 +17,14 @@ export const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.body.loggedInUser = decoded;
     if (!decoded.emailVerified)
-      return res.status(ExceptionCodes.UNAUTHORIZED).send("Email not verified");
+      return res
+        .status(ExceptionCodes.UNAUTHORIZED)
+        .send({ message: "Email not verified" });
   } catch (err) {
-    return res.status(ExceptionCodes.UNAUTHORIZED).send("Invalid Token");
+    console.log(err);
+    return res
+      .status(ExceptionCodes.UNAUTHORIZED)
+      .send({ message: "Invalid Token" });
   }
   return next();
 };
