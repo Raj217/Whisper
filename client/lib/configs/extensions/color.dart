@@ -1,11 +1,9 @@
 import 'dart:ui';
 
-class ColorExtension extends Color {
-  ColorExtension(super.value);
-
+extension ColorExtension on Color {
   static Color fromHEX(String hex) {
-    if (hex.length == 7) {
-      hex = "FF${hex.substring(1)}";
+    if (hex[0] == '#') {
+      hex = hex.substring(1);
     }
     return Color(int.parse(hex, radix: 16));
   }

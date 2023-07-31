@@ -1,6 +1,6 @@
 library rive_widgets;
 
-// ============================ Neccessary ============================
+// ============================ Necessities ============================
 import 'package:rive/rive.dart';
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';

@@ -6,7 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:whisper/configs/config.dart';
-import 'package:whisper/utils/network_engine/network_engine.dart';
+import 'package:whisper/packages/database/database.dart';
+import 'package:whisper/packages/network_engine/network_engine.dart';
 import 'dart:convert';
 
 // =================== Parts ==================

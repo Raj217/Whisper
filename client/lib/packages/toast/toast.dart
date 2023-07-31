@@ -1,6 +1,6 @@
 library toast;
 
-// ========================= Necessary =========================
+// ========================= Necessities =========================
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/utils/widget_utils.dart';

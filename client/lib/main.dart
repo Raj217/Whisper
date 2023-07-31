@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whisper/utils/network_engine/network_engine.dart';
+import 'package:whisper/packages/network_engine/network_engine.dart';
 import 'configs/config.dart';
 import 'screens/screens.dart';
 import 'states/theme/theme.dart';
-import 'utils/storage/storage.dart';
+import 'packages/storage/storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await dotenv.load();
   await StorageHandler.init();
-  NetworkEngine.getDio().get(NetworkEngine.welcomeRoute);
 
   runApp(const ProviderScope(child: Whisper()));
 }

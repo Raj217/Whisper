@@ -38,10 +38,7 @@ class Authenticator {
     AuthResult res = await AuthResult.operate(
       () async {
         await FirebaseAuth.instance.signInWithCredential(credentials);
-        await NetworkEngine.getDio(addAuthToken: false).post(
-          NetworkEngine.googleSignInRoute,
-          data: json.encode({'idToken': authentication.idToken}),
-        );
+        await UserDatabase.createUser();
       },
       successDebugMessage: "Signed in with firebase",
       successReleaseMessage: "Welcome to Whisper",

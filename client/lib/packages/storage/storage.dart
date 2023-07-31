@@ -1,6 +1,6 @@
 library storage;
 
-// ============================ Necessary ===========================
+// ============================ Necessities ===========================
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ============================= Controllers =============================
