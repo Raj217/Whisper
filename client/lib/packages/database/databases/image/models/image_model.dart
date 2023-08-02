@@ -49,33 +49,32 @@ class ImageInfoModel {
 
   String _genURL({int? width, int? height, int? quality}) {
     URLGenerator urlGenerator = URLGenerator(imageInfo: this);
-    width ??= 300;
-    height ??= 300;
-
+    if (width == null && height == null) {
+      width = 300;
+    }
     urlGenerator.addQuery("w", width.toString());
     urlGenerator.addQuery("h", height.toString());
     urlGenerator.addQuery("q", quality.toString());
     urlGenerator.addQuery("auto", 'format');
     urlGenerator.addQuery("fit", "crop");
+    urlGenerator.addQuery("crop", "entropy");
 
-    if (source == ImageSource.unsplash) {
-      urlGenerator.addQuery("crop", "entropy");
-    } else if (source == ImageSource.pexels) {
+    if (source == ImageSource.pexels) {
       urlGenerator.addQuery("cs", "tinysrgb");
     }
     return urlGenerator.url;
   }
 
   String thumbnailURL({int? width, int? height}) {
-    return _genURL(width: width, height: height, quality: 10);
-  }
-
-  String viewURL({int? width, int? height}) {
     return _genURL(width: width, height: height, quality: 30);
   }
 
-  String downloadURL({int? width, int? height}) {
+  String viewURL({int? width, int? height}) {
     return _genURL(width: width, height: height, quality: 60);
+  }
+
+  String downloadURL({int? width, int? height}) {
+    return _genURL(width: width, height: height, quality: 90);
   }
 }
 

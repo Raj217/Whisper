@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whisper/widgets/app_decorations/app_decoration.dart';
+import 'package:whisper/widgets/decorations/decorations.dart';
 import 'widgets/google_sign_in_button.dart';
 
 class AuthScreen extends StatelessWidget {

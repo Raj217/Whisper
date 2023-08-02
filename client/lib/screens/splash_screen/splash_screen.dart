@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:whisper/states/auth/auth.dart';
-import 'package:whisper/widgets/app_decorations/whisper_icon.dart';
+import 'package:whisper/widgets/decorations/decorations.dart';
 import 'package:whisper/firebase_options.dart';
 import 'package:whisper/screens/screens.dart';
 
