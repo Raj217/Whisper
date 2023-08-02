@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whisper/configs/config.dart';
 
 class Vignette extends StatelessWidget {
   final Widget child;
@@ -10,7 +11,7 @@ class Vignette extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          color: Colors.black.withOpacity(0.96),
+          color: black,
           height: MediaQuery.sizeOf(context).height,
           width: MediaQuery.sizeOf(context).width,
         ),
@@ -20,7 +21,7 @@ class Vignette extends StatelessWidget {
             gradient: RadialGradient(colors: [
               Colors.transparent,
               Colors.transparent,
-              Colors.black.withOpacity(0.96),
+              black,
             ], radius: 1.1),
           ),
         ),

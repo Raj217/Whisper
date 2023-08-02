@@ -44,3 +44,5 @@ const MaterialColor whiteSwatch = MaterialColor(
     900: Color(0xFFD2D2D3),
   },
 );
+
+Color black = Colors.black.withOpacity(0.95);

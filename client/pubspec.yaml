@@ -21,6 +21,7 @@ dependencies:
   # ======================== Management ====================
   flutter_dotenv: ^5.1.0
   flutter_riverpod: ^2.3.6
+  cached_network_image: ^3.2.3
 
   # ======================== Decoration ===================
   cupertino_icons: ^1.0.5

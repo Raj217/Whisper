@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/packages/database/database.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ImageBase extends StatelessWidget {
   final ImageInfoModel imageInfo;
@@ -8,42 +9,43 @@ class ImageBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image(
-      image: NetworkImage(
-        imageInfo.viewURL(
-          height: MediaQuery.sizeOf(context).height.toInt(),
-          width: MediaQuery.sizeOf(context).width.toInt(),
-        ),
+    return CachedNetworkImage(
+      imageUrl: imageInfo.viewURL(
+        height: MediaQuery.sizeOf(context).height.toInt() * 2,
+        width: MediaQuery.sizeOf(context).width.toInt() * 2,
       ),
       fit: BoxFit.fitHeight,
-      loadingBuilder:
-          (BuildContext context, Widget imageWidget, ImageChunkEvent? chunk) {
-        double? progress = chunk == null || chunk.expectedTotalBytes == null
-            ? null
-            : chunk.cumulativeBytesLoaded / chunk.expectedTotalBytes!;
-
-        if (progress == 1 || progress == null) {
+      progressIndicatorBuilder:
+          (BuildContext context, String _, DownloadProgress progress) {
+        if (progress.progress == null) {
           UserDatabase.updateLastViewedCheckpoint(
             newCheckpoint: imageInfo.updatedAt,
           );
         }
-        return progress == 1 || progress == null
-            ? imageWidget
-            : Center(
-                child: SizedBox(
-                  height: 30,
-                  width: 30,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 5,
-                    strokeCap: StrokeCap.round,
-                    color: whiteSwatch,
-                    value: progress,
-                  ),
-                ),
-              );
+        return Center(
+          child: SizedBox(
+            height: 30,
+            width: 30,
+            child: CircularProgressIndicator(
+              strokeWidth: 5,
+              strokeCap: StrokeCap.round,
+              color: whiteSwatch,
+              value: progress.progress,
+            ),
+          ),
+        );
       },
-      errorBuilder: (_, __, ___) {
-        return Container();
+      errorWidget: (BuildContext context, String _, dynamic __) {
+        return Center(
+          child: Text(
+            "Some error occurred. Couldn't fetch image.",
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(color: whiteSwatch),
+            textAlign: TextAlign.center,
+          ),
+        );
       },
     );
   }

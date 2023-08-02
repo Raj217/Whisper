@@ -29,6 +29,15 @@ class ImageInfoModel {
     required this.updatedAt,
   });
 
+  @override
+  String toString() {
+    return "ImageInfoModel(\n"
+        "imageSourceID: $imageSourceID,\n"
+        "source: $source,\n"
+        "updatedAt: $updatedAt,\n"
+        ")";
+  }
+
   static ImageInfoModel fromMap(Map<String, dynamic> data) {
     return ImageInfoModel(
       id: data['_id'],
@@ -66,15 +75,15 @@ class ImageInfoModel {
   }
 
   String thumbnailURL({int? width, int? height}) {
-    return _genURL(width: width, height: height, quality: 30);
+    return _genURL(width: width, height: height, quality: 13);
   }
 
   String viewURL({int? width, int? height}) {
-    return _genURL(width: width, height: height, quality: 60);
+    return _genURL(width: width, height: height, quality: 25);
   }
 
   String downloadURL({int? width, int? height}) {
-    return _genURL(width: width, height: height, quality: 90);
+    return _genURL(width: width, height: height, quality: 60);
   }
 }
 

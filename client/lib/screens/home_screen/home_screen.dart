@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:whisper/configs/config.dart';
 import 'package:whisper/screens/home_screen/widgets/image_card.dart';
 import 'package:whisper/widgets/decorations/decorations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,14 +20,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   int page = 1;
   int perPage = 10;
   int index = 0;
+  bool isLoading = true;
   List<ImageInfoModel> images = [];
   PageController pageController = PageController();
 
-  void fetch() async {
+  Future<void> fetch() async {
     List<ImageInfoModel> newImages = await ImageDatabase.randomImages();
-    setState(() {
-      images.addAll(newImages);
-    });
+    images.addAll(newImages);
   }
 
   double animateToNextImage(double height) {
@@ -44,7 +45,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    fetch();
+
+    setState(() {
+      isLoading = true;
+    });
+    fetch().then(
+      (value) => setState(() {
+        isLoading = false;
+      }),
+    );
+
     pageController.addListener(() {
       if (pageController.position.maxScrollExtent == pageController.offset) {
         fetch();
@@ -61,14 +71,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView.builder(
-        itemCount: images.length,
-        controller: pageController,
-        scrollDirection: Axis.vertical,
-        itemBuilder: (context, ind) {
-          return ImageCard(imageInfo: images[ind]);
-        },
-      ),
+      backgroundColor: black,
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 5,
+                strokeCap: StrokeCap.round,
+                color: whiteSwatch,
+              ),
+            )
+          : PageView.builder(
+              itemCount: images.length,
+              controller: pageController,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, ind) {
+                return ImageCard(imageInfo: images[ind]);
+              },
+            ),
     );
   }
 }
