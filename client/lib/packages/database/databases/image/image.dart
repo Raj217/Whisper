@@ -33,7 +33,6 @@ class ImageDatabase {
   static Future<List<ImageInfoModel>> randomImages({int perPage = 10}) async {
     UserModel currentUser = await UserDatabase.getCurrentUser();
 
-    print(currentUser);
     List<ImageInfoModel> images = await _getImageInfo(
         randomImagesLastViewedCheckpoint:
             currentUser.randomImagesLastViewedCheckpoint,

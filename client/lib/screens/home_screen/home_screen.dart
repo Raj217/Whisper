@@ -1,12 +1,10 @@
-import 'package:dio/dio.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/screens/home_screen/widgets/image_card.dart';
-import 'package:whisper/widgets/decorations/decorations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whisper/packages/database/database.dart';
+import 'widgets/fetch_more_indicator.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   static const String routeName = "/homeScreen";
@@ -17,7 +15,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  int page = 1;
   int perPage = 10;
   int index = 0;
   bool isLoading = true;
@@ -25,8 +22,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   PageController pageController = PageController();
 
   Future<void> fetch() async {
-    List<ImageInfoModel> newImages = await ImageDatabase.randomImages();
-    images.addAll(newImages);
+    List<ImageInfoModel> newImages =
+        await ImageDatabase.randomImages(perPage: 2);
+    setState(() {
+      images.addAll(newImages);
+    });
   }
 
   double animateToNextImage(double height) {
@@ -54,18 +54,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         isLoading = false;
       }),
     );
-
-    pageController.addListener(() {
-      if (pageController.position.maxScrollExtent == pageController.offset) {
-        fetch();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    pageController.dispose();
   }
 
   @override
@@ -80,13 +68,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 color: whiteSwatch,
               ),
             )
-          : PageView.builder(
-              itemCount: images.length,
-              controller: pageController,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context, ind) {
-                return ImageCard(imageInfo: images[ind]);
+          : FetchMoreIndicator(
+              fetchFunction: () async {
+                await fetch();
+                if (index + 1 < images.length) {
+                  pageController.animateToPage(
+                    ((pageController.page ?? 1) + 1) ~/ 1,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.fastOutSlowIn,
+                  );
+                }
               },
+              child: PageView.builder(
+                itemCount: images.length,
+                controller: pageController,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, ind) {
+                  return ImageCard(imageInfo: images[ind]);
+                },
+              ),
             ),
     );
   }
