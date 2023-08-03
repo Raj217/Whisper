@@ -16,39 +16,22 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   int perPage = 10;
-  int index = 0;
   bool isLoading = true;
   List<ImageInfoModel> images = [];
   PageController pageController = PageController();
 
   Future<void> fetch() async {
     List<ImageInfoModel> newImages =
-        await ImageDatabase.randomImages(perPage: 2);
+        await ImageDatabase.randomImages(perPage: perPage);
     setState(() {
       images.addAll(newImages);
     });
-  }
-
-  double animateToNextImage(double height) {
-    index++;
-    return (index * height) + MediaQuery.paddingOf(context).top;
-  }
-
-  double animateToPreviousImage(double height) {
-    index--;
-    if (index < 0) {
-      index = 0;
-    }
-    return (index * height) + MediaQuery.paddingOf(context).top;
   }
 
   @override
   void initState() {
     super.initState();
 
-    setState(() {
-      isLoading = true;
-    });
     fetch().then(
       (value) => setState(() {
         isLoading = false;
@@ -71,9 +54,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           : FetchMoreIndicator(
               fetchFunction: () async {
                 await fetch();
-                if (index + 1 < images.length) {
+                double? page = pageController.page;
+                if (page != null && page + 1 < images.length) {
                   pageController.animateToPage(
-                    ((pageController.page ?? 1) + 1) ~/ 1,
+                    (page + 1).toInt(),
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.fastOutSlowIn,
                   );

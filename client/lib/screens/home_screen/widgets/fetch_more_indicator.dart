@@ -16,7 +16,6 @@ class FetchMoreIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = whiteSwatch;
     return CustomRefreshIndicator(
       onRefresh: fetchFunction,
       trailingScrollIndicatorVisible: false,

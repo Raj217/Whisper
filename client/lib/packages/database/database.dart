@@ -8,6 +8,7 @@ import 'package:mongo_dart/mongo_dart.dart';
 import 'dart:ui' show Color;
 import 'package:whisper/packages/storage/storage.dart';
 import 'package:whisper/configs/config.dart';
+import 'package:whisper/utils/debug_utils.dart';
 
 // ============================= Databases =============================
 part 'databases/image/models/image_model.dart';

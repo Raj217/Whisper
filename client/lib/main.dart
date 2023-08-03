@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whisper/packages/network_engine/network_engine.dart';
 import 'configs/config.dart';
 import 'screens/screens.dart';
 import 'states/theme/theme.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await dotenv.load();
   await StorageHandler.init();
 

@@ -1,16 +1,19 @@
 part of database;
 
 class ImageDatabase {
+  static Db? _db;
+
   static Future<Db> _getDB() async {
+    if (ImageDatabase._db != null) return ImageDatabase._db!;
     if (dotenv.env[EnvValues.MONGO_URI.name] == null) {
       throw Exception(
           releaseMessage: "Couldn't connect to database",
           debugMessage: "Database URL not found");
     }
 
-    Db db = await Db.create(dotenv.env[EnvValues.MONGO_URI.name]!);
-    await db.open();
-    return db;
+    ImageDatabase._db = await Db.create(dotenv.env[EnvValues.MONGO_URI.name]!);
+    await ImageDatabase._db!.open();
+    return ImageDatabase._db!;
   }
 
   static Future<List<ImageInfoModel>> _getImageInfo(
@@ -30,13 +33,14 @@ class ImageDatabase {
         .toList();
   }
 
-  static Future<List<ImageInfoModel>> randomImages({int perPage = 10}) async {
+  static Future<List<ImageInfoModel>> randomImages(
+      {required int perPage}) async {
     UserModel currentUser = await UserDatabase.getCurrentUser();
-
     List<ImageInfoModel> images = await _getImageInfo(
         randomImagesLastViewedCheckpoint:
             currentUser.randomImagesLastViewedCheckpoint,
         limit: perPage);
+
     print(images);
 
     if (images.length < perPage) {
