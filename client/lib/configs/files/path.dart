@@ -12,10 +12,12 @@ class RivePath {
 
   static const String _basePath = "assets/rive/";
   static const String _hamburgerMenu = "hamburger_menu";
+  static const String _filterMenu = "filter_menu";
   static const String _themeToggle = "theme_toggle";
   static const String _settings = "animated_icon_set";
 
   static String get hamburgerMenu => _basePath + _hamburgerMenu;
+  static String get filterMenu => _basePath + _filterMenu;
   static String get themeToggle => _basePath + _themeToggle;
   static String get settings => _basePath + _settings;
 }

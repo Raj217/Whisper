@@ -16,6 +16,7 @@ part 'models/bool_controller.dart';
 // ============================ Widgets ============================
 part 'widgets/bool/theme_toggle.dart';
 part 'widgets/trigger/hamburger_menu.dart';
+part 'widgets/trigger/filter_menu.dart';
 part 'widgets/widget_base.dart';
 part 'widgets/bool/settings_icon.dart';
 part 'widgets/bool/home_icon.dart';

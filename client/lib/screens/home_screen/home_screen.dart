@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:whisper/configs/config.dart';
 import 'package:whisper/screens/home_screen/pages/publisher_images_page.dart';
 import 'package:whisper/screens/home_screen/pages/tags_images_page.dart';
 import 'package:whisper/screens/home_screen/pages/random_images_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whisper/screens/home_screen/widgets/filter_button.dart';
 import 'package:whisper/states/image_browsing/image_browsing.dart';
-import 'package:whisper/packages/database/database.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   static const String routeName = "/homeScreen";
@@ -28,6 +29,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ImageBrowsingModel imageBrowsingModel = ref.watch(imageBrowsingProvider);
     return Scaffold(
       backgroundColor: black,
+      floatingActionButton: const FilterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: imageBrowsingModel.isLoading
           ? const Center(
               child: CircularProgressIndicator(
