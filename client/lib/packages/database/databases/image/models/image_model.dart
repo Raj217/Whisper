@@ -34,6 +34,7 @@ class ImageInfoModel {
     return "ImageInfoModel(\n"
         "imageSourceID: $imageSourceID,\n"
         "source: $source,\n"
+        "publisherName: $publisherName,\n"
         "updatedAt: $updatedAt,\n"
         ")";
   }

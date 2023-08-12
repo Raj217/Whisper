@@ -16,8 +16,13 @@ class ImageDatabase {
     return ImageDatabase._db!;
   }
 
-  static Future<List<ImageInfoModel>> _getImageInfo(
-      {DateTime? randomImagesLastViewedCheckpoint, int? limit}) async {
+  static List<ImageInfoModel> _convertListToImageInfo(
+      List<Map<String, dynamic>> data) {
+    return data.map((data) => ImageInfoModel.fromMap(data)).toList();
+  }
+
+  static Future<List<ImageInfoModel>> _getImages(
+      {DateTime? randomImagesLastViewedCheckpoint, required int limit}) async {
     Db db = await _getDB();
     DbCollection imageInfo =
         db.collection(ImageDatabaseCollections.imageinfos.name);
@@ -25,26 +30,42 @@ class ImageDatabase {
     if (randomImagesLastViewedCheckpoint != null) {
       selectorBuilder.gt('updatedAt', randomImagesLastViewedCheckpoint);
     }
-    if (limit != null) {
-      selectorBuilder.limit(limit);
-    }
-    return (await imageInfo.find(selectorBuilder).toList())
-        .map((data) => ImageInfoModel.fromMap(data))
-        .toList();
+    selectorBuilder.limit(limit);
+    return _convertListToImageInfo(
+      await imageInfo.find(selectorBuilder).toList(),
+    );
+  }
+
+  static Future<List<ImageInfoModel>> publisherImages(
+      {required int page,
+      required int perPage,
+      required String publisherName,
+      required ImageSource source}) async {
+    Db db = await _getDB();
+    DbCollection imageInfo =
+        db.collection(ImageDatabaseCollections.imageinfos.name);
+    SelectorBuilder selectorBuilder = where
+        .sortBy('updatedAt', descending: true)
+        .eq('publisherName', publisherName)
+        .eq('source', source.name)
+        .skip(page * perPage)
+        .limit(perPage);
+
+    return _convertListToImageInfo(
+      await imageInfo.find(selectorBuilder).toList(),
+    );
   }
 
   static Future<List<ImageInfoModel>> randomImages(
       {required int perPage}) async {
     UserModel currentUser = await UserDatabase.getCurrentUser();
-    List<ImageInfoModel> images = await _getImageInfo(
+    List<ImageInfoModel> images = await _getImages(
         randomImagesLastViewedCheckpoint:
             currentUser.randomImagesLastViewedCheckpoint,
         limit: perPage);
 
-    print(images);
-
     if (images.length < perPage) {
-      images = await _getImageInfo(limit: perPage - images.length);
+      images = await _getImages(limit: perPage - images.length);
     }
     return images;
   }

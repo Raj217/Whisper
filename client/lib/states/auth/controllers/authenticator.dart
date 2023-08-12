@@ -33,6 +33,7 @@ class Authenticator {
       idToken: authentication.idToken,
       accessToken: authentication.accessToken,
     );
+    print(authentication.idToken);
 
     // Authenticate with firebase
     AuthResult res = await AuthResult.operate(

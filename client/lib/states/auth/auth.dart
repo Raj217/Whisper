@@ -13,5 +13,3 @@ import 'dart:convert';
 // =================== Parts ==================
 part "controllers/authenticator.dart";
 part 'models/auth_result.dart';
-part "notifiers/auth_state_notifier.dart";
-part "states/auth_state.dart";

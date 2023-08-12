@@ -5,7 +5,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class ImageBase extends StatelessWidget {
   final ImageInfoModel imageInfo;
-  const ImageBase({super.key, required this.imageInfo});
+  final bool updateLastViewedCheckpoint;
+  const ImageBase({
+    super.key,
+    required this.imageInfo,
+    required this.updateLastViewedCheckpoint,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class ImageBase extends StatelessWidget {
       fit: BoxFit.fitHeight,
       progressIndicatorBuilder:
           (BuildContext context, String _, DownloadProgress progress) {
-        if (progress.progress == null) {
+        if (progress.progress == null && updateLastViewedCheckpoint) {
           UserDatabase.updateLastViewedCheckpoint(
             newCheckpoint: imageInfo.updatedAt,
           );
