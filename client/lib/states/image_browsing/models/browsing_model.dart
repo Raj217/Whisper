@@ -22,8 +22,6 @@ class ImageBrowsingModel {
   }
 
   ImageBrowsingModel copyWith({
-    String? publisherName,
-    List<String>? tags,
     bool? isLoading,
     ImageInfoModel? imageInfo,
     int? publisherPageNo,
@@ -31,7 +29,7 @@ class ImageBrowsingModel {
   }) {
     return ImageBrowsingModel(
       isLoading: isLoading ?? false,
-      imageInfo: imageInfo,
+      imageInfo: imageInfo ?? this.imageInfo,
       publisherPageNo: publisherPageNo ?? this.publisherPageNo,
       tagsPageNo: tagsPageNo ?? this.tagsPageNo,
     );

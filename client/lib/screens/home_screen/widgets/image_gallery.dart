@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:whisper/screens/home_screen/widgets/image_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whisper/packages/database/database.dart';
+import 'package:whisper/states/image_browsing/image_browsing.dart';
 import 'fetch_more_indicator.dart';
 
 class ImageGallery extends ConsumerStatefulWidget {

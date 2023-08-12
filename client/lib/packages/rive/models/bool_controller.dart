@@ -12,6 +12,7 @@ abstract class RiveBoolController extends RiveController<SMIBool, bool> {
     this.reverseBackAfterTransition = true,
   });
 
+  /// Returns if the change state was successful and the state was changed.
   @override
   bool changeState() {
     if (!isActive) {

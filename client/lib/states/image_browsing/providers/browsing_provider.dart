@@ -15,9 +15,6 @@ class ImageBrowsingNotifier extends StateNotifier<ImageBrowsingModel> {
   reset() => state = state.reset();
 
   set loading(bool isLoading) => state = state.copyWith(isLoading: isLoading);
-  set publisherName(String? publisher) =>
-      state = state.copyWith(publisherName: publisher);
-  set tags(List<String> tags) => state = state.copyWith(tags: tags);
   set imageInfo(ImageInfoModel? imageInfo) =>
       state = state.copyWith(imageInfo: imageInfo ?? this.imageInfo);
   set publisherPageNo(int pageNo) =>
