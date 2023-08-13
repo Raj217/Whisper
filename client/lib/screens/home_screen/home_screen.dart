@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/configs/config.dart';
-import 'package:whisper/screens/home_screen/pages/random_images_page.dart';
+import 'package:whisper/packages/database/database.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whisper/screens/home_screen/widgets/filter_button.dart';
+import 'package:whisper/screens/home_screen/widgets/image_gallery.dart';
 import 'package:whisper/widgets/filter_overlay/filter_overlay.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -29,8 +30,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: SearchOverlay(
-        isMenuOpen: isOverlayOpen,
-        child: const RandomImagesPage(),
+        isOverlayOpen: isOverlayOpen,
+        child: ImageGallery(
+          updateLastViewedCheckpoint: true,
+          fetchImages: () async {
+            return await ImageDatabase.randomImages(perPage: 10);
+          },
+        ),
       ),
     );
   }

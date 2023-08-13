@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'filter_section.dart';
 
 class SearchOverlay extends StatefulWidget {
-  final bool isMenuOpen;
+  final bool isOverlayOpen;
   final Widget child;
   final List<FilterSection> sections;
   const SearchOverlay({
     super.key,
-    this.isMenuOpen = false,
+    this.isOverlayOpen = false,
     required this.child,
     this.sections = const [],
   });
@@ -25,7 +25,7 @@ class _SearchOverlayState extends State<SearchOverlay> {
       height: screenSize.height,
       width: screenSize.width,
       decoration: BoxDecoration(
-        color: widget.isMenuOpen
+        color: widget.isOverlayOpen
             ? Colors.black.withOpacity(0.7)
             : Colors.transparent,
       ),
@@ -33,7 +33,7 @@ class _SearchOverlayState extends State<SearchOverlay> {
     return Stack(
       children: [
         widget.child,
-        widget.isMenuOpen ? overlay : IgnorePointer(child: overlay)
+        widget.isOverlayOpen ? overlay : IgnorePointer(child: overlay)
       ],
     );
   }
