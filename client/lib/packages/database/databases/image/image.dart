@@ -36,45 +36,6 @@ class ImageDatabase {
     );
   }
 
-  static Future<List<ImageInfoModel>> publisherImages(
-      {required int page,
-      required int perPage,
-      required String publisherName,
-      required ImageSource source}) async {
-    Db db = await _getDB();
-    DbCollection imageInfo =
-        db.collection(ImageDatabaseCollections.imageinfos.name);
-    SelectorBuilder selectorBuilder = where
-        .sortBy('updatedAt', descending: true)
-        .eq('publisherName', publisherName)
-        .eq('source', source.name)
-        .skip(page * perPage)
-        .limit(perPage);
-
-    return _convertListToImageInfo(
-      await imageInfo.find(selectorBuilder).toList(),
-    );
-  }
-
-  static Future<List<ImageInfoModel>> tagsImage({
-    required int page,
-    required int perPage,
-    required List<String> tags,
-  }) async {
-    Db db = await _getDB();
-    DbCollection imageInfo =
-        db.collection(ImageDatabaseCollections.imageinfos.name);
-    SelectorBuilder selectorBuilder = where
-        .sortBy('updatedAt', descending: true)
-        .nin('tags', tags)
-        .skip(page * perPage)
-        .limit(perPage);
-
-    return _convertListToImageInfo(
-      await imageInfo.find(selectorBuilder).toList(),
-    );
-  }
-
   static Future<List<ImageInfoModel>> randomImages(
       {required int perPage}) async {
     UserModel currentUser = await UserDatabase.getCurrentUser();

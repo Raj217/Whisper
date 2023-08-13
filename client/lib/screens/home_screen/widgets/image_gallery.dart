@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:whisper/configs/theme/theme.dart';
 import 'package:whisper/screens/home_screen/widgets/image_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whisper/packages/database/database.dart';
-import 'package:whisper/states/image_browsing/image_browsing.dart';
 import 'fetch_more_indicator.dart';
 
 class ImageGallery extends ConsumerStatefulWidget {
@@ -65,28 +65,36 @@ class _ImageGalleryState extends ConsumerState<ImageGallery> {
           );
         }
       },
-      child: PageView.builder(
-        itemCount: images.isEmpty && !isLoading ? 1 : images.length,
-        controller: pageController,
-        scrollDirection: Axis.vertical,
-        onPageChanged: (int index) {
-          if (widget.onImageChanged != null) {
-            widget.onImageChanged!(images[index]);
-          }
-        },
-        itemBuilder: (context, ind) {
-          if (images.isEmpty) {
-            return Center(
-              child: Text("Couldn't find any image.",
-                  style: Theme.of(context).textTheme.headlineMedium),
-            );
-          }
-          return ImageCard(
-            imageInfo: images[ind],
-            updateLastViewedCheckpoint: widget.updateLastViewedCheckpoint,
-          );
-        },
-      ),
+      child: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 5,
+                strokeCap: StrokeCap.round,
+                color: whiteSwatch,
+              ),
+            )
+          : PageView.builder(
+              itemCount: images.isEmpty && !isLoading ? 1 : images.length,
+              controller: pageController,
+              scrollDirection: Axis.vertical,
+              onPageChanged: (int index) {
+                if (widget.onImageChanged != null) {
+                  widget.onImageChanged!(images[index]);
+                }
+              },
+              itemBuilder: (context, ind) {
+                if (images.isEmpty) {
+                  return Center(
+                    child: Text("Couldn't find any image.",
+                        style: Theme.of(context).textTheme.headlineMedium),
+                  );
+                }
+                return ImageCard(
+                  imageInfo: images[ind],
+                  updateLastViewedCheckpoint: widget.updateLastViewedCheckpoint,
+                );
+              },
+            ),
     );
   }
 }

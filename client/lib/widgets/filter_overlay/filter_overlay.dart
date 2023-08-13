@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'filter_section.dart';
 
-class FilterOverlay extends StatefulWidget {
+class SearchOverlay extends StatefulWidget {
   final bool isMenuOpen;
   final Widget child;
   final List<FilterSection> sections;
-  const FilterOverlay({
+  const SearchOverlay({
     super.key,
     this.isMenuOpen = false,
     required this.child,
@@ -13,10 +13,10 @@ class FilterOverlay extends StatefulWidget {
   });
 
   @override
-  State<FilterOverlay> createState() => _FilterOverlayState();
+  State<SearchOverlay> createState() => _SearchOverlayState();
 }
 
-class _FilterOverlayState extends State<FilterOverlay> {
+class _SearchOverlayState extends State<SearchOverlay> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
